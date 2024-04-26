@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "452967577766",
+    "project_id": "historyverse-bff24",
+    "storage_bucket": "historyverse-bff24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452967577766:android:dcdcc6ddaa934d9c7b1c67",
+        "android_client_info": {
+          "package_name": "com.phdTeam.HistoryVerse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVrEzfpgmIJBumf8k2z2XDddmopwsyGLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
