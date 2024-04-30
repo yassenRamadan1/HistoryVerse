@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.phdteam.historyverse.ui.components.GGButton
+import com.phdteam.historyverse.ui.components.HVButton
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -70,11 +70,11 @@ private fun LoginContent(
        }else{
            Text(
                    text = "login Screen",
-                   style = Theme.typography.mainFontMedium,
-                   color = Theme.colors.mainColor
+                   style = Theme.typography.bodyLarge,
+                   color = Theme.colors.primary
            )
 
-           GGButton(title = "Go to Home", onClick = navigateTo)
+           HVButton(title = "Go to Home", onClick = navigateTo)
        }
     }
 

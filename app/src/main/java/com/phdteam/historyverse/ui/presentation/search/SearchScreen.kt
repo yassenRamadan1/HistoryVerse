@@ -66,8 +66,8 @@ private fun SearchContent(
        }else{
            Text(
                    text = "Search screen",
-                   style = Theme.typography.mainFontMedium,
-                   color = Theme.colors.mainColor
+                   style = Theme.typography.bodyLarge,
+                   color = Theme.colors.primary
            )
        }
     }

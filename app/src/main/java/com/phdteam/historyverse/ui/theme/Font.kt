@@ -10,3 +10,7 @@ val Roboto = FontFamily(
         Font(R.font.roboto_regular, weight = FontWeight.Normal),
         Font(R.font.roboto_medium, weight = FontWeight.Medium),
 )
+val PlusJakartaSans = FontFamily(
+        Font(R.font.plus_jakarta_sans_semi_bold, weight = FontWeight.SemiBold),
+        Font(R.font.plus_jakarta_sans_regular, weight = FontWeight.Normal),
+)

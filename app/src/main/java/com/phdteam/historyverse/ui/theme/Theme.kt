@@ -17,7 +17,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 private val LocalColorScheme = staticCompositionLocalOf { LightColors }
-private val LocalTypography = staticCompositionLocalOf { MindfulMentorTypography() }
+private val LocalTypography = staticCompositionLocalOf { HistoryVerseTypography() }
 val LocalNavigationProvider = staticCompositionLocalOf<NavHostController> {
     error("No navigation host controller provided.")
 }
@@ -51,7 +51,7 @@ fun MindfulMentorTheme(
     CompositionLocalProvider(
             LocalNavigationProvider provides rememberNavController(),
             LocalColorScheme provides colorScheme,
-            LocalTypography provides mindfulMentorTypography,
+            LocalTypography provides historyVerseTypography,
     ) {
         content()
     }
@@ -63,7 +63,7 @@ object Theme {
         @ReadOnlyComposable
         get() = LocalColorScheme.current
 
-    val typography: MindfulMentorTypography
+    val typography: HistoryVerseTypography
         @Composable
         @ReadOnlyComposable
         get() = LocalTypography.current

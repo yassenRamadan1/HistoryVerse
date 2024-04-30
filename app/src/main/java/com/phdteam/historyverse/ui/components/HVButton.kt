@@ -19,48 +19,47 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.phdteam.historyverse.ui.theme.DisabledColor
 import com.phdteam.historyverse.ui.theme.Theme
 
 @Composable
-fun GGButton(
+fun HVButton(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    style: TextStyle = Theme.typography.normalFont,
+    style: TextStyle = Theme.typography.bodyLarge,
     type: ContainerType = ContainerType.BUTTON,
     enabled: Boolean = true,
-    textPadding: PaddingValues = PaddingValues(16.dp),
-    shape: Shape = RoundedCornerShape(16.dp),
+    textPadding: PaddingValues = PaddingValues(0.dp),
+    shape: Shape = RoundedCornerShape(100.dp),
     containerColor: Color = Theme.colors.primary,
-    contentColor: Color = Theme.colors.primaryShadesDark,
+    contentColor: Color = Theme.colors.primaryShadesLight,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
     val buttonColor by animateColorAsState(
-        if (enabled) containerColor else DisabledColor, label = ""
+            if (enabled) containerColor else Theme.colors.disabled, label = ""
     )
-    val height = if (type == ContainerType.CHIP) 36.dp else 48.dp
+    val height = if (type == ContainerType.CHIP) 36.dp else 50.dp
 
     Surface(
-        modifier = modifier.height(height),
-        onClick = onClick,
-        color = buttonColor,
-        contentColor = contentColor,
-        shape = shape,
-        enabled = enabled
+            modifier = modifier.height(height),
+            onClick = onClick,
+            color = buttonColor,
+            contentColor = contentColor,
+            shape = shape,
+            enabled = enabled
     ) {
         Row(
-            Modifier.defaultMinSize(
-                minWidth = ButtonDefaults.MinWidth,
-                minHeight = ButtonDefaults.MinHeight
-            ),
-            horizontalArrangement = horizontalArrangement,
-            verticalAlignment = Alignment.CenterVertically,
+                Modifier.defaultMinSize(
+                        minWidth = ButtonDefaults.MinWidth,
+                        minHeight = ButtonDefaults.MinHeight
+                ),
+                horizontalArrangement = horizontalArrangement,
+                verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = title,
-                style = style.copy(color = contentColor),
-                modifier = Modifier.padding(textPadding)
+                    text = title,
+                    style = style.copy(color = contentColor),
+                    modifier = Modifier.padding(textPadding)
             )
         }
     }

@@ -66,8 +66,8 @@ private fun HomeContent(
        }else{
            Text(
                    text = "Home Screen",
-                   style = Theme.typography.mainFontMedium,
-                   color = Theme.colors.mainColor
+                   style = Theme.typography.bodyLarge,
+                   color = Theme.colors.primary
            )
        }
     }
