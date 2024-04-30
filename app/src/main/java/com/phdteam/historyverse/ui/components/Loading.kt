@@ -1,4 +1,4 @@
-package com.solutionteam.design_system.components
+package com.phdteam.historyverse.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
