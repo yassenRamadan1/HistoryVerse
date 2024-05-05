@@ -45,7 +45,7 @@ fun HVTitleWithSeeAll(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = stringResource(id = R.string.see_all),
+                    text = "See All",
                     style = Theme.typography.bodyMedium,
                     color = Theme.colors.ternaryShadesDark,
                 )
@@ -63,7 +63,7 @@ fun HVTitleWithSeeAll(
 @Composable
 fun PreviewTitleWithSeeAll() {
     HVTitleWithSeeAll(
-        title = "Mentor",
+        title = "USER",
         onClick = {}
     )
 }
