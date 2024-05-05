@@ -9,12 +9,16 @@ import com.phdTeam.HistoryVerse.R
 
 
 const val navigationRouteLogin = "login"
-
-
+const val navigationRouteChatBot = "chatBot"
+const val navigationRouteNotification = "notification"
+const val navigationRouteSeeAll = "seeAll"
+const val navigationRouteWelcome = "welcome"
+const val navigationRouteSignIn = "sign_in"
 const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
+const val navigationRouteVedio = "review"
 
 
 sealed class Screen(
@@ -30,6 +34,7 @@ sealed class Screen(
     fun routeWith(path: String) = apply {
         routePath = path
     }
+    data object Welcome : Screen(navigationRouteWelcome)
 
     object Login : Screen(navigationRouteLogin)
 
