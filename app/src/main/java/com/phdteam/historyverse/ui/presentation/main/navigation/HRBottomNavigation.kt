@@ -92,10 +92,10 @@ private fun RowScope.AppBottomBarItem(
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = Theme.colors.primary,
-            unselectedIconColor = Theme.colors.background,
+            unselectedIconColor = Theme.colors.quaternaryShadesDark,
             selectedTextColor = Theme.colors.primary,
-            unselectedTextColor = Theme.colors.background,
-            indicatorColor = Theme.colors.primary
+            unselectedTextColor = Theme.colors.quaternaryShadesDark,
+            indicatorColor = Theme.colors.background
         )
     )
 }
