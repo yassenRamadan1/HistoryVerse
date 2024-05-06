@@ -1,5 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.main.navigation
 
+import com.phdteam.historyverse.ui.theme.Theme
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.RowScope
@@ -90,11 +91,11 @@ private fun RowScope.AppBottomBarItem(
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = MaterialTheme.colorScheme.primary,
-            unselectedIconColor = MaterialTheme.colorScheme.onBackground,
-            selectedTextColor = MaterialTheme.colorScheme.primary,
-            unselectedTextColor = MaterialTheme.colorScheme.onBackground,
-            indicatorColor = MaterialTheme.colorScheme.onPrimary
+            selectedIconColor = Theme.colors.primary,
+            unselectedIconColor = Theme.colors.quaternaryShadesDark,
+            selectedTextColor = Theme.colors.primary,
+            unselectedTextColor = Theme.colors.quaternaryShadesDark,
+            indicatorColor = Theme.colors.background
         )
     )
 }
