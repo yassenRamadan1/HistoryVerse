@@ -25,8 +25,11 @@ fun RootNavGraph(
         modifier = modifier,
     ) {
 
-        loginNavGraph (onNavigateToRoot = navController::navigateTo)
-        mainNavGraph (onNavigateToRoot = navController::navigateTo)
+        loginNavGraph(
+            onNavigateToRoot = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        mainNavGraph(onNavigateToRoot = navController::navigateTo)
         welcomeScreen(onNavigateTo = navController::navigateTo)
         signInScreen(
             onNavigateTo = navController::navigateTo,
