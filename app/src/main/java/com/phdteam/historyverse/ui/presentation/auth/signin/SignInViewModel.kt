@@ -53,26 +53,6 @@ class SignInViewModel(
         }
     }
 
-    fun onClickContinue() {
-        if (
-            validateEmail(state.value.email)
-            && validatePassword(state.value.password)
-            && validateUserName(state.value.userName)
-        ) {
-            updateState { it.copy(isScreenContinue = false) }
-        } else {
-            updateState {
-                it.copy(
-                    isError = true,
-                    errorMessage = "email, password or username is not invalid "
-                )
-            }
-        }
-    }
-
-    fun onClickBackInAdditionalInfo() {
-        updateState { it.copy(isScreenContinue = true) }
-    }
 
     fun onClickSignUp() {
         if (
@@ -101,9 +81,7 @@ class SignInViewModel(
                     username = state.value.userName,
                     email = state.value.email,
                 )
-                val studentInfoResult =
                     authRepository.addUserInfo(userInfo = userInfo, user = result.user!!)
-                if (studentInfoResult)
                     onSuccess()
 
             } catch (e: UserAlreadyExistsException) {

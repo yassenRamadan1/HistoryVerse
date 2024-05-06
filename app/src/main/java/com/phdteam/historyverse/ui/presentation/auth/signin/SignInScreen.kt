@@ -70,7 +70,7 @@ fun SignInScreen(
             onChangeEmail = viewModel::onChangeEmail,
             onChangeUserName = viewModel::onChangeUserName,
             onChangePassword = viewModel::onChangePassword,
-            onClickSignIn = viewModel::onClickContinue,
+            onClickSignIn = viewModel::onClickSignUp,
             snackbarHostState = snackbarHostState
         )
 }

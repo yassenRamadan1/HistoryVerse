@@ -35,7 +35,7 @@ sealed class Screen(
         routePath = path
     }
     data object Welcome : Screen(navigationRouteWelcome)
-
+    data object SignIn : Screen(navigationRouteSignIn)
     object Login : Screen(navigationRouteLogin)
 
 

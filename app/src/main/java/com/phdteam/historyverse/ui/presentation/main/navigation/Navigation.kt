@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
@@ -83,12 +84,25 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
         WelcomeScreen() {
             when (it) {
                 WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
-                WelcomeUiEffect.OnClickSignIn -> Screen.Home.withClearBackStack()
+                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
                     .also(onNavigateTo)
 
                 else -> {}
             }
         }
+    }
+}
+
+fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.SignIn.route
+    ) {
+        SignInScreen(
+            navigateTo = {
+                Screen.Main.withClearBackStack().also(onNavigateTo)
+            },
+            onNavigateBack = { onNavigateBack() }
+        )
     }
 }
 
