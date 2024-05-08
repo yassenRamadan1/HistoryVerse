@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
+import com.phdteam.historyverse.ui.presentation.main.navigation.detailsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.loginNavGraph
 import com.phdteam.historyverse.ui.presentation.main.navigation.mainNavGraph
@@ -24,5 +25,6 @@ fun RootNavGraph(
 
         loginNavGraph (onNavigateToRoot = navController::navigateTo)
         mainNavGraph (onNavigateToRoot = navController::navigateTo)
+        detailsScreen(navController::navigateTo)
     }
 }
