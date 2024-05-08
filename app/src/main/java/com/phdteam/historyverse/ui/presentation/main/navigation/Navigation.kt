@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
 import com.phdteam.historyverse.ui.presentation.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
@@ -15,7 +16,7 @@ import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
 
-fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit) {
+fun NavGraphBuilder.loginNavGraph(onNavigateToRoot : (Screen) -> Unit) {
     composable(
         route = Screen.Login.route
     ) {
@@ -29,7 +30,7 @@ fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 }
 
 
-fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
+fun NavGraphBuilder.mainNavGraph(onNavigateToRoot : (Screen) -> Unit) {
     composable(
         route = Screen.Main.route
     ) {
@@ -37,26 +38,26 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-        val bottomBar: @Composable () -> Unit = {
+        val bottomBar : @Composable () -> Unit = {
             HRBottomNavigation(
                 screens = listOf(
-                    Screen.Home,
-                    Screen.Search,
+                    Screen.Home ,
+                    Screen.Search ,
                     Screen.Profile
-                ), onNavigateTo = navController::navigateTo,
+                ) , onNavigateTo = navController::navigateTo ,
                 currentDestination = navBackStackEntry?.destination
             )
         }
 
-        val nestedNavGraph: @Composable () -> Unit = {
+        val nestedNavGraph : @Composable () -> Unit = {
             MainNavGraph(
-                navController = navController,
+                navController = navController ,
                 onNavigateToRoot = onNavigateToRoot
             )
         }
 
         MainScreen(
-            bottomBar = bottomBar,
+            bottomBar = bottomBar ,
             nestedNavGraph = nestedNavGraph
         )
     }
@@ -64,7 +65,7 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 }
 
 
-fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.homeScreen(onNavigateTo : (Screen) -> Unit) {
     composable(
         route = Screen.Home.route
     ) {
@@ -73,7 +74,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.searchScreen(onNavigateTo : (Screen) -> Unit) {
     composable(
         route = Screen.Search.route
     ) {
@@ -82,11 +83,20 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.profileScreen(onNavigateTo : (Screen) -> Unit) {
     composable(
         route = Screen.Profile.route
     ) {
 
         ProfileScreen()
+    }
+}
+
+fun NavGraphBuilder.detailsScreen(onNavigateTo : (Screen) -> Unit) {
+    composable(
+        route = Screen.Details.route
+    ) {
+
+        DetailsScreen()
     }
 }
