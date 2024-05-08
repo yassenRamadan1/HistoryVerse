@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
     id("com.google.gms.google-services")
 }
 
@@ -27,7 +27,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile("proguard-android-optimize.txt") ,
                 "proguard-rules.pro"
             )
         }
@@ -105,10 +105,15 @@ dependencies {
     //lottie
     implementation("com.airbnb.android:lottie-compose:6.0.1")
 
-    implementation ("com.google.firebase:firebase-auth-ktx:22.3.1")
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
     //SplashScreen Api
     implementation("androidx.core:core-splashscreen:1.0.1")
+    // constraint layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    // pager accomapnist
+//    implementation("com.google.accompanist:accompanist-pager:0.23.1")
+//    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
 }
