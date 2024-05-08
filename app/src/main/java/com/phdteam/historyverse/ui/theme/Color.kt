@@ -32,54 +32,54 @@ val Gray_3 = Color(0xFFD2D2D3)
 val Gold = Color(0xFFFFAC33)
 
 val DisabledColor = Color(0xFF9CA6CD)
-
-
-
+val starColor = Color(0xFFEDA415)
+val yellowColor = Color(0xFFFFAE21)
+val greyColorText = Color(0x61121212)
 
 data class Colors(
-    val primary: Color,
-    val secondary: Color,
-    val background: Color,
-    val card: Color,
-    val disabled: Color,
-    val primaryShadesLight: Color,
-    val secondaryShadesLight: Color,
-    val ternaryShadesLight: Color,
-    val quaternaryShadesLight: Color,
-    val primaryShadesDark: Color,
-    val secondaryShadesDark: Color,
-    val ternaryShadesDark: Color,
-    val quaternaryShadesDark: Color,
+    val primary : Color ,
+    val secondary : Color ,
+    val background : Color ,
+    val card : Color ,
+    val disabled : Color ,
+    val primaryShadesLight : Color ,
+    val secondaryShadesLight : Color ,
+    val ternaryShadesLight : Color ,
+    val quaternaryShadesLight : Color ,
+    val primaryShadesDark : Color ,
+    val secondaryShadesDark : Color ,
+    val ternaryShadesDark : Color ,
+    val quaternaryShadesDark : Color ,
 )
 
 val LightColors = Colors(
-    primary = PrimaryLight,
-    secondary = SecondaryLight,
-    background = BackgroundLight,
-    card = CardLight,
-    disabled = DisabledColor,
-    primaryShadesLight = PrimaryShadesLight,
-    secondaryShadesLight = SecondaryShadesLight,
-    ternaryShadesLight = TernaryShadesLight,
-    quaternaryShadesLight = QuaternaryShadesLight,
-    primaryShadesDark = PrimaryShadesDark,
-    secondaryShadesDark = SecondaryShadesDark,
-    ternaryShadesDark = TernaryShadesDark,
-    quaternaryShadesDark = QuaternaryShadesDark,
+    primary = PrimaryLight ,
+    secondary = SecondaryLight ,
+    background = BackgroundLight ,
+    card = CardLight ,
+    disabled = DisabledColor ,
+    primaryShadesLight = PrimaryShadesLight ,
+    secondaryShadesLight = SecondaryShadesLight ,
+    ternaryShadesLight = TernaryShadesLight ,
+    quaternaryShadesLight = QuaternaryShadesLight ,
+    primaryShadesDark = PrimaryShadesDark ,
+    secondaryShadesDark = SecondaryShadesDark ,
+    ternaryShadesDark = TernaryShadesDark ,
+    quaternaryShadesDark = QuaternaryShadesDark ,
 )
 
 val DarkColors = Colors(
-    primary = PrimaryLight,
-    secondary = SecondaryDark,
-    background = BackgroundDark,
-    card = CardDark,
-    disabled = DisabledColor,
-    primaryShadesLight = PrimaryShadesLight,
-    secondaryShadesLight = SecondaryShadesLight,
-    ternaryShadesLight = TernaryShadesLight,
-    quaternaryShadesLight = QuaternaryShadesLight,
-    primaryShadesDark = PrimaryShadesDark,
-    secondaryShadesDark = SecondaryShadesDark,
-    ternaryShadesDark = TernaryShadesDark,
-    quaternaryShadesDark = QuaternaryShadesDark,
+    primary = PrimaryLight ,
+    secondary = SecondaryDark ,
+    background = BackgroundDark ,
+    card = CardDark ,
+    disabled = DisabledColor ,
+    primaryShadesLight = PrimaryShadesLight ,
+    secondaryShadesLight = SecondaryShadesLight ,
+    ternaryShadesLight = TernaryShadesLight ,
+    quaternaryShadesLight = QuaternaryShadesLight ,
+    primaryShadesDark = PrimaryShadesDark ,
+    secondaryShadesDark = SecondaryShadesDark ,
+    ternaryShadesDark = TernaryShadesDark ,
+    quaternaryShadesDark = QuaternaryShadesDark ,
 )
