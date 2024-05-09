@@ -53,7 +53,6 @@ fun ProfileOptionButton(
                 painter = painterResource(id = painter),
                 contentDescription = "",
                 modifier = Modifier
-                    .clickable { onClickOption() }
                     .graphicsLayer(rotationZ = 180.0F)
             )
         }
