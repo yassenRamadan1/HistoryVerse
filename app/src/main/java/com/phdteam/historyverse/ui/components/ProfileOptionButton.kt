@@ -32,7 +32,8 @@ fun ProfileOptionButton(
         onClick = onClickOption,
         modifier = Modifier
             .fillMaxWidth()
-            .height(64.dp),
+            .height(64.dp)
+            .clickable { onClickOption() },
         colors = ButtonDefaults.buttonColors(Color.White),
 
         ) {
