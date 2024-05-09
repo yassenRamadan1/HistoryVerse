@@ -8,6 +8,7 @@ import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.loginNavGraph
 import com.phdteam.historyverse.ui.presentation.main.navigation.mainNavGraph
+import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
 
 @Composable
 fun RootNavGraph(
@@ -24,6 +25,8 @@ fun RootNavGraph(
 
         loginNavGraph (onNavigateToRoot = navController::navigateTo)
         mainNavGraph (onNavigateToRoot = navController::navigateTo)
+        profileScreen( onNavigateTo = navController::navigateTo)
+
 
     }
 }
