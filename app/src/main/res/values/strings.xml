@@ -10,6 +10,9 @@
     <!-- profile section -->
     <string name="profile_title">Profile</string>
 
+    <!-- favorites section -->
+    <string name="favorite_title">Favorites</string>
+
     <string name="see_all">See All</string>
 
 

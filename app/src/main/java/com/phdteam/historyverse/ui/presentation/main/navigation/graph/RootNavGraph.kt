@@ -24,5 +24,6 @@ fun RootNavGraph(
 
         loginNavGraph (onNavigateToRoot = navController::navigateTo)
         mainNavGraph (onNavigateToRoot = navController::navigateTo)
+
     }
 }

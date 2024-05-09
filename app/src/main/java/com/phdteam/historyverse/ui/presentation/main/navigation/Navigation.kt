@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
 import com.phdteam.historyverse.ui.presentation.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
@@ -88,5 +89,13 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
 
         ProfileScreen()
+    }
+}
+
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Favorite.route
+    ) {
+        FavoriteScreen()
     }
 }

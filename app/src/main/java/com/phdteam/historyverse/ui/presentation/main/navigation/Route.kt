@@ -15,6 +15,7 @@ const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
+const val navigationRouteFavorite = "favorite"
 
 
 sealed class Screen(
@@ -49,5 +50,9 @@ sealed class Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
         icon = Icons.Rounded.Person
+    )
+    object Favorite : Screen(
+        route = navigationRouteFavorite,
+        title = R.string.favorite_title,
     )
 }

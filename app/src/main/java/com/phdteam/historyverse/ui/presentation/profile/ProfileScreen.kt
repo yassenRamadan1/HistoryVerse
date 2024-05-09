@@ -110,7 +110,7 @@ private fun ProfileContent(
                     contentScale = ContentScale.Crop
                 )
 
-                Button(onClick = { { /*TODO*/ } },
+                Button(onClick = { {} },
                     colors = ButtonDefaults.buttonColors(Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                     modifier = Modifier.wrapContentSize()) {
