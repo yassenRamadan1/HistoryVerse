@@ -1,7 +1,10 @@
 package com.phdteam.historyverse.ui.presentation.profile
 
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +30,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.ProfileOptionButton
 import com.phdteam.historyverse.ui.theme.Gold
@@ -48,7 +55,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = koinViewModel()
+    viewModel: ProfileViewModel = koinViewModel(),
+    onNavFavorite: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -57,7 +65,7 @@ fun ProfileScreen(
 
 
     ProfileContent(
-        state = state, onClickOption = {}
+        state = state, onNavFavorite = onNavFavorite
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -80,7 +88,7 @@ private fun onEffect(effect: ProfileUIEffect?, context: Context) {
 @Composable
 private fun ProfileContent(
     state: ProfileUIState,
-    onClickOption: () -> Unit
+    onNavFavorite: () -> Unit
 ) {
 
     Column(
@@ -100,39 +108,60 @@ private fun ProfileContent(
 
         {
             Box(contentAlignment = Alignment.BottomEnd) {
-                Image(
-                    painter = painterResource(id = R.drawable.sheik_osama),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(164.dp)
-                        .clip(CircleShape)
-                        .padding(24.dp),
-                    contentScale = ContentScale.Crop
+
+                var imageUri by remember {
+                    mutableStateOf<Uri?>(null)
+                }
+                val galleryLauncher = rememberLauncherForActivityResult(
+
+                    contract = ActivityResultContracts.GetContent(),
+                    onResult = { uri ->
+                        uri?.let {
+                            imageUri = it
+                        }
+                    }
                 )
 
-                Button(onClick = { {} },
+                imageUri?.let {
+                    Image(
+                        painter = rememberAsyncImagePainter(model = imageUri),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(164.dp)
+                            .padding(24.dp)
+                            .clip(shape = CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
+                Button(
+                    onClick = { galleryLauncher.launch("image/*")},
                     colors = ButtonDefaults.buttonColors(Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    modifier = Modifier.wrapContentSize()) {
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(12.dp)
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.cam_icon),
                         contentDescription = "",
                         modifier = Modifier
-                            .size(48.dp)
+                            .size(48.dp),
+                        contentScale = ContentScale.Crop
                     )
                 }
             }
             Spacer(modifier = Modifier.width(16.dp))
             Text(
-                text = "Osama bin ladin",
-                color = Color.Black,
+                text = "Osama bin Ladin",
+                color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Normal
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = "+911",
-                color = Color.Black,
+                color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Normal
             )
@@ -149,14 +178,8 @@ private fun ProfileContent(
         {
             Spacer(modifier = Modifier.height(24.dp))
             ProfileOptionButton(
-                text = "Saved",
-                onClickOption = { },
-                painter = R.drawable.back_arrow,
-            )
-
-            ProfileOptionButton(
                 text = "Favorite",
-                onClickOption = { },
+                onClickOption = onNavFavorite,
                 painter = R.drawable.back_arrow
             )
             ProfileOptionButton(
@@ -200,5 +223,5 @@ private fun ProfileContent(
 fun PreviewProfileScreen() {
 
     val states = ProfileUIState()
-    ProfileContent(state = states, onClickOption = {})
+    ProfileContent(state = states, onNavFavorite = {})
 }
