@@ -121,7 +121,11 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Profile.route
     ) {
 
-        ProfileScreen()
+        ProfileScreen(
+            onNavFavorite = {
+                Screen.Favorite.also(onNavigateTo)
+            }
+        )
     }
 }
 
