@@ -6,9 +6,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
+import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
+import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
-import com.phdteam.historyverse.ui.presentation.login.LoginScreen
+import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
@@ -16,15 +19,15 @@ import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
 
-fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit) {
+fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Login.route
     ) {
-
         LoginScreen(
             navigateTo = {
                 Screen.Main.withClearBackStack().also(onNavigateToRoot)
-            }
+            },
+            onNavigateBack = { onNavigateBack() }
         )
     }
 }
@@ -71,6 +74,36 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
 
         HomeScreen()
+    }
+}
+
+fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Welcome.route
+    )
+    {
+        WelcomeScreen() {
+            when (it) {
+                WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
+                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
+                    .also(onNavigateTo)
+
+                else -> {}
+            }
+        }
+    }
+}
+
+fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.SignIn.route
+    ) {
+        SignInScreen(
+            navigateTo = {
+                Screen.Main.withClearBackStack().also(onNavigateTo)
+            },
+            onNavigateBack = { onNavigateBack() }
+        )
     }
 }
 
