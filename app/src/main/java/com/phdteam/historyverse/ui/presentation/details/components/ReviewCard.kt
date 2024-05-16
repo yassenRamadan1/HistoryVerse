@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
+import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.presentation.details.Review
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.yellowColor
@@ -45,7 +46,7 @@ fun ReviewCard(review : Review) {
                 Icon(
                     painter = painterResource(if (i <= review.rating) R.drawable.star else R.drawable.rating_empty_star) ,
                     contentDescription = null ,
-                    modifier = Modifier.size(10.dp),
+                    modifier = Modifier.size(10.dp) ,
                     tint = yellowColor
                 )
             }
@@ -63,5 +64,5 @@ fun ReviewCard(review : Review) {
 @Preview
 @Composable
 private fun preview() {
-    ReviewCard(Review())
+//    ReviewCard(Review())
 }

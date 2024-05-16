@@ -175,7 +175,8 @@ private fun DetailsScreenContent(state : DetailsUiState , viewModel : DetailsVie
                         when (page) {
                             0 -> {
                                 ReviewTab(
-                                    modifier = modifier , state = state
+                                    modifier = modifier , state = state ,
+                                    viewModel::onMakeReview
                                 )
                             }
 

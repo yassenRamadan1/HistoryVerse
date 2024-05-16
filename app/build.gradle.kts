@@ -116,4 +116,7 @@ dependencies {
     // pager accomapnist
 //    implementation("com.google.accompanist:accompanist-pager:0.23.1")
 //    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+
+    // datastore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 }
