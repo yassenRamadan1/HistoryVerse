@@ -133,6 +133,6 @@ fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Favorite.route
     ) {
-        FavoriteScreen()
+
     }
 }
