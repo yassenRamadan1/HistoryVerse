@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
+import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
 import com.phdteam.historyverse.ui.presentation.favorite.CardUiState
 import com.phdteam.historyverse.ui.theme.Theme
@@ -36,15 +37,15 @@ import kotlin.math.floor
 
 @Composable
 fun ItemCard(
-    onClickCard: () -> Unit,
-    onClickFavorite: () -> Unit,
+    onClickCard: (id: String) -> Unit,
+    onClickFavorite: (id: String) -> Unit,
     cardType: CardType = CardType.MUSEUM,
     state: CardUiState
 ) {
     val ratingAvg = state.ratingAvg
     Card(
         modifier = Modifier
-            .clickable { onClickCard() }
+            .noRippleEffect { onClickCard(state.cardId) }
             .padding(8.dp)
             .width(160.dp)
             .wrapContentHeight(),
@@ -81,13 +82,13 @@ fun ItemCard(
                 tint = Color.Red,
                 modifier = Modifier
                     .size(16.dp)
-                    .clickable { onClickFavorite }
+                    .noRippleEffect { onClickFavorite(state.cardId) }
             )
         }
 
         Spacer(modifier = Modifier.height(6.dp))
 
-       if(cardType == CardType.PRODUCT||cardType == CardType.MUSEUM) {
+        if (cardType == CardType.PRODUCT || cardType == CardType.MUSEUM) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -123,7 +124,7 @@ fun ItemCard(
 
         Spacer(modifier = Modifier.height(6.dp))
 
-        if(cardType == CardType.PRODUCT||cardType == CardType.ARTIFACT){
+        if (cardType == CardType.PRODUCT || cardType == CardType.ARTIFACT) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
@@ -153,9 +154,9 @@ fun ItemCard(
 @Preview
 @Composable
 fun FavoriteCardPreview() {
-        ItemCard(
+    ItemCard(
         onClickCard = {},
-        onClickFavorite= {},
+        onClickFavorite = {},
         state = CardUiState(),
-        )
+    )
 }
