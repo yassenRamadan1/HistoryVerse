@@ -45,10 +45,10 @@ fun ItemCard(
     val ratingAvg = state.ratingAvg
     Card(
         modifier = Modifier
-            .noRippleEffect { onClickCard(state.cardId) }
             .padding(8.dp)
             .width(160.dp)
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .noRippleEffect { onClickCard(state.cardId) },
         colors = CardDefaults.cardColors(Color.White)
     ) {
 

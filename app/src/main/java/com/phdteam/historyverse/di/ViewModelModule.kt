@@ -7,6 +7,7 @@ import com.phdteam.historyverse.ui.presentation.profile.ProfileViewModel
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeViewModel
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInViewModel
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteViewModel
+import com.phdteam.historyverse.ui.presentation.details.DetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
