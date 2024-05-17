@@ -22,28 +22,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.I
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
+import com.phdteam.historyverse.ui.presentation.favorite.CardUiState
+import com.phdteam.historyverse.ui.presentation.favorite.FavoriteUiState
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlin.math.ceil
 import kotlin.math.floor
 
 @Composable
-fun FavoriteCard(
-    musuemName: String = "Alex Musuem",
-    cardTitleName: String = "HistoryVerse",
-    ratingAvg: Double = 5.0,
+fun ItemCard(
     onClickCard: () -> Unit,
     onClickFavorite: () -> Unit,
-    cardType: CardType = CardType.MUSEUM
+    cardType: CardType = CardType.MUSEUM,
+    state: CardUiState
 ) {
-
+    val ratingAvg = state.ratingAvg
     Card(
         modifier = Modifier
             .clickable { onClickCard() }
@@ -54,7 +54,7 @@ fun FavoriteCard(
     ) {
 
         Image(
-            painter = painterResource(id = R.drawable.logo_foreground),
+            rememberAsyncImagePainter(model = state.imageUrl),
             contentDescription = "",
             modifier = Modifier
                 .height(120.dp)
@@ -73,7 +73,7 @@ fun FavoriteCard(
                 .padding(horizontal = 8.dp)
         ) {
             Text(
-                text = cardTitleName,
+                text = state.cardTitleName,
                 style = Theme.typography.labelMedium
             )
 
@@ -117,7 +117,7 @@ fun FavoriteCard(
                     )
                 }
                 Text(
-                    text = ratingAvg.toString(),
+                    text = state.ratingAvg.toString(),
                     style = Theme.typography.labelMedium
                 )
             }
@@ -142,7 +142,7 @@ fun FavoriteCard(
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = musuemName,
+                    text = state.museumName,
                     style = Theme.typography.labelMedium,
                 )
             }
@@ -155,5 +155,9 @@ fun FavoriteCard(
 @Preview
 @Composable
 fun FavoriteCardPreview() {
-    FavoriteCard(onClickCard = {},onClickFavorite= {})
+        ItemCard(
+        onClickCard = {},
+        onClickFavorite= {},
+        state = CardUiState(),
+        )
 }
