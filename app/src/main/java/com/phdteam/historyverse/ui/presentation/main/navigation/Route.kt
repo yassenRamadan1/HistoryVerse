@@ -19,6 +19,7 @@ const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
 const val navigationRouteVedio = "review"
+const val navigationRouteFavoirte = "Favoirte"
 
 
 sealed class Screen(

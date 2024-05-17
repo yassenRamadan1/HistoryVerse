@@ -35,5 +35,6 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
+
     }
 }
