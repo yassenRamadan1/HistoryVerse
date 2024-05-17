@@ -1,16 +1,9 @@
 package com.phdteam.historyverse.ui.presentation.favorite
 
-import androidx.compose.ui.input.key.Key.Companion.F
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
-import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
-import com.phdteam.historyverse.ui.presentation.profile.ProfileUIState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 class FavoriteViewModel (
     private val historyVerseRepository: HistoryVerseRepository

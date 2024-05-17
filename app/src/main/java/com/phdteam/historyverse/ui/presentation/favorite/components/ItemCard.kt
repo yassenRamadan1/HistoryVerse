@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.I
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +30,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
 import com.phdteam.historyverse.ui.presentation.favorite.CardUiState
-import com.phdteam.historyverse.ui.presentation.favorite.FavoriteUiState
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlin.math.ceil
 import kotlin.math.floor
