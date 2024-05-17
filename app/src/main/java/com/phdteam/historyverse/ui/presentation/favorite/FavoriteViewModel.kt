@@ -1,16 +1,56 @@
 package com.phdteam.historyverse.ui.presentation.favorite
 
+import androidx.compose.ui.input.key.Key.Companion.F
+import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
 import com.phdteam.historyverse.ui.presentation.profile.ProfileUIState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class FavoriteViewModel (
     private val historyVerseRepository: HistoryVerseRepository
 ) : BaseViewModel<FavoriteUiState, FavoriteUiEffect>(FavoriteUiState()) {
+
     init {
         onMakeRequest()
+        getCardInfoLocal()
+    }
+    private fun getCardInfoLocal() {
+        updateState {
+            it.copy(
+                card = listOf(
+                    CardUiState(
+                        cardTitleName = "Product",
+                        favorite = true,
+                        imageUrl = R.drawable.hvlogo,
+                        ratingAvg = 4.0,
+                        museumName = "Alex Museum",
+                        museumImageUrl =  R.drawable.hvlogo
+                    ),
+                    CardUiState(
+                        cardTitleName = "Alex Musuem",
+                        favorite = true,
+                        imageUrl = R.drawable.hvlogo,
+                        ratingAvg = 3.4,
+                        museumName = "China town",
+                        museumImageUrl =  R.drawable.hvlogo
+                    ),
+                    CardUiState(
+                        cardTitleName = "Artifact",
+                        favorite = true,
+                        imageUrl = R.drawable.hvlogo,
+                        ratingAvg = 1.5,
+                        museumName ="Cairo Museum",
+                        museumImageUrl =  R.drawable.hvlogo
+                    ),
+                )
+            )
+        }
     }
     private fun onMakeRequest() {
         updateState { it.copy(isLoading = true) }
