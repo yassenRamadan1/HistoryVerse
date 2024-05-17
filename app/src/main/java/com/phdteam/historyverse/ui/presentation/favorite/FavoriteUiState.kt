@@ -6,11 +6,7 @@ data class FavoriteUiState(
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
 
-    val name: String = "",
-    val favorite: Boolean = false,
-    val imageUrl: Int? = null,
-    val rating: Int? = null,
-    val museumName: String = "",
-    val museumImageUrl: Int? = null,
+    val card: List<CardUiState> = emptyList(),
+
 
     )
