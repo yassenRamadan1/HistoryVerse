@@ -6,4 +6,7 @@ data class FavoriteUiState(
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
 
+    val card: List<CardUiState> = emptyList(),
+
+
     )

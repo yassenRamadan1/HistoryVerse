@@ -1,7 +1,6 @@
 package com.phdteam.historyverse.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,8 +31,7 @@ fun ProfileOptionButton(
         onClick = onClickOption,
         modifier = Modifier
             .fillMaxWidth()
-            .height(64.dp)
-            .clickable { onClickOption() },
+            .height(64.dp),
         colors = ButtonDefaults.buttonColors(Color.White),
 
         ) {

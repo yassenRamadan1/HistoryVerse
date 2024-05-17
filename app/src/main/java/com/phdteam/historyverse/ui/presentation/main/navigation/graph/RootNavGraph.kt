@@ -31,7 +31,6 @@ fun RootNavGraph(
         detailsScreen(navController::navigateTo)
         profileScreen( onNavigateTo = navController::navigateTo)
 
-
         loginNavGraph(
             onNavigateToRoot = navController::navigateTo,
             onNavigateBack = navController::navigateUp
