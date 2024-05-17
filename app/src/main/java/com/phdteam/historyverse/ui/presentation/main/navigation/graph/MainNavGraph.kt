@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
+import com.phdteam.historyverse.ui.presentation.main.navigation.favoriteScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.homeScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.searchScreen
@@ -24,6 +25,7 @@ fun MainNavGraph(
         homeScreen(onNavigateToRoot)
         searchScreen(onNavigateToRoot)
         profileScreen(onNavigateToRoot)
+        favoriteScreen(onNavigateToRoot)
 
     }
 }
