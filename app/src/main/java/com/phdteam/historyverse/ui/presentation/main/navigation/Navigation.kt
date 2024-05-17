@@ -34,7 +34,7 @@ fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigate
 }
 
 
-fun NavGraphBuilder.mainNavGraph(onNavigateToRoot : (Screen) -> Unit) {
+fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
     composable(
         route = Screen.Main.route
     ) {
@@ -80,14 +80,14 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
 
 fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
-        route = Screen.Welcome.route
+        route = "Screen.Welcome.route"
     )
     {
         WelcomeScreen() {
             when (it) {
                 WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
-                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
-                    .also(onNavigateTo)
+//                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
+//                    .also(onNavigateTo)
 
                 else -> {}
             }
@@ -97,7 +97,7 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
 
 fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
-        route = Screen.SignIn.route
+        route = "Screen.SignIn.route"
     ) {
         SignInScreen(
             navigateTo = {
@@ -134,7 +134,7 @@ fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Favorite.route
     ) {
-        FavoriteScreen (
+        FavoriteScreen(
             onClickCard = {}
         )
 
@@ -142,7 +142,7 @@ fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.detailsScreen(onNavigateTo : (Screen) -> Unit) {
+fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Details.route
     ) {
