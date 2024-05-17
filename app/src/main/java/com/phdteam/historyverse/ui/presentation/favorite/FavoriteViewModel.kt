@@ -1,17 +1,17 @@
-package com.phdteam.historyverse.ui.presentation.login
+package com.phdteam.historyverse.ui.presentation.favorite
 
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
+import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
+import com.phdteam.historyverse.ui.presentation.profile.ProfileUIState
 import kotlinx.coroutines.delay
 
-class LoginViewModel(
+class FavoriteViewModel (
     private val historyVerseRepository: HistoryVerseRepository
-) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
-
+) : BaseViewModel<FavoriteUiState, FavoriteUiEffect>(FavoriteUiState()) {
     init {
         onMakeRequest()
     }
-
     private fun onMakeRequest() {
         updateState { it.copy(isLoading = true) }
 
@@ -38,14 +38,13 @@ class LoginViewModel(
 
     private fun onError() {
         updateState {
-            LoginUIState(
+            FavoriteUiState(
                 isError = true,
                 isLoading = false,
                 isSuccess = false
             )
         }
-        sendNewEffect(LoginUIEffect.LoginError)
+        sendNewEffect(FavoriteUiEffect.FavoriteError)
     }
-
 
 }
