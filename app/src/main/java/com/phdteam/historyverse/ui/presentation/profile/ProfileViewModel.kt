@@ -1,5 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.profile
 
+import android.net.Uri
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import kotlinx.coroutines.delay
@@ -11,6 +12,31 @@ class ProfileViewModel(
     init {
         onMakeRequest()
     }
+    fun onUpdateImageUri(uri: Uri) {
+        updateState { oldState ->
+            oldState.copy(imageUri = uri.toString())
+        }
+    }
+
+    //saving image to api
+//    fun saveImageToApi() {
+//        val imageUri = state.value.imageUri
+//        if (imageUri.isNotBlank()) {
+//            viewModelScope.launch {
+//                try {
+//                    val response = "my response from repository"
+//                    if (response.isSuccessful) {
+//                        // Handle successful response
+//                    } else {
+//                        // Handle error
+//                    }
+//                } catch (e: Exception) {
+//                    // Handle exception
+//                }
+//            }
+//        }
+//    }
+
 
     private fun onMakeRequest() {
         updateState { it.copy(isLoading = true) }
