@@ -130,12 +130,13 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit){
     composable(
         route = Screen.Favorite.route
     ) {
         FavoriteScreen(
-            onClickCard = {}
+            onClickCard = {},
+            onNavigateBack = {}
         )
 
 
