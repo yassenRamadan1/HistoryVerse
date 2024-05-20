@@ -6,9 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
+import com.phdteam.historyverse.ui.presentation.main.navigation.detailsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.loginNavGraph
 import com.phdteam.historyverse.ui.presentation.main.navigation.mainNavGraph
+import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.signInScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.welcomeScreen
 
@@ -24,6 +26,10 @@ fun RootNavGraph(
         startDestination = startDestination.route,
         modifier = modifier,
     ) {
+
+        mainNavGraph (onNavigateToRoot = navController::navigateTo)
+        detailsScreen(navController::navigateTo)
+        profileScreen( onNavigateTo = navController::navigateTo)
 
         loginNavGraph(
             onNavigateToRoot = navController::navigateTo,

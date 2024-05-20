@@ -6,9 +6,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
+import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
@@ -78,7 +80,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
 
 fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
-        route = Screen.Welcome.route
+        route = "Screen.Welcome.route"
     )
     {
         WelcomeScreen() {
@@ -95,7 +97,7 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
 
 fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
-        route = Screen.SignIn.route
+        route = "Screen.SignIn.route"
     ) {
         SignInScreen(
             navigateTo = {
@@ -120,6 +122,31 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Profile.route
     ) {
 
-        ProfileScreen()
+        ProfileScreen(
+            onNavFavorite = {
+                Screen.Favorite.also(onNavigateTo)
+            }
+        )
+    }
+}
+
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Favorite.route
+    ) {
+        FavoriteScreen(
+            onClickCard = {}
+        )
+
+
+    }
+}
+
+fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Details.route
+    ) {
+
+        DetailsScreen()
     }
 }

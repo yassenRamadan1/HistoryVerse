@@ -19,6 +19,8 @@ const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
 const val navigationRouteVedio = "review"
+const val navigationRouteFavorite = "favorite"
+const val navigationRouteDetails = "details"
 
 
 sealed class Screen(
@@ -34,25 +36,34 @@ sealed class Screen(
     fun routeWith(path: String) = apply {
         routePath = path
     }
+
+    data object Login : Screen(navigationRouteLogin)
     data object Welcome : Screen(navigationRouteWelcome)
+
     data object SignIn : Screen(navigationRouteSignIn)
-    object Login : Screen(navigationRouteLogin)
 
-
-    object Main : Screen(navigationRouteMain)
-    object Home : Screen(
+    data object Main : Screen(navigationRouteMain)
+    data object Home : Screen(
         route = navigationRouteHome,
         title = R.string.home_title,
         icon = Icons.Rounded.Home
     )
-    object Search : Screen(
+    data object Search : Screen(
         route = navigationRouteSearch,
         title = R.string.search_title,
         icon = Icons.Rounded.Search
     )
-    object Profile : Screen(
+    data object Profile : Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
         icon = Icons.Rounded.Person
+    )
+
+    data object Details : Screen(
+        route = navigationRouteDetails ,
+    )
+    data object Favorite : Screen(
+        route = navigationRouteFavorite,
+        title = R.string.favorite_title,
     )
 }
