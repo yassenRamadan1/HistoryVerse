@@ -1,6 +1,5 @@
 package com.phdteam.historyverse.ui.presentation.favorite
 
-import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import kotlinx.coroutines.delay
