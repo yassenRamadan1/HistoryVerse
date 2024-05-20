@@ -37,10 +37,10 @@ sealed class Screen(
         routePath = path
     }
 
-    data object Login : Screen(navigationRouteLogin)
-    data object Welcome : Screen(navigationRouteWelcome)
+     object Login : Screen(navigationRouteLogin)
+     object Welcome : Screen(navigationRouteWelcome)
 
-    data object SignIn : Screen(navigationRouteSignIn)
+     object SignIn : Screen(navigationRouteSignIn)
 
     data object Main : Screen(navigationRouteMain)
     data object Home : Screen(

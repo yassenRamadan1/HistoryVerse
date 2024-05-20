@@ -80,7 +80,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
 
 fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
-        route = "Screen.Welcome.route"
+        route = Screen.Welcome.route
     )
     {
         WelcomeScreen() {
@@ -97,7 +97,7 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
 
 fun NavGraphBuilder.signInScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
-        route = "Screen.SignIn.route"
+        route = Screen.SignIn.route
     ) {
         SignInScreen(
             navigateTo = {
@@ -124,18 +124,20 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
 
         ProfileScreen(
             onNavFavorite = {
-                Screen.Favorite.also(onNavigateTo)
+                Screen.Favorite.withClearBackStack().also(onNavigateTo)
             }
+
         )
     }
 }
 
-fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit){
     composable(
         route = Screen.Favorite.route
     ) {
         FavoriteScreen(
-            onClickCard = {}
+            onClickCard = {},
+            onNavigateBack = {}
         )
 
 
