@@ -37,30 +37,32 @@ sealed class Screen(
         routePath = path
     }
 
-    object Login : Screen(navigationRouteLogin)
+    data object Login : Screen(navigationRouteLogin)
+    data object Welcome : Screen(navigationRouteWelcome)
 
+    data object SignIn : Screen(navigationRouteSignIn)
 
-    object Main : Screen(navigationRouteMain)
-    object Home : Screen(
+    data object Main : Screen(navigationRouteMain)
+    data object Home : Screen(
         route = navigationRouteHome,
         title = R.string.home_title,
         icon = Icons.Rounded.Home
     )
-    object Search : Screen(
+    data object Search : Screen(
         route = navigationRouteSearch,
         title = R.string.search_title,
         icon = Icons.Rounded.Search
     )
-    object Profile : Screen(
+    data object Profile : Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
         icon = Icons.Rounded.Person
     )
 
-    object Details : Screen(
+    data object Details : Screen(
         route = navigationRouteDetails ,
     )
-    object Favorite : Screen(
+    data object Favorite : Screen(
         route = navigationRouteFavorite,
         title = R.string.favorite_title,
     )
