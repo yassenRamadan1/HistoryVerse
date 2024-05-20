@@ -19,15 +19,13 @@ fun MainNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Details.route,
+        startDestination = Screen.Home.route,
         modifier = modifier,
     ) {
 
         homeScreen(onNavigateToRoot)
         searchScreen(onNavigateToRoot)
         profileScreen(onNavigateToRoot)
-        detailsScreen(onNavigateToRoot)
-        favoriteScreen(onNavigateToRoot)
 
     }
 }
