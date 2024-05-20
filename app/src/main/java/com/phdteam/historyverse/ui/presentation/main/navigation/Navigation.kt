@@ -86,8 +86,8 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
         WelcomeScreen() {
             when (it) {
                 WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
-//                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
-//                    .also(onNavigateTo)
+                WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
+                    .also(onNavigateTo)
 
                 else -> {}
             }

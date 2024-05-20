@@ -10,39 +10,74 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdteam.historyverse.ui.presentation.details.DetailsUiState
+import com.phdteam.historyverse.ui.presentation.favorite.components.ItemCard
 
 @Composable
-fun ArtifatsTab(modifier : Modifier = Modifier , state : DetailsUiState) {
-    LazyColumn(modifier = modifier.fillMaxSize() , verticalArrangement = Arrangement.spacedBy(16.dp)) {
+fun ArtifatsTab(
+    modifier: Modifier = Modifier,
+    state: DetailsUiState,
+    onClickArtifactCard: (cardId: String) -> Unit,
+    onFavoriteClick: (cardId: String) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         item {
-            Column(modifier = Modifier.fillMaxWidth() , verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 Text(
-                    "Recommended Artifacts" ,
-                    style = MaterialTheme.typography.bodyMedium ,
-                    fontWeight = FontWeight.SemiBold
+                    "Recommended Artifacts",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 16.dp)
                 )
-                LazyRow(modifier = Modifier.fillMaxWidth() , horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
                     items(state.recommendedArtifacts.size) { index ->
-                        ArtifactCard(state.recommendedArtifacts[index])
+                        ItemCard(
+                            state = state.recommendedArtifacts[index],
+                            onClickCard = onClickArtifactCard,
+                            onClickFavorite = onFavoriteClick
+                        )
                     }
                 }
             }
         }
         item {
-            Column(modifier = Modifier.fillMaxWidth() , verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
 
                 Text(
-                    "Most popular" ,
-                    style = MaterialTheme.typography.bodyMedium ,
-                    fontWeight = FontWeight.SemiBold
+                    "Most popular",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 16.dp)
                 )
-                LazyRow(modifier = Modifier.fillMaxWidth() , horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
                     items(state.mostPopularArtifacts.size) { index ->
-                        ArtifactCard(state.mostPopularArtifacts[index])
+                        ItemCard(
+                            state = state.mostPopularArtifacts[index],
+                            onClickCard = onClickArtifactCard,
+                            onClickFavorite = onFavoriteClick
+                        )
                     }
 
                 }
             }
+        }
+        item {
+            Spacer(modifier = Modifier.height(24.dp))
+
         }
 
     }
