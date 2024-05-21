@@ -7,6 +7,7 @@ fun appModule() = module {
         LocalDatabaseModule,
         NetworkModule,
         RepositoryModule,
-        viewModelModule
+        viewModelModule,
+        DataStoreModule
     )
 }
