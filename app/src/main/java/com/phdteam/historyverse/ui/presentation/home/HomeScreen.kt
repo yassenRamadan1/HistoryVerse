@@ -37,13 +37,15 @@ import com.phdteam.historyverse.ui.components.GGTitleWithSeeAll
 import com.phdteam.historyverse.ui.components.GGUniversity
 import com.phdteam.historyverse.ui.presentation.home.component.ChatBot
 import com.phdteam.historyverse.ui.presentation.home.component.HomeAppBar
+import com.phdteam.historyverse.ui.presentation.seeall.SeeAllType
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
+    navigateTo: (SeeAllType) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -51,9 +53,7 @@ fun HomeScreen(
     val context = LocalContext.current
 
 
-    HomeContent(
-        state = state
-    )
+    HomeContent(state = state, navigateToSeeAll = navigateTo)
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
@@ -74,7 +74,8 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 
 @Composable
 private fun HomeContent(
-    state: HomeUIState
+    state: HomeUIState,
+    navigateToSeeAll: (SeeAllType) -> Unit,
 ) {
 
     Column(
@@ -113,7 +114,8 @@ private fun HomeContent(
                         .padding(bottom = 4.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.artifacts),
-                    onClick = {}
+                    showSeeAll = state.mentors.showSeeAll(),
+                    onClick = { navigateToSeeAll(SeeAllType.Mentors) }
                 )
 
                 state.mentors.take(4).forEach { mentor ->
@@ -158,7 +160,8 @@ private fun HomeContent(
                             .padding(top = 16.dp, bottom = 10.dp)
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.Museums),
-                        onClick = {}
+                        showSeeAll = state.university.showSeeAll(),
+                        onClick = { navigateToSeeAll(SeeAllType.Universities) }
                     )
                 }
 

@@ -2,6 +2,7 @@ package com.phdteam.historyverse.ui.presentation.main.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.core.os.bundleOf
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -18,6 +19,8 @@ import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
+import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
+import com.phdteam.historyverse.ui.presentation.seeall.toSeeAllType
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -70,11 +73,13 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 
 
 fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
-    composable(
-        route = Screen.Home.route
-    ) {
-
-        HomeScreen()
+    composable(route = Screen.Home.route) {
+        HomeScreen(
+            navigateTo = {
+                Screen.SeeAll.args = bundleOf(Pair("type", it.value))
+                Screen.SeeAll.also(onNavigateTo)
+            }
+        )
     }
 }
 
@@ -150,5 +155,17 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
 
         DetailsScreen()
+    }
+}
+fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    this.composable(
+        route = Screen.SeeAll.route
+    ) {
+        val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
+        SeeAllScreen(
+            type = value,
+            navigateTo = {},
+            navigateBack = onNavigateBack
+        )
     }
 }

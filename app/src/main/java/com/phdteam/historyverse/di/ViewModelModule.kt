@@ -8,10 +8,12 @@ import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeViewModel
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInViewModel
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteViewModel
 import com.phdteam.historyverse.ui.presentation.details.DetailsViewModel
+import com.phdteam.historyverse.ui.presentation.seeall.SeeAllViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val viewModelModule = module {
+    viewModelOf(::SeeAllViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::HomeViewModel)
     viewModelOf(::SearchViewModel)

@@ -22,6 +22,7 @@ import com.phdteam.historyverse.ui.theme.Theme
 fun GGTitleWithSeeAll(
     title: String,
     modifier: Modifier = Modifier,
+    showSeeAll: Boolean = true,
     onClick: () -> Unit
 ) {
     Row(
@@ -38,17 +39,22 @@ fun GGTitleWithSeeAll(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Text(
-            text = stringResource(id = R.string.see_all),
-            style = Theme.typography.bodyMedium,
-            color = Theme.colors.ternaryShadesDark,
-            modifier = Modifier.noRippleEffect { onClick() }
-        )
+        if (showSeeAll) {
+            Row(
+                modifier = Modifier.noRippleEffect { onClick() },
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.see_all),
+                    style = Theme.typography.bodyMedium,
+                    color = Theme.colors.ternaryShadesDark,
+                )
 
-        Icon(
-            painter = painterResource(id = R.drawable.arrow),
-            contentDescription = null
-        )
-
+                Icon(
+                    painter = painterResource(id = R.drawable.arrow),
+                    contentDescription = null
+                )
+            }
+        }
     }
 }

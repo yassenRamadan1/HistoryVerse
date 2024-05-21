@@ -22,7 +22,9 @@ data class MentorUiState(
     val rate: Double = 0.0,
     val numberReviewers: Int = 0
 )
-
+fun List<Any>.showSeeAll(): Boolean {
+    return this.size > 3
+}
 data class SubjectUiState(
     val id: String = "",
     val name: String = ""
