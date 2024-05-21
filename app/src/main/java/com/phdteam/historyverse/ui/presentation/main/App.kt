@@ -14,6 +14,6 @@ fun App() {
 
     RootNavGraph(
         navController = navController,
-        startDestination = Screen.Welcome
+        startDestination = Screen.Main
     )
 }
