@@ -1,27 +1,16 @@
 package com.phdteam.historyverse.ui.presentation.profile
 
 import android.content.Context
-import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -30,23 +19,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.ProfileOptionButton
+import com.phdteam.historyverse.ui.components.ProfilePicData
 import com.phdteam.historyverse.ui.theme.Gold
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
@@ -63,9 +44,20 @@ fun ProfileScreen(
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
+    val galleryLauncher = rememberLauncherForActivityResult(
 
+        contract = ActivityResultContracts.GetContent(),
+        onResult = { uri ->
+            uri?.let {
+                viewModel.onUpdateImageUri(it)
+            }
+        }
+    )
     ProfileContent(
-        state = state, onNavFavorite = onNavFavorite
+        states = state,
+        onNavFavorite = onNavFavorite,
+        onClickProfilePic = {galleryLauncher.launch("image/*")}
+
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -87,8 +79,9 @@ private fun onEffect(effect: ProfileUIEffect?, context: Context) {
 
 @Composable
 private fun ProfileContent(
-    state: ProfileUIState,
-    onNavFavorite: () -> Unit
+    states: ProfileUIState,
+    onNavFavorite: () -> Unit,
+    onClickProfilePic: () ->Unit
 ) {
 
     Column(
@@ -99,74 +92,8 @@ private fun ProfileContent(
         verticalArrangement = Arrangement.SpaceBetween,
 
         ) {
-        Column(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        )
 
-        {
-            Box(contentAlignment = Alignment.BottomEnd) {
-
-                var imageUri by remember {
-                    mutableStateOf<Uri?>(null)
-                }
-                val galleryLauncher = rememberLauncherForActivityResult(
-
-                    contract = ActivityResultContracts.GetContent(),
-                    onResult = { uri ->
-                        uri?.let {
-                            imageUri = it
-                        }
-                    }
-                )
-
-                imageUri?.let {
-                    Image(
-                        painter = rememberAsyncImagePainter(model = imageUri),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(164.dp)
-                            .padding(24.dp)
-                            .clip(shape = CircleShape),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-
-                Button(
-                    onClick = { galleryLauncher.launch("image/*")},
-                    colors = ButtonDefaults.buttonColors(Color.Transparent),
-                    contentPadding = PaddingValues(0.dp),
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(12.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.cam_icon),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(48.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = "Osama bin Ladin",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = "+911",
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Normal
-            )
-        }
-
+        ProfilePicData(state = states) {   onClickProfilePic()  }
 
         Card(
             modifier = Modifier
@@ -205,7 +132,7 @@ private fun ProfileContent(
 
 
 
-        if (state.isLoading) {
+        if (states.isLoading) {
             CircularProgressIndicator()
         } else {
             Text(
@@ -223,5 +150,7 @@ private fun ProfileContent(
 fun PreviewProfileScreen() {
 
     val states = ProfileUIState()
-    ProfileContent(state = states, onNavFavorite = {})
+    ProfileContent(states = states,
+        onNavFavorite = {},
+        onClickProfilePic = {})
 }

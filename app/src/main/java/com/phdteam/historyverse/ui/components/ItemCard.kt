@@ -1,7 +1,6 @@
-package com.phdteam.historyverse.ui.presentation.favorite.components
+package com.phdteam.historyverse.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,7 +44,7 @@ fun ItemCard(
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .width(160.dp)
+            .fillMaxWidth(0.5f)
             .wrapContentHeight()
             .noRippleEffect { onClickCard(state.cardId) },
         colors = CardDefaults.cardColors(Color.White)
@@ -75,14 +73,18 @@ fun ItemCard(
                 text = state.cardTitleName,
                 style = Theme.typography.labelMedium
             )
-
             Icon(
-                painter = painterResource(id = R.drawable.favorite),
+                painter = painterResource(
+                    id = if
+                                 (state.favorite) R.drawable.favorite
+                    else
+                        R.drawable.favorite_empty
+                ),
                 contentDescription = "",
                 tint = Color.Red,
                 modifier = Modifier
-                    .size(16.dp)
-                    .noRippleEffect { onClickFavorite(state.cardId) }
+                    .size(24.dp)
+                    .noRippleEffect {onClickFavorite(state.cardId)}
             )
         }
 
@@ -132,7 +134,7 @@ fun ItemCard(
                     .padding(horizontal = 8.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.sheik_osama),
+                    rememberAsyncImagePainter(model = state.museumImageUrl),
                     contentDescription = "",
                     modifier = Modifier
                         .size(18.dp)
