@@ -20,7 +20,7 @@ class FavoriteViewModel (
                     CardUiState(
                         cardTitleName = "Product",
                         favorite = true,
-                        imageUrl = R.drawable.hvlogo,
+                        imageUrl = "https://api.nilefm.com/uploads/articles/1693466389-1_-_2023-08-31T101740.740.jpg",
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl =  R.drawable.hvlogo
@@ -28,7 +28,7 @@ class FavoriteViewModel (
                     CardUiState(
                         cardTitleName = "Alex Musuem",
                         favorite = true,
-                        imageUrl = R.drawable.hvlogo,
+                        imageUrl = "https://api.nilefm.com/uploads/articles/1693466389-1_-_2023-08-31T101740.740.jpg",
                         ratingAvg = 3.4,
                         museumName = "China town",
                         museumImageUrl =  R.drawable.hvlogo
@@ -36,7 +36,7 @@ class FavoriteViewModel (
                     CardUiState(
                         cardTitleName = "Artifact",
                         favorite = true,
-                        imageUrl = R.drawable.hvlogo,
+                        imageUrl = "https://api.nilefm.com/uploads/articles/1693466389-1_-_2023-08-31T101740.740.jpg",
                         ratingAvg = 1.5,
                         museumName ="Cairo Museum",
                         museumImageUrl =  R.drawable.hvlogo
