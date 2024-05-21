@@ -73,19 +73,21 @@ fun ItemCard(
                 text = state.cardTitleName,
                 style = Theme.typography.labelMedium
             )
-            Icon(
-                painter = painterResource(
-                    id = if
-                                 (state.favorite) R.drawable.favorite
-                    else
-                        R.drawable.favorite_empty
-                ),
-                contentDescription = "",
-                tint = Color.Red,
-                modifier = Modifier
-                    .size(24.dp)
-                    .noRippleEffect {onClickFavorite(state.cardId)}
-            )
+            if (cardType != CardType.SEARCH) {
+                Icon(
+                    painter = painterResource(
+                        id = if
+                                     (state.favorite) R.drawable.favorite
+                        else
+                            R.drawable.favorite_empty
+                    ),
+                    contentDescription = "",
+                    tint = Color.Red,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .noRippleEffect { onClickFavorite(state.cardId) }
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(6.dp))

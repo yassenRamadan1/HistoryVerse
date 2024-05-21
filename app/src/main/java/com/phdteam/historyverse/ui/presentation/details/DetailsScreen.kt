@@ -26,11 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVAppBar
-import com.phdteam.historyverse.ui.presentation.details.components.ArtifactCard
 import com.phdteam.historyverse.ui.presentation.details.components.ArtifatsTab
 import com.phdteam.historyverse.ui.presentation.details.components.ProductsTab
 import com.phdteam.historyverse.ui.presentation.details.components.ReviewTab
-import com.phdteam.historyverse.ui.presentation.favorite.CardType
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.starColor
 import com.phdteam.historyverse.ui.theme.yellowColor
