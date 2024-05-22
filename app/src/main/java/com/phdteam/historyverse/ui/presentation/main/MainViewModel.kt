@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    val _isSignedIn = MutableStateFlow(true)
+    val _isSignedIn = MutableStateFlow(false)
     val isSignedIn = _isSignedIn.asStateFlow()
 
     init {
