@@ -127,7 +127,7 @@ private fun HomeContent(
                         rate = mentor.rate,
                         numberReviewers = mentor.numberReviewers,
                         profileUrl = mentor.imageUrl,
-                        onClick = {}
+                        onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
                     )
                 }
 
@@ -179,7 +179,7 @@ private fun HomeContent(
                             name = university.name,
                             address = university.address,
                             imageUrl = university.imageUrl,
-                            onClick = {}
+                            onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
                         )
                     }
                 }

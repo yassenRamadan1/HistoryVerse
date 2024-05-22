@@ -15,4 +15,6 @@ sealed interface HomeUIEffect {
     data object NavigateToChatBooks : HomeUIEffect
 
     data class NavigateToSubject(val id: String) : HomeUIEffect
+
+    data object NavigateToDetail : HomeUIEffect
 }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
@@ -76,6 +77,7 @@ private fun ChatBotContent(
     onCLickBack: () -> Unit,
 ) {
     val listState = rememberLazyListState()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -113,12 +115,14 @@ private fun ChatBotContent(
             ) {
             Image(
                 modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = R.drawable.background_chat_screen),
+                painter = painterResource(id = R.drawable.hback),
                 contentDescription = "background chat screen",
                 contentScale = ContentScale.Crop,
             )
             Column(
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize(),
             ) {
                 LazyColumn(
                     state = rememberLazyListState(),

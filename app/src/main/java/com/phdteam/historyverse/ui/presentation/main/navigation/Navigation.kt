@@ -80,7 +80,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
             navigateTo = { navigate ->
                 when (navigate) {
                     HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
-                    HomeUIEffect.NavigateToNotification -> {}
+                    HomeUIEffect.NavigateToDetail-> Screen.Details.also(onNavigateTo)
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.also(onNavigateTo)
