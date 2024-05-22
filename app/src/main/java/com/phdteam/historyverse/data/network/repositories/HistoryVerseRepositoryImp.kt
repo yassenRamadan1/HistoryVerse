@@ -1,13 +1,16 @@
 package com.phdteam.historyverse.data.network.repositories
 
+import com.google.ai.client.generativeai.Chat
 import com.phdteam.historyverse.data.entity.Mentor
 import com.phdteam.historyverse.data.entity.Subject
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.local.database.HistoryVerseDao
 import com.phdteam.historyverse.data.network.BaseRepository
+import com.phdteam.historyverse.data.network.service.GeminiApi
 
 class HistoryVerseRepositoryImp(
-    private val historyVerseDao: HistoryVerseDao
+    private val historyVerseDao: HistoryVerseDao,
+    private val geminiApi: GeminiApi
 ): BaseRepository(),HistoryVerseRepository {
     override suspend fun getMentors(): List<Mentor> {
         return generatorMentor()
@@ -19,6 +22,10 @@ class HistoryVerseRepositoryImp(
 
     override suspend fun getUniversities(): List<University> {
         return generateUniversities()
+    }
+
+    override fun generateContent(userContent: String, modelContent: String): Chat {
+        return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
     }
 
 

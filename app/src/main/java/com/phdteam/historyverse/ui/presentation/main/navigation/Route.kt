@@ -40,6 +40,7 @@ sealed class Screen(
     }
 
     object Login : Screen(navigationRouteLogin)
+    data object ChatBot : Screen(navigationRouteChatBot)
     object SeeAll : Screen(navigationRouteSeeAll)
     object Welcome : Screen(navigationRouteWelcome)
 

@@ -14,6 +14,8 @@ import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
+import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotScreen
+import com.phdteam.historyverse.ui.presentation.home.HomeUIEffect
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
@@ -75,11 +77,27 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(route = Screen.Home.route) {
         HomeScreen(
-            navigateTo = {
-                Screen.SeeAll.args = bundleOf(Pair("type", it.value))
-                Screen.SeeAll.also(onNavigateTo)
-            }
+            navigateTo = { navigate ->
+                when (navigate) {
+                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
+                    HomeUIEffect.NavigateToNotification -> {}
+                    is HomeUIEffect.NavigateToSeeAll -> {
+                        Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
+                        Screen.SeeAll.also(onNavigateTo)
+                    }
+                    else -> {
+                        Screen.Details.also(onNavigateTo)
+                    }
+                }
+            },
         )
+    }
+}
+fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.ChatBot.route
+    ) {
+        ChatBotScreen(onNavigateBack =  onNavigateBack)
     }
 }
 

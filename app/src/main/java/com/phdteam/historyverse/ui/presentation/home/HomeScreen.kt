@@ -45,7 +45,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
-    navigateTo: (SeeAllType) -> Unit
+    navigateTo: (HomeUIEffect) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -53,7 +53,7 @@ fun HomeScreen(
     val context = LocalContext.current
 
 
-    HomeContent(state = state, navigateToSeeAll = navigateTo)
+    HomeContent(state = state, onNavigateTo = navigateTo)
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
@@ -75,7 +75,7 @@ private fun onEffect(effect: HomeUIEffect?, context: Context) {
 @Composable
 private fun HomeContent(
     state: HomeUIState,
-    navigateToSeeAll: (SeeAllType) -> Unit,
+    onNavigateTo: (HomeUIEffect) -> Unit,
 ) {
 
     Column(
@@ -106,7 +106,7 @@ private fun HomeContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    onClick = {}
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
                 )
 
                 GGTitleWithSeeAll(
@@ -115,7 +115,7 @@ private fun HomeContent(
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.artifacts),
                     showSeeAll = state.mentors.showSeeAll(),
-                    onClick = { navigateToSeeAll(SeeAllType.Mentors) }
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) }
                 )
 
                 state.mentors.take(4).forEach { mentor ->
@@ -161,7 +161,7 @@ private fun HomeContent(
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.Museums),
                         showSeeAll = state.university.showSeeAll(),
-                        onClick = { navigateToSeeAll(SeeAllType.Universities) }
+                        onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) }
                     )
                 }
 

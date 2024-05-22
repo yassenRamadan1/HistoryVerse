@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
+import com.phdteam.historyverse.ui.presentation.main.navigation.chatBotScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.detailsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.loginNavGraph
@@ -45,5 +46,6 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
+        chatBotScreen(onNavigateBack = navController::navigateUp)
     }
 }
