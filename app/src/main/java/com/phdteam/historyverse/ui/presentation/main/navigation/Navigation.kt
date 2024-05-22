@@ -18,6 +18,7 @@ import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
+import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
 
@@ -129,7 +130,12 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
 
         ProfileScreen(
             onNavFavorite = {
-                Screen.Favorite.withClearBackStack().also(onNavigateTo)
+                when (it) {
+                    ProfileUIEffect.ProfileLogOut -> Screen.Welcome.withClearBackStack()
+                        .also(onNavigateTo)
+                    else -> {}
+                }
+//                Screen.Favorite.withClearBackStack().also(onNavigateTo)
             }
 
         )

@@ -1,17 +1,33 @@
 package com.phdteam.historyverse.ui.presentation.profile
 
 import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.viewModelScope
+import com.phdteam.historyverse.data.network.model.User
+import com.phdteam.historyverse.data.network.repositories.AuthRepository
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
+import com.phdteam.historyverse.data.network.repositories.UserRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-    private val historyVerseRepository: HistoryVerseRepository
+    private val historyVerseRepository: HistoryVerseRepository,
+    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository
+
 ) : BaseViewModel<ProfileUIState, ProfileUIEffect>(ProfileUIState()) {
 
     init {
-        onMakeRequest()
+        viewModelScope.launch {
+            authRepository.getUserToken().also {
+                Log.d("token", it)
+                onMakeRequest(it)
+            }
+
+        }
     }
+
     fun onUpdateImageUri(uri: Uri) {
         updateState { oldState ->
             oldState.copy(imageUri = uri.toString())
@@ -38,23 +54,24 @@ class ProfileViewModel(
 //    }
 
 
-    private fun onMakeRequest() {
+    private fun onMakeRequest(token: String) {
         updateState { it.copy(isLoading = true) }
 
         tryToExecute(
             {
-                delay(1900)
-                updateState { it.copy(isLoading = false, isSuccess = true) }
+                userRepository.getUSerData(token)
+
             },
-            { onSuccess() },
+            ::onSuccess,
             ::onError
         )
     }
 
 
-    private fun onSuccess() {
+    private fun onSuccess(user: User) {
         updateState {
             it.copy(
+                name = user.username,
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
@@ -73,5 +90,11 @@ class ProfileViewModel(
         sendNewEffect(ProfileUIEffect.ProfileError)
     }
 
+    fun onLogOut() {
+        viewModelScope.launch {
+            authRepository.signOut()
+            sendNewEffect(ProfileUIEffect.ProfileLogOut)
+        }
+    }
 
 }

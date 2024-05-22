@@ -37,7 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),
-    onNavFavorite: () -> Unit
+    onNavFavorite: (ProfileUIEffect) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -56,22 +56,30 @@ fun ProfileScreen(
     ProfileContent(
         states = state,
         onNavFavorite = onNavFavorite,
-        onClickProfilePic = {galleryLauncher.launch("image/*")}
+        onClickProfilePic = { galleryLauncher.launch("image/*") },
+        onLogOut = {
+            viewModel.onLogOut()
+        }
 
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context)
+            onEffect(effect, context, onNavigateTo = {})
         }
     }
 }
 
 
-private fun onEffect(effect: ProfileUIEffect?, context: Context) {
+private fun onEffect(
+    effect: ProfileUIEffect?,
+    context: Context,
+    onNavigateTo: (ProfileUIEffect?) -> Unit
+) {
 
     when (effect) {
         ProfileUIEffect.ProfileError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        ProfileUIEffect.ProfileLogOut -> onNavigateTo(ProfileUIEffect.ProfileLogOut)
         else -> {}
     }
 }
@@ -80,8 +88,9 @@ private fun onEffect(effect: ProfileUIEffect?, context: Context) {
 @Composable
 private fun ProfileContent(
     states: ProfileUIState,
-    onNavFavorite: () -> Unit,
-    onClickProfilePic: () ->Unit
+    onNavFavorite: (ProfileUIEffect) -> Unit,
+    onClickProfilePic: () -> Unit,
+    onLogOut: () -> Unit,
 ) {
 
     Column(
@@ -93,7 +102,7 @@ private fun ProfileContent(
 
         ) {
 
-        ProfilePicData(state = states) {   onClickProfilePic()  }
+        ProfilePicData(state = states) { onClickProfilePic() }
 
         Card(
             modifier = Modifier
@@ -106,7 +115,7 @@ private fun ProfileContent(
             Spacer(modifier = Modifier.height(24.dp))
             ProfileOptionButton(
                 text = "Favorite",
-                onClickOption = onNavFavorite,
+                onClickOption = { onNavFavorite },
                 painter = R.drawable.back_arrow
             )
             ProfileOptionButton(
@@ -121,7 +130,9 @@ private fun ProfileContent(
             )
             ProfileOptionButton(
                 text = "Logout",
-                onClickOption = { },
+                onClickOption = {
+                    onLogOut()
+                },
                 painter = R.drawable.baseline_logout_24
             )
         }
@@ -152,5 +163,5 @@ fun PreviewProfileScreen() {
     val states = ProfileUIState()
     ProfileContent(states = states,
         onNavFavorite = {},
-        onClickProfilePic = {})
+        onClickProfilePic = {}, {})
 }

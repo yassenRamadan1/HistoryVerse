@@ -3,17 +3,19 @@ package com.phdteam.historyverse.ui.presentation.auth.login
 import androidx.lifecycle.viewModelScope
 import com.phdteam.historyverse.data.network.repositories.AuthRepository
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
+import com.phdteam.historyverse.data.network.repositories.UserRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
 ) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
 
-    private fun onSuccess() {
+    private fun onSuccess(token: String) {
         viewModelScope.launch {
             authRepository.setSignInState(true)
+            authRepository.setUserToken(token)
         }
         updateState {
             it.copy(
@@ -59,13 +61,14 @@ class LoginViewModel(
         viewModelScope.launch {
             try {
                 onLoading()
-                authRepository.signIn(state.value.email, state.value.password)
-                onSuccess()
+                val result = authRepository.signIn(state.value.email, state.value.password)
+                result.user?.uid?.let { onSuccess(it) }
             } catch (e: Exception) {
-                onError(e.message?:"error")
+                onError(e.message ?: "error")
             }
         }
     }
+
     fun clearErrorState() {
         updateState { currentState ->
             currentState.copy(errorMessage = null, isError = false)

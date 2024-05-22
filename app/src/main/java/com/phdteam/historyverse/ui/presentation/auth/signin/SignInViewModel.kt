@@ -87,6 +87,7 @@ class SignInViewModel(
                 )
 
                 authRepository.addUserInfo(userInfo = userInfo, user = result.user!!)
+                userInfo.id?.let { authRepository.setUserToken(it) }
                 onSuccess()
 
             } catch (e: UserAlreadyExistsException) {

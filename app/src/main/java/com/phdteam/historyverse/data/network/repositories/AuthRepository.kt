@@ -12,4 +12,7 @@ interface AuthRepository {
     suspend fun signIn(email: String, password: String): AuthResult
     suspend fun checkSignInState(): Boolean
     suspend fun setSignInState(signInState: Boolean)
+    suspend fun signOut()
+    suspend fun getUserToken(): String
+    suspend fun setUserToken(token:String)
 }

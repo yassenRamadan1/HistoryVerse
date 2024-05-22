@@ -59,10 +59,23 @@ class AuthRepositoryImpl(private val dataStoreDataSource: DataStoreDataSource) :
         }
 
     override suspend fun checkSignInState(): Boolean {
-            return dataStoreDataSource.getUserSignInState()
+        return dataStoreDataSource.getUserSignInState()
     }
 
     override suspend fun setSignInState(signInState: Boolean) {
         dataStoreDataSource.setUserSignInState(signInState)
     }
+
+    override suspend fun signOut() {
+        dataStoreDataSource.setUserToken("")
+    }
+
+    override suspend fun getUserToken(): String {
+        return dataStoreDataSource.getUserToken()
+    }
+
+    override suspend fun setUserToken(token: String) {
+        dataStoreDataSource.setUserToken(token)
+    }
+
 }
