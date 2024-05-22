@@ -7,15 +7,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.phdteam.historyverse.data.network.BaseRepository
+import com.phdteam.historyverse.data.local.DataStoreDataSource
 import com.phdteam.historyverse.data.network.model.User
 import com.phdteam.historyverse.data.network.utils.UserAlreadyExistsException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class AuthRepositoryImpl(
-
-) : BaseRepository(), AuthRepository {
+class AuthRepositoryImpl(private val dataStoreDataSource: DataStoreDataSource) :BaseRepository(), AuthRepository {
     private val auth = Firebase.auth
     private val db = FirebaseFirestore.getInstance()
 
@@ -36,8 +35,8 @@ class AuthRepositoryImpl(
                         }
                     }
             }
-        }catch (e: FirebaseAuthUserCollisionException){
-            throw UserAlreadyExistsException(e.message?:"")
+        } catch (e: FirebaseAuthUserCollisionException) {
+            throw UserAlreadyExistsException(e.message ?: "")
         }
     }
 
@@ -59,4 +58,12 @@ class AuthRepositoryImpl(
                     }
                 }
         }
+
+    override suspend fun checkSignInState(): Boolean {
+            return dataStoreDataSource.getUserSignInState()
+    }
+
+    override suspend fun setSignInState(signInState: Boolean) {
+        dataStoreDataSource.setUserSignInState(signInState)
+    }
 }

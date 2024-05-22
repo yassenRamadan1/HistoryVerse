@@ -47,5 +47,27 @@ class SearchViewModel(
         sendNewEffect(SearchUIEffect.SearchError)
     }
 
+    fun onSearchQueryChange(query: String) {
+        if (query.isBlank()) {
+            updateState {
+                it.copy(
+                    searchQuery = query,
+                    searchResults = emptyList()
+                )
+            }
+            return
+        }
+        updateState {
+            it.copy(
+                searchQuery = query,
+                searchResults = fake.filter { item ->
+                    item.cardTitleName.startsWith(
+                        prefix = query,
+                        ignoreCase = true
+                    )
+                }
+            )
+        }
+    }
 
 }

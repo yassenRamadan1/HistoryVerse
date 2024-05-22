@@ -1,5 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.main.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.core.os.bundleOf
@@ -112,6 +113,8 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
                 WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
                     .also(onNavigateTo)
 
+                WelcomeUiEffect.onSignedIn -> Screen.Main.withClearBackStack().also(onNavigateTo)
+
                 else -> {}
             }
         }
@@ -136,7 +139,9 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Search.route
     ) {
 
-        SearchScreen()
+        SearchScreen(
+            onItemClick = onNavigateTo
+        )
     }
 }
 
@@ -154,7 +159,7 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit){
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Favorite.route
     ) {

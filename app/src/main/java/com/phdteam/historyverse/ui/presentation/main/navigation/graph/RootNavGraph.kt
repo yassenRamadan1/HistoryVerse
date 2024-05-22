@@ -8,6 +8,7 @@ import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
 import com.phdteam.historyverse.ui.presentation.main.navigation.chatBotScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.detailsScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.*
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.loginNavGraph
 import com.phdteam.historyverse.ui.presentation.main.navigation.mainNavGraph
@@ -47,5 +48,6 @@ fun RootNavGraph(
             onNavigateBack = navController::navigateUp
         )
         chatBotScreen(onNavigateBack = navController::navigateUp)
+        searchScreen(onNavigateTo = navController::navigateTo)
     }
 }

@@ -12,6 +12,9 @@ class LoginViewModel(
 ) : BaseViewModel<LoginUIState, LoginUIEffect>(LoginUIState()) {
 
     private fun onSuccess() {
+        viewModelScope.launch {
+            authRepository.setSignInState(true)
+        }
         updateState {
             it.copy(
                 isSuccess = true,

@@ -22,6 +22,9 @@ class SignInViewModel(
     }
 
     private fun onSuccess() {
+        viewModelScope.launch {
+            authRepository.setSignInState(true)
+        }
         updateState {
             it.copy(
                 isSignInSuccessful = true,
@@ -70,6 +73,7 @@ class SignInViewModel(
             }
         }
     }
+
     private fun onSignUP() {
         viewModelScope.launch {
             try {
@@ -81,8 +85,9 @@ class SignInViewModel(
                     username = state.value.userName,
                     email = state.value.email,
                 )
-                    authRepository.addUserInfo(userInfo = userInfo, user = result.user!!)
-                    onSuccess()
+
+                authRepository.addUserInfo(userInfo = userInfo, user = result.user!!)
+                onSuccess()
 
             } catch (e: UserAlreadyExistsException) {
                 onError(e.message ?: "error")
