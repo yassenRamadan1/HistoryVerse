@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -98,12 +97,12 @@ private fun SeeAllContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(state.mentors) { mentor ->
+                items(state.artifacts) { mentor ->
                     GGMentor(
                         modifier = Modifier.fillMaxWidth(),
                         name = mentor.name,
-                        rate = mentor.rate,
-                        numberReviewers = mentor.numberReviewers,
+                        rate = 4.0,
+                        numberReviewers = 500,
                         profileUrl = mentor.imageUrl,
                         onClick = {}
                     )

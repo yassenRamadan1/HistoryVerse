@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
 import com.phdteam.historyverse.ui.presentation.main.navigation.chatBotScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.detailsScreen
@@ -34,7 +33,8 @@ fun RootNavGraph(
             onNavigateBack = navController::navigateUp
         )
         mainNavGraph (onNavigateToRoot = navController::navigateTo)
-        detailsScreen(navController::navigateTo)
+        detailsScreen(navController::navigateTo,
+            onNavigateBack = navController::navigateUp)
         profileScreen( onNavigateTo = navController::navigateTo)
 
         loginNavGraph(
@@ -49,5 +49,7 @@ fun RootNavGraph(
         )
         chatBotScreen(onNavigateBack = navController::navigateUp)
         searchScreen(onNavigateTo = navController::navigateTo)
+        favoriteScreen(onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp)
     }
 }

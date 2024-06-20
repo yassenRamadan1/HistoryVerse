@@ -1,10 +1,10 @@
 package com.phdteam.historyverse.ui.presentation.seeall
 
-import com.phdteam.historyverse.data.entity.Mentor
 import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
-import com.phdteam.historyverse.ui.presentation.home.toUiState
+import com.phdteam.historyverse.ui.presentation.home.toArtifactUiState
 import com.phdteam.historyverse.ui.presentation.home.toUniversityUiState
 
 class SeeAllViewModel(
@@ -20,18 +20,18 @@ class SeeAllViewModel(
     private fun getData() {
         updateState { it.copy(isLoading = true) }
         when (state.value.type) {
-            SeeAllType.Mentors -> getMentors()
+            SeeAllType.Mentors -> getArtifacts()
             SeeAllType.Universities -> getUniversities()
             SeeAllType.NoThing -> TODO()
         }
     }
 
-    private fun getMentors() {
-        tryToExecute(repository::getMentors, ::onSuccessMentors, ::onError)
+    private fun getArtifacts() {
+        tryToExecute(repository::getArtifacts, ::onSuccessArtifact, ::onError)
     }
 
-    private fun onSuccessMentors(mentor: List<Mentor>) {
-        updateState { it.copy(mentors = mentor.toUiState(), isLoading = false) }
+    private fun onSuccessArtifact(artifacts: List<Artifact>) {
+        updateState { it.copy(artifacts = artifacts.toArtifactUiState(), isLoading = false) }
     }
 
     private fun getUniversities() {

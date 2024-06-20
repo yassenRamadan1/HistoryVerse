@@ -1,11 +1,10 @@
 package com.phdteam.historyverse.ui.presentation.home
 
-import com.phdteam.historyverse.data.entity.Mentor
-import com.phdteam.historyverse.data.entity.Subject
+import com.phdteam.historyverse.data.entity.MuseumsTypes
 import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
-import kotlinx.coroutines.delay
 
 class HomeViewModel(
     private val repository: HistoryVerseRepository
@@ -24,26 +23,26 @@ class HomeViewModel(
 
     private fun getMentors() {
         tryToExecute(
-            repository::getMentors,
+            repository::getArtifacts,
             ::onSuccessMentors,
             ::onError
         )
     }
 
-    private fun onSuccessMentors(mentor: List<Mentor>) {
-        updateState { it.copy(mentors = mentor.toUiState(), isLoading = false) }
+    private fun onSuccessMentors(artifact: List<Artifact>) {
+        updateState { it.copy(artifacts = artifact.toArtifactUiState(), isLoading = false) }
     }
 
     private fun getSubjects() {
         tryToExecute(
-            repository::getSubject,
+            repository::getMuseumsTypes,
             ::onSuccessSubject,
             ::onError
         )
     }
 
-    private fun onSuccessSubject(subjects: List<Subject>) {
-        updateState { it.copy(subjects = subjects.take(6).toSubjectUiState(), isLoading = false) }
+    private fun onSuccessSubject(subjects: List<MuseumsTypes>) {
+        updateState { it.copy(subjects = subjects.take(6).toSubjectUiState()) }
     }
 
     private fun getUniversities() {
@@ -57,7 +56,7 @@ class HomeViewModel(
     private fun onSuccessUniversity(universities: List<University>) {
         updateState {
             it.copy(
-                university = universities.take(6).toUniversityUiState(), isLoading = false
+                university = universities.take(6).toUniversityUiState()
             )
         }
     }

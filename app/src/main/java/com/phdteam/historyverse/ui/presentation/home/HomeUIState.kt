@@ -1,12 +1,12 @@
 package com.phdteam.historyverse.ui.presentation.home
 
-import com.phdteam.historyverse.data.entity.Mentor
-import com.phdteam.historyverse.data.entity.Subject
+import com.phdteam.historyverse.data.entity.MuseumsTypes
 import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.network.model.Artifact
 
 data class HomeUIState(
 
-    val mentors: List<MentorUiState> = emptyList(),
+    val artifacts: List<ArtifactUiState> = emptyList(),
     val subjects: List<SubjectUiState> = emptyList(),
     val university: List<UniversityUiState> = emptyList(),
 
@@ -15,12 +15,14 @@ data class HomeUIState(
 )
 
 
-data class MentorUiState(
+data class ArtifactUiState(
     val id: String = "",
     val name: String = "",
+    val artifactType: String = "",
+    val artifactDescription : String = "",
     val imageUrl: String = "",
-    val rate: Double = 0.0,
-    val numberReviewers: Int = 0
+    val artifactHistory: String = "",
+
 )
 fun List<Any>.showSeeAll(): Boolean {
     return this.size > 3
@@ -40,20 +42,21 @@ data class UniversityUiState(
 
 //region Mappers
 
-fun Mentor.toUiState() = MentorUiState(
-    id = id,
-    name = name,
-    imageUrl = imageUrl,
-    rate = rate,
-    numberReviewers = numberReviewers
+fun Artifact.toArtifactUiState() = ArtifactUiState(
+    id = id.toString(),
+    name = name ?: "",
+    artifactType = artifactType ?: "",
+    artifactDescription = artifactDescription ?: "",
+    imageUrl = artifactImageUrl ?: "",
+    artifactHistory = artifactHistory ?: ""
 )
 
 
-fun List<Mentor>.toUiState() = map { it.toUiState() }
+fun List<Artifact>.toArtifactUiState() = map { it.toArtifactUiState() }
 
-fun Subject.toSubjectUiState() = SubjectUiState(id, name)
+fun MuseumsTypes.toSubjectUiState() = SubjectUiState(id, name)
 
-fun List<Subject>.toSubjectUiState() = map { it.toSubjectUiState() }
+fun List<MuseumsTypes>.toSubjectUiState() = map { it.toSubjectUiState() }
 
 
 fun University.toUniversityUiState() = UniversityUiState(

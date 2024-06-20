@@ -6,9 +6,7 @@ import com.phdteam.historyverse.data.network.model.User
 
 interface AuthRepository {
     suspend fun signUp(email: String, password: String): AuthResult
-
     suspend fun addUserInfo(userInfo: User, user: FirebaseUser): Boolean
-
     suspend fun signIn(email: String, password: String): AuthResult
     suspend fun checkSignInState(): Boolean
     suspend fun setSignInState(signInState: Boolean)

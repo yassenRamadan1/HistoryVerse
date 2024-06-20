@@ -2,21 +2,24 @@ package com.phdteam.historyverse.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.phdteam.historyverse.data.entity.Mentor
-import com.phdteam.historyverse.data.entity.Subject
+import com.phdteam.historyverse.data.entity.MuseumsTypes
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.local.database.HistoryVerseDao
 import com.phdteam.historyverse.data.network.BaseRepository
+import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.service.GeminiApi
+import com.phdteam.historyverse.data.network.service.HistoryVerseService
 
 class HistoryVerseRepositoryImp(
     private val historyVerseDao: HistoryVerseDao,
-    private val geminiApi: GeminiApi
+    private val geminiApi: GeminiApi,
+    private val historyVerseService: HistoryVerseService
 ): BaseRepository(),HistoryVerseRepository {
     override suspend fun getMentors(): List<Mentor> {
         return generatorMentor()
     }
 
-    override suspend fun getSubject(): List<Subject> {
+    override suspend fun getMuseumsTypes(): List<MuseumsTypes> {
         return generateSubjects()
     }
 
@@ -26,6 +29,16 @@ class HistoryVerseRepositoryImp(
 
     override fun generateContent(userContent: String, modelContent: String): Chat {
         return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
+    }
+
+    override suspend fun getArtifacts(): List<Artifact> {
+        return try {
+            historyVerseService.getArtifacts().let { response ->
+                     response.body() ?: emptyList()
+            }
+        } catch (e: Exception){
+            throw e
+        }
     }
 
 
@@ -62,18 +75,18 @@ class HistoryVerseRepositoryImp(
         return list.shuffled().first()
     }
 
-    private fun generateSubjects(): List<Subject> {
+    private fun generateSubjects(): List<MuseumsTypes> {
         return listOf(
-            Subject(id = "1", name = "Roman History Museum"),
-            Subject(id = "2", name = "Pharaoh Museum"),
-            Subject(id = "3", name = "Medieval Museum"),
-            Subject(id = "4", name = "Renaissance Museum"),
-            Subject(id = "5", name = "Ancient Greek Museum"),
-            Subject(id = "6", name = "Egyptian Museum"),
-            Subject(id = "7", name = "Viking Museum"),
-            Subject(id = "8", name = "Byzantine Museum"),
-            Subject(id = "9", name = "Mesoamerican Museum"),
-            Subject(id = "10", name = "Asian Art Museum")
+            MuseumsTypes(id = "1", name = "Roman History Museum"),
+            MuseumsTypes(id = "2", name = "Pharaoh Museum"),
+            MuseumsTypes(id = "3", name = "Medieval Museum"),
+            MuseumsTypes(id = "4", name = "Renaissance Museum"),
+            MuseumsTypes(id = "5", name = "Ancient Greek Museum"),
+            MuseumsTypes(id = "6", name = "Egyptian Museum"),
+            MuseumsTypes(id = "7", name = "Viking Museum"),
+            MuseumsTypes(id = "8", name = "Byzantine Museum"),
+            MuseumsTypes(id = "9", name = "Mesoamerican Museum"),
+            MuseumsTypes(id = "10", name = "Asian Art Museum")
         )
     }
 

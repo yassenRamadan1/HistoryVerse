@@ -1,12 +1,12 @@
 package com.phdteam.historyverse.ui.presentation.seeall
 
-import com.phdteam.historyverse.ui.presentation.home.MentorUiState
+import com.phdteam.historyverse.ui.presentation.home.ArtifactUiState
 import com.phdteam.historyverse.ui.presentation.home.UniversityUiState
 
 data class SeeAllUIState(
     val type: SeeAllType = SeeAllType.NoThing,
     val universities: List<UniversityUiState> = emptyList(),
-    val mentors: List<MentorUiState> = emptyList(),
+    val artifacts: List<ArtifactUiState> = emptyList(),
 
     val isLoading: Boolean = false,
     val isError: Boolean = false,
