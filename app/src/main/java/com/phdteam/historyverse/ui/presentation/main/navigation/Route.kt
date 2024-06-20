@@ -1,5 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.main.navigation
 
+import android.os.Bundle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
@@ -22,14 +23,15 @@ const val navigationRouteVedio = "review"
 const val navigationRouteFavorite = "favorite"
 const val navigationRouteDetails = "details"
 
-
 sealed class Screen(
     val route: String,
     var routePath: String? = null,
     var clearBackStack: Boolean = false,
     val restoreState: Boolean = true,
     val title: Int = 0,
-    val icon: ImageVector? = null
+    val icon: ImageVector? = null,
+    val unselectedIcon: ImageVector? = null,
+    var args: Bundle? = null
 ) {
     fun withClearBackStack() = apply { clearBackStack = true }
 
@@ -37,10 +39,12 @@ sealed class Screen(
         routePath = path
     }
 
-     object Login : Screen(navigationRouteLogin)
-     object Welcome : Screen(navigationRouteWelcome)
+    object Login : Screen(navigationRouteLogin)
+    data object ChatBot : Screen(navigationRouteChatBot)
+    object SeeAll : Screen(navigationRouteSeeAll)
+    object Welcome : Screen(navigationRouteWelcome)
 
-     object SignIn : Screen(navigationRouteSignIn)
+    object SignIn : Screen(navigationRouteSignIn)
 
     data object Main : Screen(navigationRouteMain)
     data object Home : Screen(
@@ -48,11 +52,13 @@ sealed class Screen(
         title = R.string.home_title,
         icon = Icons.Rounded.Home
     )
+
     data object Search : Screen(
         route = navigationRouteSearch,
         title = R.string.search_title,
         icon = Icons.Rounded.Search
     )
+
     data object Profile : Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
@@ -60,8 +66,9 @@ sealed class Screen(
     )
 
     data object Details : Screen(
-        route = navigationRouteDetails ,
+        route = navigationRouteDetails,
     )
+
     data object Favorite : Screen(
         route = navigationRouteFavorite,
         title = R.string.favorite_title,

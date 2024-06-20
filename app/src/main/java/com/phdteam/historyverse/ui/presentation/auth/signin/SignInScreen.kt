@@ -14,7 +14,6 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -64,15 +64,15 @@ fun SignInScreen(
             }
         }
     }
-        SignInScreenContent(
-            state = state,
-            onNavigateBack = onNavigateBack,
-            onChangeEmail = viewModel::onChangeEmail,
-            onChangeUserName = viewModel::onChangeUserName,
-            onChangePassword = viewModel::onChangePassword,
-            onClickSignIn = viewModel::onClickSignUp,
-            snackbarHostState = snackbarHostState
-        )
+    SignInScreenContent(
+        state = state,
+        onNavigateBack = onNavigateBack,
+        onChangeEmail = viewModel::onChangeEmail,
+        onChangeUserName = viewModel::onChangeUserName,
+        onChangePassword = viewModel::onChangePassword,
+        onClickSignIn = viewModel::onClickSignUp,
+        snackbarHostState = snackbarHostState
+    )
 }
 
 @Composable
@@ -85,6 +85,7 @@ fun SignInScreenContent(
     onClickSignIn: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
+    val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -124,7 +125,10 @@ fun SignInScreenContent(
                 )
                 HVButton(
                     title = "Sign Up",
-                    onClick = onClickSignIn,
+                    onClick = {
+                        focusManager.clearFocus()
+                        onClickSignIn()
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
                 SignWithOtherWays()

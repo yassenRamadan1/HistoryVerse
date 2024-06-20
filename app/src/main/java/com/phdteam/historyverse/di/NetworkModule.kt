@@ -18,7 +18,7 @@ val NetworkModule = module {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://historyproject.somee.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

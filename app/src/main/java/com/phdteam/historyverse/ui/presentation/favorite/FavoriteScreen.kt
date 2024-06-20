@@ -58,7 +58,7 @@ private fun onEffect(effect: FavoriteUiEffect?, context: Context) {
 
 @Composable
 fun FavoriteContent(
-    onClickFavorite: (id: String) -> Unit,
+    onClickFavorite: (id: Int) -> Unit,
     state: FavoriteUiState,
     onClickCard: () -> Unit,
     onNavigateBack: () -> Unit
@@ -77,9 +77,10 @@ fun FavoriteContent(
                 state.cards.size,
             ) { item ->
                 ItemCard(
+                    cardType = CardType.ARTIFACT,
                     state = state.cards[item],
-                    onClickCard = { },
-                    onClickFavorite = onClickFavorite
+                    onClickCard = {onClickCard() },
+                    onClickFavorite = { onClickFavorite(item) }
                 )
             }
         }
