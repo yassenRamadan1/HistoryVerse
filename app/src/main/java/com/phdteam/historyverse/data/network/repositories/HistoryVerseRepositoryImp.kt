@@ -8,6 +8,7 @@ import com.phdteam.historyverse.data.local.database.HistoryVerseDao
 import com.phdteam.historyverse.data.network.BaseRepository
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
+import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.data.network.service.GeminiApi
 import com.phdteam.historyverse.data.network.service.HistoryVerseService
 
@@ -30,6 +31,16 @@ class HistoryVerseRepositoryImp(
 
     override fun generateContent(userContent: String, modelContent: String): Chat {
         return geminiApi.generateContent(userRole = userContent, modelRole = modelContent)
+    }
+
+    override suspend fun getMuseums(): List<Museum> {
+        return try {
+            historyVerseService.getMuseums().let { response ->
+                response.body() ?: emptyList()
+            }
+        } catch (e: Exception){
+            throw e
+        }
     }
 
     override suspend fun getArtifacts(): List<Artifact> {

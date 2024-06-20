@@ -80,8 +80,8 @@ private fun SeeAllContent(
         GGAppBar(
             modifier = Modifier.fillMaxWidth(),
             title = when (state.type) {
-                SeeAllType.Mentors -> stringResource(id = R.string.artifacts)
-                SeeAllType.Universities -> stringResource(id = R.string.Museums)
+                SeeAllType.Artifacts -> stringResource(id = R.string.artifacts)
+                SeeAllType.Museums -> stringResource(id = R.string.Museums)
                 SeeAllType.NoThing -> ""
             },
             onBack = onBack
@@ -108,13 +108,13 @@ private fun SeeAllContent(
                     )
                 }
 
-                items(state.universities) { university ->
+                items(state.museums) { university ->
                     GGUniversity(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(height = 215.dp),
                         name = university.name,
-                        address = university.address,
+                        address = university.city,
                         imageUrl = university.imageUrl,
                         onClick = {}
                     )

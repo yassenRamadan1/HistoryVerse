@@ -4,6 +4,7 @@ import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
+import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 
@@ -17,16 +18,17 @@ class HomeViewModel(
 
     private fun getData() {
         updateState { it.copy(isLoading = true) }
-        getMentors()
+        getArtifacts()
         getSubjects()
-        getUniversities()
         getAdvertisement()
+        getMuseums()
     }
 
-    private fun getMentors() {
+    private fun getArtifacts() {
+        updateState { it.copy(isLoading = true)}
         tryToExecute(
             repository::getArtifacts,
-            ::onSuccessMentors,
+            ::onSuccessArtifacts,
             ::onError
         )
     }
@@ -38,12 +40,22 @@ class HomeViewModel(
             ::onError
         )
     }
-
+    private fun getMuseums() {
+        updateState { it.copy(isLoading = true)}
+        tryToExecute(
+            repository::getMuseums,
+            ::onSuccessMuseums,
+            ::onError
+        )
+    }
+    private fun onSuccessMuseums(museums: List<Museum>) {
+        updateState { it.copy(museums = museums.take(6).shuffled().toMuseumUiState(), isLoading = false) }
+    }
     private fun onSuccessAdvertisement(advertisement: List<Advertisement>) {
         updateState { it.copy(advertisement = advertisement, isLoading = false) }
     }
-    private fun onSuccessMentors(artifact: List<Artifact>) {
-        updateState { it.copy(artifacts = artifact.toArtifactUiState(), isLoading = false) }
+    private fun onSuccessArtifacts(artifact: List<Artifact>) {
+        updateState { it.copy(artifacts = artifact.take(6).toArtifactUiState(), isLoading = false) }
     }
 
     private fun getSubjects() {
@@ -56,22 +68,6 @@ class HomeViewModel(
 
     private fun onSuccessSubject(subjects: List<MuseumType>) {
         updateState { it.copy(subjects = subjects.take(6).toSubjectUiState()) }
-    }
-
-    private fun getUniversities() {
-        tryToExecute(
-            repository::getUniversities,
-            ::onSuccessUniversity,
-            ::onError
-        )
-    }
-
-    private fun onSuccessUniversity(universities: List<University>) {
-        updateState {
-            it.copy(
-                university = universities.take(6).toUniversityUiState()
-            )
-        }
     }
 
     private fun onError() {

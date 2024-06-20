@@ -1,11 +1,11 @@
 package com.phdteam.historyverse.ui.presentation.seeall
 
-import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Artifact
+import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import com.phdteam.historyverse.ui.presentation.home.toArtifactUiState
-import com.phdteam.historyverse.ui.presentation.home.toUniversityUiState
+import com.phdteam.historyverse.ui.presentation.home.toMuseumUiState
 
 class SeeAllViewModel(
     private val type: SeeAllType,
@@ -20,8 +20,8 @@ class SeeAllViewModel(
     private fun getData() {
         updateState { it.copy(isLoading = true) }
         when (state.value.type) {
-            SeeAllType.Mentors -> getArtifacts()
-            SeeAllType.Universities -> getUniversities()
+            SeeAllType.Artifacts -> getArtifacts()
+            SeeAllType.Museums -> getMuseums()
             SeeAllType.NoThing -> TODO()
         }
     }
@@ -34,14 +34,15 @@ class SeeAllViewModel(
         updateState { it.copy(artifacts = artifacts.toArtifactUiState(), isLoading = false) }
     }
 
-    private fun getUniversities() {
-        tryToExecute(repository::getUniversities, ::onSuccessUniversity, ::onError)
+    private fun getMuseums() {
+        tryToExecute(
+            repository::getMuseums,
+            ::onSuccessMuseums,
+            ::onError
+        )
     }
-
-    private fun onSuccessUniversity(universities: List<University>) {
-        updateState {
-            it.copy(universities = universities.toUniversityUiState(), isLoading = false)
-        }
+    private fun onSuccessMuseums(museums: List<Museum>) {
+        updateState { it.copy(museums = museums.toMuseumUiState(), isLoading = false) }
     }
 
     private fun onError() {

@@ -1,11 +1,11 @@
 package com.phdteam.historyverse.ui.presentation.seeall
 
 import com.phdteam.historyverse.ui.presentation.home.ArtifactUiState
-import com.phdteam.historyverse.ui.presentation.home.UniversityUiState
+import com.phdteam.historyverse.ui.presentation.home.MuseumUiState
 
 data class SeeAllUIState(
     val type: SeeAllType = SeeAllType.NoThing,
-    val universities: List<UniversityUiState> = emptyList(),
+    val museums: List<MuseumUiState> = emptyList(),
     val artifacts: List<ArtifactUiState> = emptyList(),
 
     val isLoading: Boolean = false,
@@ -14,15 +14,15 @@ data class SeeAllUIState(
 
 
 enum class SeeAllType(val value: String) {
-    Mentors("Mentors"),
-    Universities("Universities"),
+    Artifacts("Artifacts"),
+    Museums("Museums"),
     NoThing("")
 }
 
 fun String.toSeeAllType(): SeeAllType {
     return when (this) {
-        SeeAllType.Mentors.value -> SeeAllType.Mentors
-        SeeAllType.Universities.value -> SeeAllType.Universities
+        SeeAllType.Artifacts.value -> SeeAllType.Artifacts
+        SeeAllType.Museums.value -> SeeAllType.Museums
         else -> SeeAllType.NoThing
     }
 }

@@ -2,8 +2,10 @@ package com.phdteam.historyverse.ui.presentation.home
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -132,30 +135,6 @@ private fun HomeContent(
                         }
                     )
                 }
-
-
-                GGTitleWithSeeAll(
-                    modifier = Modifier
-                        .padding(bottom = 4.dp)
-                        .padding(horizontal = 16.dp),
-                    title = stringResource(id = R.string.artifacts),
-                    showSeeAll = state.artifacts.showSeeAll(),
-                    onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Mentors)) }
-                )
-
-                state.artifacts.take(4).forEach { mentor ->
-                    GGMentor(
-                        modifier = Modifier
-                            .padding(vertical = 4.dp)
-                            .padding(horizontal = 16.dp),
-                        name = mentor.name,
-                        rate = 4.0,
-                        numberReviewers = 500,
-                        profileUrl = mentor.imageUrl,
-                        onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
-                    )
-                }
-
                 GGTitleWithSeeAll(
                     modifier = Modifier
                         .padding(top = 16.dp, bottom = 10.dp)
@@ -178,15 +157,14 @@ private fun HomeContent(
                         )
                     }
                 }
-
-                if (state.university.isNotEmpty()) {
+                if (state.museums.isNotEmpty()) {
                     GGTitleWithSeeAll(
                         modifier = Modifier
                             .padding(top = 16.dp, bottom = 10.dp)
                             .padding(horizontal = 16.dp),
                         title = stringResource(id = R.string.Museums),
-                        showSeeAll = state.university.showSeeAll(),
-                        onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Universities)) }
+                        showSeeAll = state.museums.showSeeAll(),
+                        onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Museums)) }
                     )
                 }
 
@@ -198,17 +176,50 @@ private fun HomeContent(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
-                    items(state.university) { university ->
+                    items(state.museums) { university ->
                         GGUniversity(
                             modifier = Modifier.size(height = 215.dp, width = 322.dp),
                             name = university.name,
-                            address = university.address,
+                            address = university.city,
                             imageUrl = university.imageUrl,
                             onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
                         )
                     }
                 }
 
+                GGTitleWithSeeAll(
+                    modifier = Modifier
+                        .padding(bottom = 4.dp)
+                        .padding(horizontal = 16.dp),
+                    title = stringResource(id = R.string.artifacts),
+                    showSeeAll = state.artifacts.showSeeAll(),
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Artifacts)) }
+                )
+                if (state.artifacts.isNotEmpty()) {
+                    state.artifacts.take(4).forEach { mentor ->
+                        GGMentor(
+                            modifier = Modifier
+                                .padding(vertical = 4.dp)
+                                .padding(horizontal = 16.dp),
+                            name = mentor.name,
+                            rate = 4.0,
+                            numberReviewers = 500,
+                            profileUrl = mentor.imageUrl,
+                            onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
+                        )
+                    }
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.no_data),
+                            contentDescription = ""
+                        )
+                    }
+                }
             }
         }
     }
