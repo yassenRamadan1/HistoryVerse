@@ -17,7 +17,7 @@ data class HomeUIState(
 
 
 data class ArtifactUiState(
-    val id: String = "",
+    val id: Int = 0,
     val name: String = "",
     val artifactType: String = "",
     val artifactDescription : String = "",
@@ -26,7 +26,7 @@ data class ArtifactUiState(
 
 )
 data class MuseumUiState(
-    val id: String = "",
+    val id: Int = 0,
     val name: String = "",
     val imageUrl: String = "",
     val city : String = "",
@@ -43,7 +43,7 @@ data class SubjectUiState(
 //region Mappers
 
 fun Artifact.toArtifactUiState() = ArtifactUiState(
-    id = id.toString(),
+    id = id ?: 0,
     name = name ?: "",
     artifactType = artifactType ?: "",
     artifactDescription = artifactDescription ?: "",
@@ -51,7 +51,7 @@ fun Artifact.toArtifactUiState() = ArtifactUiState(
     artifactHistory = artifactHistory ?: ""
 )
 fun Museum.toMuseumUiState() = MuseumUiState(
-    id = museumId.toString(),
+    id = museumId ?: 0,
     name = name ?: "",
     imageUrl = imageUrl ?: "",
     city = city ?: ""

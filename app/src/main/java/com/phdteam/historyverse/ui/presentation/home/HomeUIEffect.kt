@@ -16,5 +16,5 @@ sealed interface HomeUIEffect {
 
     data class NavigateToSubject(val id: String) : HomeUIEffect
 
-    data object NavigateToDetail : HomeUIEffect
+    data class NavigateToDetail(val id: Int) : HomeUIEffect
 }
