@@ -20,7 +20,7 @@ import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.theme.Theme
 
 @Composable
-fun GGUniversity(
+fun HVMuseum(
     name: String,
     address: String,
     imageUrl: String,

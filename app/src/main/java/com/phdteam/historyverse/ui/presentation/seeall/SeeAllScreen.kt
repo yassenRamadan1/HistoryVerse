@@ -24,8 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.GGAppBar
-import com.phdteam.historyverse.ui.components.GGMentor
-import com.phdteam.historyverse.ui.components.GGUniversity
+import com.phdteam.historyverse.ui.components.HVArtifact
+import com.phdteam.historyverse.ui.components.HVMuseum
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -98,7 +98,7 @@ private fun SeeAllContent(
                 contentPadding = PaddingValues(16.dp)
             ) {
                 items(state.artifacts) { mentor ->
-                    GGMentor(
+                    HVArtifact(
                         modifier = Modifier.fillMaxWidth(),
                         name = mentor.name,
                         rate = 4.0,
@@ -109,7 +109,7 @@ private fun SeeAllContent(
                 }
 
                 items(state.museums) { university ->
-                    GGUniversity(
+                    HVMuseum(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(height = 215.dp),
