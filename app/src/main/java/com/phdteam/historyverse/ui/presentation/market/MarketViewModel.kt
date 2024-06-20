@@ -15,8 +15,7 @@ class MarketViewModel(
         tryToExecute(
             {
                 marketRepository.fetchItems()
-
-            }, ::onSuccess, {}
+            }, ::onSuccess, ::onError
         )
     }
 
@@ -33,6 +32,8 @@ class MarketViewModel(
         updateState {
             MarketUiState(
                 isLoading = false,
+                isError = true,
+                errorMessage = "error retrieving data try again later"
             )
         }
         sendNewEffect(MarketUiEffect.MarketError)
@@ -44,7 +45,50 @@ class MarketViewModel(
         }
     }
 
-    fun search(query:String) {
+    fun search() {
+        val query = state.value.searchText
         // search logic
+    }
+
+    fun clearErrorState() {
+        updateState { currentState ->
+            currentState.copy(errorMessage = null, isError = false)
+        }
+    }
+
+    fun openBottomSheet() {
+        updateState {
+            it.copy(isSheetVisible = true)
+        }
+    }
+
+    fun closeBottomSheet() {
+        updateState {
+            it.copy(isSheetVisible = false)
+        }
+    }
+
+    fun onFilterClick(filterItem: FilterItem) {
+
+
+        updateState { uiState ->
+            var newSelectedFilters: List<FilterItem> = emptyList()
+            val newFilters = uiState.filters.map { filter ->
+                if (filter.name == filterItem.name) {
+                    val newSelectedState = !filter.isSelected
+                    if (newSelectedState) {
+                        newSelectedFilters =
+                            uiState.selectedFilters + filter.copy(isSelected = newSelectedState)
+                    } else {
+                        newSelectedFilters =
+                            uiState.selectedFilters.filterNot { it.name == filter.name }
+                    }
+                    filter.copy(isSelected = newSelectedState)
+                } else {
+                    filter
+                }
+            }
+            uiState.copy(filters = newFilters, selectedFilters = newSelectedFilters)
+        }
     }
 }

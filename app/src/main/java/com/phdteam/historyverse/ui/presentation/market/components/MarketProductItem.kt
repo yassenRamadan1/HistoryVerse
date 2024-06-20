@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,7 +54,8 @@ fun MarketProductItem(item: MarketItem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(120.dp)
-                .background(goldLight1)
+                .background(goldLight1),
+            contentScale = ContentScale.Crop
 
         )
         Row(
@@ -73,7 +75,7 @@ fun MarketProductItem(item: MarketItem) {
         ) {
             repeat(rating.toInt()) {
                 Image(
-                    painter = painterResource(id = R.drawable.star),
+                    painter = painterResource(id = R.drawable.star_smooth),
                     contentDescription = "",
                     modifier = Modifier.size(16.dp)
                 )

@@ -16,6 +16,8 @@ import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
+import com.phdteam.historyverse.ui.presentation.market.MarketScreen
+import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
@@ -131,7 +133,7 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
-fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit){
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Favorite.route
     ) {
@@ -150,5 +152,18 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
 
         DetailsScreen()
+    }
+}
+
+fun NavGraphBuilder.marketScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Market.route
+    ) {
+        MarketScreen{
+            when (it) {
+                MarketUiEffect.NavigateToItemDetails -> TODO()
+                else -> {}
+            }
+        }
     }
 }
