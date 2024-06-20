@@ -43,10 +43,47 @@ class HistoryVerseRepositoryImp(
         }
     }
 
+    override suspend fun getMuseumById(id: Int): Museum {
+        return try {
+            historyVerseService.getMuseumById(id).let { response ->
+                response.body() ?: Museum(
+                    city = "",
+                    name = "",
+                    imageUrl = "",
+                    latitude = 0.0,
+                    longitude = 0.0,
+                    museumDescription = "",
+                    museumType = "",
+                    museumHistory = "",
+                    museumId = 0,
+                )
+            }
+        } catch (e: Exception){
+            throw e
+        }
+    }
+
     override suspend fun getArtifacts(): List<Artifact> {
         return try {
             historyVerseService.getArtifacts().let { response ->
                      response.body() ?: emptyList()
+            }
+        } catch (e: Exception){
+            throw e
+        }
+    }
+
+    override suspend fun getArtifactById(id: Int): Artifact {
+        return try {
+            historyVerseService.getArtifactById(id).let { response ->
+                response.body() ?: Artifact(
+                    id = 0,
+                    name = "",
+                    artifactDescription = "",
+                    artifactImageUrl = "",
+                    artifactType = "",
+                    artifactHistory = "",
+                )
             }
         } catch (e: Exception){
             throw e

@@ -26,8 +26,10 @@ interface HistoryVerseRepository {
     fun generateContent(userContent: String, modelContent: String): Chat
     //region museum
     suspend fun getMuseums(): List<Museum>
+    suspend fun getMuseumById(id: Int): Museum
     //endregion
     suspend fun getArtifacts(): List<Artifact>
+    suspend fun getArtifactById(id: Int): Artifact
 
     //region Advertisement
     fun getAdvertisement(): List<Advertisement>
