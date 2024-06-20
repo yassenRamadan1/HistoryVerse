@@ -1,6 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.home
 
-import com.phdteam.historyverse.data.entity.MuseumsTypes
+import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
@@ -41,7 +41,7 @@ class HomeViewModel(
         )
     }
 
-    private fun onSuccessSubject(subjects: List<MuseumsTypes>) {
+    private fun onSuccessSubject(subjects: List<MuseumType>) {
         updateState { it.copy(subjects = subjects.take(6).toSubjectUiState()) }
     }
 

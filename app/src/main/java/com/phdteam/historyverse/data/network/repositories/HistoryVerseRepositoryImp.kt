@@ -2,7 +2,7 @@ package com.phdteam.historyverse.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.phdteam.historyverse.data.entity.Mentor
-import com.phdteam.historyverse.data.entity.MuseumsTypes
+import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.local.database.HistoryVerseDao
 import com.phdteam.historyverse.data.network.BaseRepository
@@ -19,8 +19,8 @@ class HistoryVerseRepositoryImp(
         return generatorMentor()
     }
 
-    override suspend fun getMuseumsTypes(): List<MuseumsTypes> {
-        return generateSubjects()
+    override suspend fun getMuseumsTypes(): List<MuseumType> {
+        return generateMuseumsTypes()
     }
 
     override suspend fun getUniversities(): List<University> {
@@ -75,18 +75,18 @@ class HistoryVerseRepositoryImp(
         return list.shuffled().first()
     }
 
-    private fun generateSubjects(): List<MuseumsTypes> {
+    private fun generateMuseumsTypes(): List<MuseumType> {
         return listOf(
-            MuseumsTypes(id = "1", name = "Roman History Museum"),
-            MuseumsTypes(id = "2", name = "Pharaoh Museum"),
-            MuseumsTypes(id = "3", name = "Medieval Museum"),
-            MuseumsTypes(id = "4", name = "Renaissance Museum"),
-            MuseumsTypes(id = "5", name = "Ancient Greek Museum"),
-            MuseumsTypes(id = "6", name = "Egyptian Museum"),
-            MuseumsTypes(id = "7", name = "Viking Museum"),
-            MuseumsTypes(id = "8", name = "Byzantine Museum"),
-            MuseumsTypes(id = "9", name = "Mesoamerican Museum"),
-            MuseumsTypes(id = "10", name = "Asian Art Museum")
+            MuseumType(id = "1", name = "Roman History Museum"),
+            MuseumType(id = "2", name = "Pharaoh Museum"),
+            MuseumType(id = "3", name = "Medieval Museum"),
+            MuseumType(id = "4", name = "Renaissance Museum"),
+            MuseumType(id = "5", name = "Ancient Greek Museum"),
+            MuseumType(id = "6", name = "Egyptian Museum"),
+            MuseumType(id = "7", name = "Viking Museum"),
+            MuseumType(id = "8", name = "Byzantine Museum"),
+            MuseumType(id = "9", name = "Mesoamerican Museum"),
+            MuseumType(id = "10", name = "Asian Art Museum")
         )
     }
 

@@ -2,7 +2,7 @@ package com.phdteam.historyverse.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
 import com.phdteam.historyverse.data.entity.Mentor
-import com.phdteam.historyverse.data.entity.MuseumsTypes
+import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Artifact
 
@@ -14,7 +14,7 @@ interface HistoryVerseRepository {
 
 
     //region Subject
-    suspend fun getMuseumsTypes(): List<MuseumsTypes>
+    suspend fun getMuseumsTypes(): List<MuseumType>
 
     //endregion
 

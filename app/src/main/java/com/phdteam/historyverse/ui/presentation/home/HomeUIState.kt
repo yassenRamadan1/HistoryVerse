@@ -1,6 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.home
 
-import com.phdteam.historyverse.data.entity.MuseumsTypes
+import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Artifact
 
@@ -54,9 +54,9 @@ fun Artifact.toArtifactUiState() = ArtifactUiState(
 
 fun List<Artifact>.toArtifactUiState() = map { it.toArtifactUiState() }
 
-fun MuseumsTypes.toSubjectUiState() = SubjectUiState(id, name)
+fun MuseumType.toSubjectUiState() = SubjectUiState(id, name)
 
-fun List<MuseumsTypes>.toSubjectUiState() = map { it.toSubjectUiState() }
+fun List<MuseumType>.toSubjectUiState() = map { it.toSubjectUiState() }
 
 
 fun University.toUniversityUiState() = UniversityUiState(

@@ -125,9 +125,9 @@ dependencies {
 
     // constraint layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    // pager accomapnist
-//    implementation("com.google.accompanist:accompanist-pager:0.23.1")
-//    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    // pager
+    implementation("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
 
     // datastore
     implementation("androidx.datastore:datastore-preferences:1.1.1")

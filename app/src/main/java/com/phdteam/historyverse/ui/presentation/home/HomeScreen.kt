@@ -82,13 +82,14 @@ private fun HomeContent(
 
         ) {
         if (state.isLoading) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = Theme.colors.primary)
         } else {
-        HomeAppBar(
-            modifier = Modifier
-                .fillMaxWidth(),
-            onNotificationClicked = {}
-        )
+            HomeAppBar(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onNotificationClicked = {}
+            )
+
 
             Column(
                 modifier = Modifier
