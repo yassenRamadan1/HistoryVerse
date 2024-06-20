@@ -67,11 +67,11 @@ class HistoryVerseRepositoryImp(
 
     private fun generateAdvertisement(): List<Advertisement> {
         val list = mutableListOf<Advertisement>()
-        for (i in 0..3) {
+        for (i in 0..2) {
             list.add(
                 Advertisement(
                     title = "Title $i",
-                    imageUrl = getAdvertisementImages(),
+                    imageUrl = getAdvertisementImages()[i],
                     description = "Description $i",
                 )
             )
@@ -79,14 +79,12 @@ class HistoryVerseRepositoryImp(
         return list
     }
 
-    private fun getAdvertisementImages(): String {
-        val list = listOf(
+    private fun getAdvertisementImages(): List<String> {
+        return listOf(
             "https://i.ibb.co/3sPwSKZ/all.png",
             "https://i.ibb.co/WH6xQCz/egypt.png",
             "https://i.ibb.co/J5jfQ0F/roman.png",
         )
-
-        return list.shuffled().first()
     }
 
 

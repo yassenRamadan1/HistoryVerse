@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,8 +29,9 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HVAutoSlidingCarousel(
     modifier: Modifier = Modifier,
@@ -40,26 +42,36 @@ fun HVAutoSlidingCarousel(
 ) {
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
 
-    LaunchedEffect(pagerState.currentPage) {
-        delay(autoSlideDuration)
-        pagerState.animateScrollToPage((pagerState.currentPage + 1) % itemsCount)
+    with(pagerState) {
+        val coroutineScope = rememberCoroutineScope()
+        LaunchedEffect(key1 = currentPage) {
+            coroutineScope.launch {
+                delay(10000)
+                animateScrollToPage(
+                    page = (currentPage + 1).mod(pageCount)
+                )
+            }
+        }
     }
 
     Box(
         modifier = modifier.fillMaxWidth(),
     ) {
-        HorizontalPager(count = itemsCount, state = pagerState) { page ->
-            itemContent(page)
+        HorizontalPager(
+            count = itemsCount,
+            state = pagerState,
+            modifier = Modifier.fillMaxWidth()
+        ) { page ->
+            Box(modifier =Modifier.fillMaxWidth()){
+                itemContent(page)
+            }
         }
-
-        // you can remove the surface in case you don't want
-        // the transparant bacground
         Surface(
             modifier = Modifier
                 .padding(bottom = 8.dp)
                 .align(Alignment.BottomCenter),
             shape = CircleShape,
-            color = Color.Black.copy(alpha = 0.5f)
+            color = Color.Black.copy(alpha = 0.1f)
         ) {
             DotsIndicator(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
@@ -76,8 +88,8 @@ fun DotsIndicator(
     modifier: Modifier = Modifier,
     totalDots: Int,
     selectedIndex: Int,
-    selectedColor: Color = Theme.colors.primary ,
-    unSelectedColor: Color = Theme.colors.secondaryShadesLight ,
+    selectedColor: Color = Theme.colors.primary,
+    unSelectedColor: Color = Theme.colors.secondaryShadesLight,
     dotSize: Dp
 ) {
     LazyRow(
@@ -98,6 +110,7 @@ fun DotsIndicator(
         }
     }
 }
+
 @Composable
 fun IndicatorDot(
     modifier: Modifier = Modifier,

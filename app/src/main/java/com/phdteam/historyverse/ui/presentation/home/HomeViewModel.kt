@@ -2,6 +2,7 @@ package com.phdteam.historyverse.ui.presentation.home
 
 import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
@@ -19,6 +20,7 @@ class HomeViewModel(
         getMentors()
         getSubjects()
         getUniversities()
+        getAdvertisement()
     }
 
     private fun getMentors() {
@@ -29,6 +31,17 @@ class HomeViewModel(
         )
     }
 
+    private fun getAdvertisement() {
+        tryToExecute(
+            repository::getAdvertisement,
+            ::onSuccessAdvertisement,
+            ::onError
+        )
+    }
+
+    private fun onSuccessAdvertisement(advertisement: List<Advertisement>) {
+        updateState { it.copy(advertisement = advertisement, isLoading = false) }
+    }
     private fun onSuccessMentors(artifact: List<Artifact>) {
         updateState { it.copy(artifacts = artifact.toArtifactUiState(), isLoading = false) }
     }

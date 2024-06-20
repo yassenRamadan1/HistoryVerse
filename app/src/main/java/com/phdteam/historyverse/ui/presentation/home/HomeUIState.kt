@@ -2,6 +2,7 @@ package com.phdteam.historyverse.ui.presentation.home
 
 import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 
 data class HomeUIState(
@@ -9,7 +10,7 @@ data class HomeUIState(
     val artifacts: List<ArtifactUiState> = emptyList(),
     val subjects: List<SubjectUiState> = emptyList(),
     val university: List<UniversityUiState> = emptyList(),
-
+    val advertisement: List<Advertisement> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
 )
