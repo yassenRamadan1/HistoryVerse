@@ -6,6 +6,7 @@ import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.local.database.HistoryVerseDao
 import com.phdteam.historyverse.data.network.BaseRepository
+import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.service.GeminiApi
 import com.phdteam.historyverse.data.network.service.HistoryVerseService
@@ -41,6 +42,10 @@ class HistoryVerseRepositoryImp(
         }
     }
 
+    override fun getAdvertisement(): List<Advertisement> {
+        return generateAdvertisement()
+    }
+
 
     //region Fake Data
 
@@ -58,6 +63,30 @@ class HistoryVerseRepositoryImp(
             )
         }
         return list
+    }
+
+    private fun generateAdvertisement(): List<Advertisement> {
+        val list = mutableListOf<Advertisement>()
+        for (i in 0..3) {
+            list.add(
+                Advertisement(
+                    title = "Title $i",
+                    imageUrl = getAdvertisementImages(),
+                    description = "Description $i",
+                )
+            )
+        }
+        return list
+    }
+
+    private fun getAdvertisementImages(): String {
+        val list = listOf(
+            "https://i.ibb.co/3sPwSKZ/all.png",
+            "https://i.ibb.co/WH6xQCz/egypt.png",
+            "https://i.ibb.co/J5jfQ0F/roman.png",
+        )
+
+        return list.shuffled().first()
     }
 
 

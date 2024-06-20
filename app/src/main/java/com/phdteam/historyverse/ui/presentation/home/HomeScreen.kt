@@ -90,7 +90,6 @@ private fun HomeContent(
                 onNotificationClicked = {}
             )
 
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -103,6 +102,7 @@ private fun HomeContent(
                         .padding(16.dp),
                     onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
                 )
+
 
                 GGTitleWithSeeAll(
                     modifier = Modifier

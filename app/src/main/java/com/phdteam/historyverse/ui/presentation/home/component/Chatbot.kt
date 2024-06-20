@@ -1,6 +1,7 @@
 package com.phdteam.historyverse.ui.presentation.home.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -48,6 +49,7 @@ fun ChatBot(
                 .size(48.dp)
                 .clip(CircleShape)
                 .padding(8.dp)
+                .clickable { onClick() }
 
         )
 

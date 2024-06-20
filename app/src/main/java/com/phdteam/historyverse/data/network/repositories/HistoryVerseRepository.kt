@@ -4,6 +4,7 @@ import com.google.ai.client.generativeai.Chat
 import com.phdteam.historyverse.data.entity.Mentor
 import com.phdteam.historyverse.data.entity.MuseumType
 import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 
 interface HistoryVerseRepository {
@@ -25,4 +26,9 @@ interface HistoryVerseRepository {
     //endregion
     fun generateContent(userContent: String, modelContent: String): Chat
     suspend fun getArtifacts(): List<Artifact>
+
+    //region Advertisement
+    fun getAdvertisement(): List<Advertisement>
+    //endregion
+
 }
