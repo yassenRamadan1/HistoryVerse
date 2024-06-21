@@ -35,8 +35,9 @@ val DisabledColor = Color(0xFF9CA6CD)
 val starColor = Color(0xFFEDA415)
 val yellowColor = Color(0xFFFFAE21)
 val greyColorText = Color(0x61121212)
-val goldDark3 = Color(0xFF753901)
 val goldDark4 = Color(0xFF9D5705)
+val goldDark3 = Color(0xFF753901)
+val goldLight2 = Color(0xFFE6AE43)
 val goldLight1 = Color(0xFFC47B0E)
 
 

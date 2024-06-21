@@ -3,9 +3,11 @@ package com.phdteam.historyverse.ui.presentation.main.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
@@ -18,7 +20,10 @@ import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
 import com.phdteam.historyverse.ui.presentation.market.MarketScreen
 import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
+import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketDetailsUiEffect
+import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketItemDetailsScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
+import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
 
@@ -159,11 +164,46 @@ fun NavGraphBuilder.marketScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Market.route
     ) {
-        MarketScreen{
+        MarketScreen {
             when (it) {
-                MarketUiEffect.NavigateToItemDetails -> TODO()
+                is MarketUiEffect.NavigateToItemDetails -> onNavigateTo(
+                    Screen.MarketItemDetails
+                )
                 else -> {}
             }
         }
+    }
+}
+
+fun NavGraphBuilder.marketItemDetailsScreen(
+    onNavigateTo: (Screen) -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    composable(
+        route = Screen.MarketItemDetails.routePath!!,
+        arguments = listOf(
+            navArgument("id") { NavType.IntType }
+        )
+    ) {
+        MarketItemDetailsScreen(navigateTo = { effect ->
+            when (effect) {
+                else -> {}
+            }
+        }, onNavigateBack = {
+            onNavigateBack()
+        })
+    }
+}
+
+fun NavGraphBuilder.ratingScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Rate.route,
+        arguments = listOf(
+            navArgument("id") { NavType.IntType }
+        )
+    ) {
+        RateScreen(
+            navigateBack = onNavigateBack
+        )
     }
 }

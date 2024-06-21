@@ -30,6 +30,7 @@ data class MarketItem(
     val rating: Double = 3.5,
     val shopName: String = "shop name",
     val shopImage: String = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
+    val id: Int = 0,
 )
 
 data class FilterItem(

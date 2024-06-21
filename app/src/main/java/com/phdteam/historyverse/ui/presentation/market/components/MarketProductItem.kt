@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
+import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.presentation.market.MarketItem
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.goldDark4
@@ -31,7 +32,7 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 @Composable
-fun MarketProductItem(item: MarketItem) {
+fun MarketProductItem(item: MarketItem, onItemClick: (id: Int) -> Unit) {
     val rating = item.rating
     Column(
         modifier = Modifier
@@ -42,10 +43,9 @@ fun MarketProductItem(item: MarketItem) {
                 RoundedCornerShape(
                     topStart = 12.dp,
                     topEnd = 12.dp,
-                    bottomEnd = 12.dp,
-                    bottomStart = 12.dp
                 )
-            ),
+            )
+            .noRippleEffect { onItemClick(item.id) },
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Image(
@@ -127,6 +127,6 @@ private fun Preview() {
             rating = 4.5,
             shopName = "Shop Name",
             shopImage = ""
-        )
+        ), {}
     )
 }

@@ -91,4 +91,8 @@ class MarketViewModel(
             uiState.copy(filters = newFilters, selectedFilters = newSelectedFilters)
         }
     }
+
+    fun onItemClick(itemId: Int) {
+        sendNewEffect(MarketUiEffect.NavigateToItemDetails(itemId))
+    }
 }

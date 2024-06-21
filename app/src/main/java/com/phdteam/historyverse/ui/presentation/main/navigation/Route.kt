@@ -22,6 +22,8 @@ const val navigationRouteVedio = "review"
 const val navigationRouteFavorite = "favorite"
 const val navigationRouteDetails = "details"
 const val navigationRouteMarket = "market"
+const val navigationRouteMarketItemDetails = "marketDetails/"
+const val navigationRouteRatingScreen = "ratingScreen/"
 
 sealed class Screen(
     val route: String,
@@ -70,5 +72,7 @@ sealed class Screen(
         title = R.string.favorite_title,
     )
 
-    data object Market : Screen(route = navigationRouteMarket,)
+    data object Market : Screen(route = navigationRouteMarket)
+    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails, routePath = "{id}")
+    data object Rate : Screen(route = navigationRouteRatingScreen, routePath = "{id}")
 }

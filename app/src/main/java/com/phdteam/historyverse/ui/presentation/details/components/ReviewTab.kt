@@ -1,6 +1,13 @@
 package com.phdteam.historyverse.ui.presentation.details.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -12,15 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
-import com.phdteam.historyverse.ui.presentation.details.MuseumDetailsUiState
+import com.phdteam.historyverse.ui.presentation.details.ReviewTabState
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.yellowColor
 
 @Composable
 fun ReviewTab(
+    state: ReviewTabState,
+    onReview: (rate: Int) -> Unit,
     modifier: Modifier = Modifier,
-    state: MuseumDetailsUiState,
-    onItemClick: (rate: Int) -> Unit
 ) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
 
@@ -50,7 +57,7 @@ fun ReviewTab(
                             contentDescription = null,
                             modifier = Modifier
                                 .size(28.dp)
-                                .noRippleEffect { onItemClick(i) },
+                                .noRippleEffect { onReview(i) },
                             tint = yellowColor
                         )
                     }

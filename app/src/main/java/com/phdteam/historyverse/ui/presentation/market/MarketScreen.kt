@@ -1,6 +1,16 @@
 package com.phdteam.historyverse.ui.presentation.market
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +41,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -79,6 +90,20 @@ fun MarketScreen(
     }
 }
 
+private fun onEffect(
+    effect: MarketUiEffect?,
+    navigateTo: (MarketUiEffect?) -> Unit
+) {
+    when (effect) {
+        is MarketUiEffect.NavigateToItemDetails -> navigateTo(
+            MarketUiEffect.NavigateToItemDetails(effect.id)
+        )
+//        MarketUiEffect.OpenBottomSheet ->
+        else -> {}
+    }
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MarketContent(uiState: MarketUiState, viewModel: MarketViewModel, sheetState: SheetState) {
@@ -87,9 +112,9 @@ fun MarketContent(uiState: MarketUiState, viewModel: MarketViewModel, sheetState
         viewModel.search()
     }
 
-    LaunchedEffect(key1 = uiState.isSheetVisible) {
-        sheetState.apply { (if (uiState.isSheetVisible) expand() else hide()) }
-    }
+//    LaunchedEffect(key1 = uiState.isSheetVisible) {
+//        sheetState.apply { (if (uiState.isSheetVisible) expand() else hide()) }
+//    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -97,7 +122,7 @@ fun MarketContent(uiState: MarketUiState, viewModel: MarketViewModel, sheetState
             .padding(top = 16.dp)
     ) {
         if (uiState.isLoading)
-            CircularProgressIndicator()
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         else {
             if (uiState.isSheetVisible)
                 HVBottomSheet(
@@ -148,7 +173,11 @@ fun MarketContent(uiState: MarketUiState, viewModel: MarketViewModel, sheetState
                         focusedIndicatorColor = Color.Transparent
                     ),
                 )
-                AnimatedVisibility(visible = uiState.selectedFilters.isNotEmpty()) {
+                AnimatedVisibility(
+                    visible = uiState.selectedFilters.isNotEmpty(),
+                    enter = fadeIn(tween(700)) + expandVertically(tween(700)),
+                    exit =  fadeOut(tween(3000))+ shrinkVertically(tween(3000))
+                ) {
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -172,24 +201,12 @@ fun MarketContent(uiState: MarketUiState, viewModel: MarketViewModel, sheetState
                 ) {
                     items(uiState.items.size) { index ->
                         val item = uiState.items[index]
-                        MarketProductItem(item)
+                        MarketProductItem(item,viewModel::onItemClick)
                     }
                 }
             }
 
 
         }
-    }
-}
-
-
-private fun onEffect(
-    effect: MarketUiEffect?,
-    navigateTo: (MarketUiEffect?) -> Unit
-) {
-    when (effect) {
-        MarketUiEffect.NavigateToItemDetails -> navigateTo(MarketUiEffect.NavigateToItemDetails)
-//        MarketUiEffect.OpenBottomSheet ->
-        else -> {}
     }
 }
