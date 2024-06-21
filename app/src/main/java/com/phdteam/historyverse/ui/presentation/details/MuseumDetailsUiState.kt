@@ -2,7 +2,7 @@ package com.phdteam.historyverse.ui.presentation.details
 
 import com.phdteam.historyverse.ui.presentation.favorite.CardUiState
 
-data class DetailsUiState(
+data class MuseumDetailsUiState(
     val museam: String = "Alexandria Museum",
     val description: String = "Lorem ipsum dolor sit amet consectetur. Neque rutrum egestas tristique urna. Tortor netus dui vitae risus fermentum viverra fringilla. Nunc sollicitudin fames cras diam adipiscing ante gravida. Tellus mus volutpat eget nisi tristique consequat amet.",
     val imageUrl: String = "",

@@ -12,15 +12,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
-import com.phdteam.historyverse.ui.presentation.details.Artifact
-import com.phdteam.historyverse.ui.presentation.details.DetailsUiState
+import com.phdteam.historyverse.ui.presentation.details.MuseumDetailsUiState
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.yellowColor
 
 @Composable
 fun ReviewTab(
     modifier: Modifier = Modifier,
-    state: DetailsUiState,
+    state: MuseumDetailsUiState,
     onItemClick: (rate: Int) -> Unit
 ) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
