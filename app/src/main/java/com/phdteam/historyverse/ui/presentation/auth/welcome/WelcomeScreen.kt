@@ -108,6 +108,7 @@ private fun onEffect(
         is WelcomeUiEffect.WelcomeError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
         is WelcomeUiEffect.OnClickLogin -> navigateTo(WelcomeUiEffect.OnClickLogin)
         is WelcomeUiEffect.OnClickSignIn -> navigateTo(WelcomeUiEffect.OnClickSignIn)
+        is WelcomeUiEffect.onSignedIn -> navigateTo(WelcomeUiEffect.onSignedIn)
         else -> {}
     }
 }

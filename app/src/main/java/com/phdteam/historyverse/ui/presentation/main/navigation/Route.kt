@@ -25,13 +25,16 @@ const val navigationRouteMarket = "market"
 const val navigationRouteMarketItemDetails = "marketDetails/"
 const val navigationRouteRatingScreen = "ratingScreen/"
 
+
 sealed class Screen(
     val route: String,
     var routePath: String? = null,
     var clearBackStack: Boolean = false,
     val restoreState: Boolean = true,
     val title: Int = 0,
-    val icon: ImageVector? = null
+    val icon: ImageVector? = null,
+    val unselectedIcon: ImageVector? = null,
+    var args: Bundle? = null
 ) {
     fun withClearBackStack() = apply { clearBackStack = true }
 
@@ -40,6 +43,8 @@ sealed class Screen(
     }
 
     object Login : Screen(navigationRouteLogin)
+    data object ChatBot : Screen(navigationRouteChatBot)
+    object SeeAll : Screen(navigationRouteSeeAll)
     object Welcome : Screen(navigationRouteWelcome)
 
     object SignIn : Screen(navigationRouteSignIn)
@@ -50,13 +55,11 @@ sealed class Screen(
         title = R.string.home_title,
         icon = Icons.Rounded.Home
     )
-
     data object Search : Screen(
         route = navigationRouteSearch,
         title = R.string.search_title,
         icon = Icons.Rounded.Search
     )
-
     data object Profile : Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
@@ -64,9 +67,8 @@ sealed class Screen(
     )
 
     data object Details : Screen(
-        route = navigationRouteDetails,
+        route = navigationRouteDetails ,
     )
-
     data object Favorite : Screen(
         route = navigationRouteFavorite,
         title = R.string.favorite_title,

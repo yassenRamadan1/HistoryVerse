@@ -6,10 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
+import com.phdteam.historyverse.ui.presentation.main.navigation.chatBotScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.detailsScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.*
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.loginNavGraph
 import com.phdteam.historyverse.ui.presentation.main.navigation.mainNavGraph
+import com.phdteam.historyverse.ui.presentation.main.navigation.onSeeAllScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.marketItemDetailsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.marketScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
@@ -29,6 +32,14 @@ fun RootNavGraph(
         startDestination = startDestination.route,
         modifier = modifier,
     ) {
+        onSeeAllScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        mainNavGraph (onNavigateToRoot = navController::navigateTo)
+        detailsScreen(navController::navigateTo,
+            onNavigateBack = navController::navigateUp)
+        profileScreen( onNavigateTo = navController::navigateTo)
 
         mainNavGraph(onNavigateToRoot = navController::navigateTo)
         detailsScreen(navController::navigateTo)
@@ -54,5 +65,9 @@ fun RootNavGraph(
         ratingScreen(
             onNavigateBack = navController::navigateUp
         )
+        chatBotScreen(onNavigateBack = navController::navigateUp)
+        searchScreen(onNavigateTo = navController::navigateTo)
+        favoriteScreen(onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp)
     }
 }

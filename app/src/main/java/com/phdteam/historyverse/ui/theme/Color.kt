@@ -3,7 +3,7 @@ package com.phdteam.historyverse.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val PrimaryLight = Color(0xFFFFAE21)
-val SecondaryLight = Color(0xFFDDEDFF)
+val SecondaryLight = Color(0x31FFAC07)
 val BackgroundLight = Color(0xFFF6F7F7)
 val CardLight = Color(0xFFFFFFFF)
 

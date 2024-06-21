@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,6 +12,8 @@ plugins {
 android {
     namespace = "com.phdTeam.HistoryVerse"
     compileSdk = 34
+    val localProperties =  Properties()
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
         applicationId = "com.phdTeam.HistoryVerse"
@@ -21,6 +26,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "API_KEY", "\"${localProperties.getProperty ("ApiKey")}\"")
     }
 
     buildTypes {
@@ -40,6 +46,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -118,10 +125,15 @@ dependencies {
 
     // constraint layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    // pager accomapnist
-//    implementation("com.google.accompanist:accompanist-pager:0.23.1")
-//    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    // pager
+    implementation("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
 
     // datastore
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    //coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    //Gimien AI
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
 }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -25,9 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVAppBar
+import com.phdteam.historyverse.ui.presentation.details.components.ArtifactCard
 import com.phdteam.historyverse.ui.presentation.details.components.ArtifatsTab
 import com.phdteam.historyverse.ui.presentation.details.components.ProductsTab
 import com.phdteam.historyverse.ui.presentation.details.components.ReviewTab
+import com.phdteam.historyverse.ui.presentation.favorite.CardType
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.starColor
 import com.phdteam.historyverse.ui.theme.yellowColor
@@ -38,14 +41,21 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsViewModel = koinViewModel()
+    viewModel: DetailsViewModel = koinViewModel(),
+    onNavigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
-    DetailsScreenContent(state, viewModel)
+    DetailsScreenContent(state, viewModel,
+        onNavigateBack = onNavigateBack)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
+private fun DetailsScreenContent(
+    state: DetailsUiState,
+    viewModel: DetailsViewModel,
+    onNavigateBack: () -> Unit
+) {
 private fun DetailsScreenContent(state: MuseumDetailsUiState, viewModel: DetailsViewModel) {
     val color = Theme.colors
     val list = listOf("Reviews", "Artifacts", "Products")
@@ -59,7 +69,9 @@ private fun DetailsScreenContent(state: MuseumDetailsUiState, viewModel: Details
     val context = LocalContext.current
     Scaffold(topBar = {
         HVAppBar(
-            title = state.museam
+            title = state.museam,
+            onBack = onNavigateBack
+
         )
     }) {
         Box(

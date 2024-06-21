@@ -3,11 +3,9 @@ package com.phdteam.historyverse.ui.presentation.main.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
@@ -18,12 +16,7 @@ import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
-import com.phdteam.historyverse.ui.presentation.market.MarketScreen
-import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
-import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketDetailsUiEffect
-import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketItemDetailsScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
-import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
 
@@ -77,11 +70,31 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
 
 
 fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
-    composable(
-        route = Screen.Home.route
-    ) {
+    composable(route = Screen.Home.route) {
+        HomeScreen(
+            navigateTo = { navigate ->
+                when (navigate) {
+                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
+                    HomeUIEffect.NavigateToDetail -> Screen.Details.also(onNavigateTo)
+                    is HomeUIEffect.NavigateToSeeAll -> {
+                        Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
+                        Screen.SeeAll.also(onNavigateTo)
+                    }
 
-        HomeScreen()
+                    else -> {
+                        Screen.Details.also(onNavigateTo)
+                    }
+                }
+            },
+        )
+    }
+}
+
+fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.ChatBot.route
+    ) {
+        ChatBotScreen(onNavigateBack = onNavigateBack)
     }
 }
 
@@ -95,6 +108,8 @@ fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
                 WelcomeUiEffect.OnClickLogin -> Screen.Login.withClearBackStack().also(onNavigateTo)
                 WelcomeUiEffect.OnClickSignIn -> Screen.SignIn.withClearBackStack()
                     .also(onNavigateTo)
+
+                WelcomeUiEffect.onSignedIn -> Screen.Main.withClearBackStack().also(onNavigateTo)
 
                 else -> {}
             }
@@ -120,7 +135,9 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Search.route
     ) {
 
-        SearchScreen()
+        SearchScreen(
+            onItemClick = onNavigateTo
+        )
     }
 }
 
@@ -131,32 +148,46 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
 
         ProfileScreen(
             onNavFavorite = {
-                Screen.Favorite.withClearBackStack().also(onNavigateTo)
+                Screen.Favorite.also(onNavigateTo)
             }
 
         )
     }
 }
 
-fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Favorite.route
     ) {
         FavoriteScreen(
-            onClickCard = {},
-            onNavigateBack = {}
+            onClickCard = { Screen.Details.also(onNavigateTo) },
+            onNavigateBack = { onNavigateBack() }
         )
 
 
     }
 }
 
-fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit) {
+fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Details.route
     ) {
 
-        DetailsScreen()
+        DetailsScreen(onNavigateBack
+        = { onNavigateBack() })
+    }
+}
+
+fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    this.composable(
+        route = Screen.SeeAll.route
+    ) {
+        val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
+        SeeAllScreen(
+            type = value,
+            navigateTo = {},
+            navigateBack = onNavigateBack
+        )
     }
 }
 
