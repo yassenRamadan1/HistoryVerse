@@ -218,8 +218,8 @@ private fun DetailsScreenContent(state: MuseumDetailsUiState, viewModel: Details
                         when (page) {
                             0 -> {
                                 ReviewTab(
-                                    modifier = Modifier, state = state,
-                                    viewModel::onMakeReview
+                                    modifier = Modifier, state = state.reviewState,
+                                    onReview = viewModel::onMakeReview
                                 )
                             }
 

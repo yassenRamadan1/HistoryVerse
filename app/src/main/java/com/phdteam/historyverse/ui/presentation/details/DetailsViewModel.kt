@@ -9,9 +9,7 @@ class DetailsViewModel : BaseViewModel<MuseumDetailsUiState, DetailsUiEffect>(Mu
     }
 
     fun onMakeReview(review: Int) {
-        updateState {
-            it.copy(review = review)
-        }
+
     }
 
     fun onArtifactClick(artifactId: String) {
