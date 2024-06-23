@@ -17,18 +17,22 @@ data class MuseumDetailsUiState(
     val recommendedProducts: List<CardUiState> = artifactList,
     val mostSoldProducts: List<CardUiState> = artifactList,
     val reviewState: ReviewTabState = ReviewTabState(),
-)
+    val museumId: Int = 0,
+
+    )
+
 data class ReviewTabState(
     val review: Int = 0,
     val reviews: List<Review> = reviewList,
-
 )
+
 data class Review(
     val review: String = "Lorem ipsum dolor sit amet consectetur. Neque rutrum egestas tristique urna. Tortor netus dui vitae risus fermentum viverra fringilla. Nunc sollicitudin fames cras diam adipiscing ante gravida. Tellus mus volutpat eget nisi tristique consequat amet.",
     val rating: Int = 3,
     val date: String = "2023-04-10",
     val userName: String = "UnknownUser",
     val userImageUrl: String = "https://cdn.pixabay.com/photo/2022/12/01/04/42/man-7628305_1280.jpg",
+    val reviewId: Int = 0,
 )
 
 private val reviewList = listOf(
@@ -95,4 +99,4 @@ private val artifactList = listOf(
         ratingAvg = 3.5,
         museumName = "Alexandria Museum",
     ),
-    )
+)

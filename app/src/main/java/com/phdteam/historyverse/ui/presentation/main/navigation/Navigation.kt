@@ -2,6 +2,7 @@ package com.phdteam.historyverse.ui.presentation.main.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.core.os.bundleOf
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -13,11 +14,20 @@ import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
+import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotScreen
+import com.phdteam.historyverse.ui.presentation.home.HomeUIEffect
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
+import com.phdteam.historyverse.ui.presentation.market.MarketScreen
+import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
+import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketDetailsUiEffect
+import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketItemDetailsScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
+import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
+import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
+import com.phdteam.historyverse.ui.presentation.seeall.toSeeAllType
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -195,11 +205,14 @@ fun NavGraphBuilder.marketScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Market.route
     ) {
-        MarketScreen {
-            when (it) {
-                is MarketUiEffect.NavigateToItemDetails -> onNavigateTo(
-                    Screen.MarketItemDetails
-                )
+        MarketScreen { effect ->
+            when (effect) {
+                is MarketUiEffect.NavigateToItemDetails -> {
+                    Screen.MarketItemDetails.args = bundleOf(Pair("id", effect.id))
+                    Screen.MarketItemDetails.also(onNavigateTo)
+
+                }
+
                 else -> {}
             }
         }
@@ -211,30 +224,40 @@ fun NavGraphBuilder.marketItemDetailsScreen(
     onNavigateBack: () -> Unit
 ) {
     composable(
-        route = Screen.MarketItemDetails.routePath!!,
-        arguments = listOf(
-            navArgument("id") { NavType.IntType }
-        )
+        route = Screen.MarketItemDetails.route,
     ) {
-        MarketItemDetailsScreen(navigateTo = { effect ->
-            when (effect) {
-                else -> {}
-            }
-        }, onNavigateBack = {
-            onNavigateBack()
-        })
+        val value = Screen.MarketItemDetails.args?.getInt("id")
+
+        MarketItemDetailsScreen(
+            navigateTo = { effect ->
+                when (effect) {
+                    is MarketDetailsUiEffect.NavigateToMarketDetails -> {
+                        Screen.MarketItemDetails.args = bundleOf(Pair("id", id))
+                        Screen.MarketItemDetails.also(onNavigateTo)
+                    }
+                    is MarketDetailsUiEffect.NavigateToReview -> {
+                        Screen.Review.args = bundleOf(Pair("id", id))
+                        Screen.Review.also(onNavigateTo)
+                    }
+                    else -> {}
+                }
+            },
+            onNavigateBack = {
+                onNavigateBack()
+            },
+            itemId = value
+        )
     }
 }
 
 fun NavGraphBuilder.ratingScreen(onNavigateBack: () -> Unit) {
     composable(
-        route = Screen.Rate.route,
-        arguments = listOf(
-            navArgument("id") { NavType.IntType }
-        )
+        route = Screen.Review.route,
     ) {
+        val id = Screen.Review.args?.getInt("id")
         RateScreen(
-            navigateBack = onNavigateBack
+            navigateBack = onNavigateBack,
+            itemId = id
         )
     }
 }

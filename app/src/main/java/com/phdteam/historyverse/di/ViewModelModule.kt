@@ -9,7 +9,7 @@ import com.phdteam.historyverse.ui.presentation.auth.signin.SignInViewModel
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteViewModel
 import com.phdteam.historyverse.ui.presentation.details.DetailsViewModel
 import com.phdteam.historyverse.ui.presentation.market.MarketViewModel
-import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketDetailsViewModel
+import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketItemDetailsViewModel
 import com.phdteam.historyverse.ui.presentation.rate.RateViewModel
 import com.phdteam.historyverse.ui.presentation.seeall.SeeAllViewModel
 import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotViewModel
@@ -29,7 +29,7 @@ val viewModelModule = module {
     viewModelOf(::FavoriteViewModel)
     viewModelOf(::MarketViewModel)
     viewModelOf(::RateViewModel)
-    viewModelOf(::MarketDetailsViewModel)
+    viewModelOf(::MarketItemDetailsViewModel)
     viewModelOf(::ChatBotViewModel)
     viewModelOf(::MainViewModel)
 }
