@@ -1,25 +1,16 @@
 package com.phdteam.historyverse.ui.presentation.details
 
-import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 
-class DetailsViewModel(
-    private val repository: HistoryVerseRepository
-) : BaseViewModel<DetailsUiState, DetailsUiEffect>(DetailsUiState())
-{
-    init {
-
-    }
-
+class DetailsViewModel :
+    BaseViewModel<MuseumDetailsUiState, DetailsUiEffect>(MuseumDetailsUiState()) {
 
     fun onBookClick() {
         // TODO
     }
 
-    fun onMakeReview(review: Int) {
-        updateState {
-            it.copy(review = review)
-        }
+    fun onMakeReview() {
+        sendNewEffect(DetailsUiEffect.NavigateToReview(state.value.museumId))
     }
 
     fun onArtifactClick(artifactId: String) {
