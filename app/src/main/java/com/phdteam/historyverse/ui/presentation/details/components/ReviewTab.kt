@@ -19,15 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
-import com.phdteam.historyverse.ui.presentation.details.MuseumDetailsUiState
 import com.phdteam.historyverse.ui.presentation.details.ReviewTabState
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.yellowColor
 
 @Composable
 fun ReviewTab(
-    state: MuseumDetailsUiState,
-    onReview: (itemId: Int) -> Unit,
+    state: ReviewTabState,
+    onReview: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -52,11 +51,11 @@ fun ReviewTab(
                 ) {
                     for (i in 1..5) {
                         Icon(
-                            painter = painterResource(id = if (i <= state.reviewState.review - 1) R.drawable.star_smooth else R.drawable.star_empty),
+                            painter = painterResource(id = if (i <= state.review - 1) R.drawable.star_smooth else R.drawable.star_empty),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(28.dp)
-                                .noRippleEffect { onReview(state.museumId) },
+                                .noRippleEffect { onReview() },
                             tint = yellowColor
                         )
                     }
@@ -70,8 +69,8 @@ fun ReviewTab(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
-        items(state.reviewState.reviews.size) { index ->
-            ReviewCard(state.reviewState.reviews[index])
+        items(state.reviews.size) { index ->
+            ReviewCard(state.reviews[index])
         }
         item {
             Spacer(modifier = Modifier.height(24.dp))

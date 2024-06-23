@@ -9,8 +9,8 @@ class DetailsViewModel :
         // TODO
     }
 
-    fun onMakeReview(museumId: Int) {
-        sendNewEffect(DetailsUiEffect.NavigateToReview(museumId))
+    fun onMakeReview() {
+        sendNewEffect(DetailsUiEffect.NavigateToReview(state.value.museumId))
     }
 
     fun onArtifactClick(artifactId: String) {

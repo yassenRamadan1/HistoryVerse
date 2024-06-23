@@ -247,7 +247,7 @@ private fun DetailsScreenContent(
                         when (page) {
                             0 -> {
                                 ReviewTab(
-                                    modifier = Modifier, state = state,
+                                    modifier = Modifier, state = state.reviewState,
                                     onReview = viewModel::onMakeReview
                                 )
                             }
