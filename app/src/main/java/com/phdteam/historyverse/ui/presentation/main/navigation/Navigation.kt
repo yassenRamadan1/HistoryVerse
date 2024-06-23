@@ -80,7 +80,10 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
             navigateTo = { navigate ->
                 when (navigate) {
                     HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
-                    HomeUIEffect.NavigateToDetail -> Screen.Details.also(onNavigateTo)
+                    is HomeUIEffect.NavigateToDetail ->{
+                        Screen.Details.args = bundleOf(Pair("id", navigate.id))
+                        Screen.Details.also(onNavigateTo)
+                    }
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.also(onNavigateTo)
@@ -177,9 +180,11 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
     composable(
         route = Screen.Details.route
     ) {
-
-        DetailsScreen(onNavigateBack
-        = { onNavigateBack() })
+        val id = Screen.Details.args?.getInt("id")
+        DetailsScreen(
+            id = id ,
+            onNavigateBack = onNavigateBack
+        )
     }
 }
 

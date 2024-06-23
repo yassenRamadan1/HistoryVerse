@@ -38,6 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailsScreen(
+    id :Int?,
     viewModel: DetailsViewModel = koinViewModel(),
     onNavigateBack: () -> Unit
 ) {
