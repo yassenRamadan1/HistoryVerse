@@ -2,14 +2,15 @@ package com.phdteam.historyverse.ui.presentation.details
 
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 
-class DetailsViewModel : BaseViewModel<MuseumDetailsUiState, DetailsUiEffect>(MuseumDetailsUiState()) {
+class DetailsViewModel :
+    BaseViewModel<MuseumDetailsUiState, DetailsUiEffect>(MuseumDetailsUiState()) {
 
     fun onBookClick() {
         // TODO
     }
 
-    fun onMakeReview(review: Int) {
-
+    fun onMakeReview(museumId: Int) {
+        sendNewEffect(DetailsUiEffect.NavigateToReview(museumId))
     }
 
     fun onArtifactClick(artifactId: String) {

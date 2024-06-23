@@ -1,5 +1,7 @@
 package com.phdteam.historyverse.ui.presentation.market
 
+import com.phdteam.historyverse.ui.presentation.market.Category.*
+
 data class MarketUiState(
     val items: List<MarketItem> = emptyList(),
     val selectedFilters: List<FilterItem> = emptyList(),
@@ -9,18 +11,18 @@ data class MarketUiState(
     val isError: Boolean = false,
     val searchText: String = "",
     val isSheetVisible: Boolean = false,
-
-    )
+    val filteredItems: List<MarketItem> = emptyList()
+)
 
 private val FixedFilters = listOf(
-    FilterItem(name = "Egyptian", type = MarketFilterType.Culture),
-    FilterItem(name = "Roman", type = MarketFilterType.Culture),
-    FilterItem(name = "Chinese", type = MarketFilterType.Culture),
-    FilterItem(name = "pharaohs", type = MarketFilterType.Categories),
-    FilterItem(name = "pyramids", type = MarketFilterType.Categories),
-    FilterItem(name = "cat", type = MarketFilterType.Categories),
-    FilterItem(name = "ABDU", type = MarketFilterType.Categories),
-    FilterItem(name = "ana t3bt", type = MarketFilterType.Categories),
+    FilterItem(name = "Egyptian", type = MarketFilterType.Culture, category = Egyptian),
+    FilterItem(name = "Roman", type = MarketFilterType.Culture, category = Roman),
+    FilterItem(name = "Chinese", type = MarketFilterType.Culture, category = Chinese),
+    FilterItem(name = "pharaohs", type = MarketFilterType.Categories, category = Pharaohs),
+    FilterItem(name = "pyramids", type = MarketFilterType.Categories, category = Pyramids),
+    FilterItem(name = "cat", type = MarketFilterType.Categories, category = Cat),
+//    FilterItem(name = "ABDU", type = MarketFilterType.Categories),
+//    FilterItem(name = "ana t3bt", type = MarketFilterType.Categories),
 )
 
 data class MarketItem(
@@ -31,10 +33,12 @@ data class MarketItem(
     val shopName: String = "shop name",
     val shopImage: String = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
     val id: Int = 0,
+    val categories: List<Category> = listOf(Egyptian)
 )
 
 data class FilterItem(
     val name: String = "",
     val type: MarketFilterType = MarketFilterType.Categories,
     val isSelected: Boolean = false,
+    val category: Category = Egyptian
 )

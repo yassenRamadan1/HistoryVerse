@@ -1,8 +1,9 @@
 package com.phdteam.historyverse.ui.presentation.market.marketDetails
 
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
+import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
 
-class MarketDetailsViewModel :
+class MarketItemDetailsViewModel(private val itemId: Int) :
     BaseViewModel<MarketItemDetailsUiState, MarketDetailsUiEffect>(MarketItemDetailsUiState()) {
     init {
         getItemDetails()
@@ -13,11 +14,16 @@ class MarketDetailsViewModel :
         //
     }
 
-    fun onReview(rate: Int) {
+    fun onReview() {
         //
+        sendNewEffect(MarketDetailsUiEffect.NavigateToReview(state.value.itemId))
     }
 
-    fun onItemClick(itemId: Int){
+    fun onItemClick(itemId: Int) {
 
+    }
+
+    fun onClickFavorite() {
+        updateState { it.copy(isFavorite = !it.isFavorite) }
     }
 }

@@ -69,8 +69,6 @@ class MarketViewModel(
     }
 
     fun onFilterClick(filterItem: FilterItem) {
-
-
         updateState { uiState ->
             var newSelectedFilters: List<FilterItem> = emptyList()
             val newFilters = uiState.filters.map { filter ->
@@ -89,6 +87,16 @@ class MarketViewModel(
                 }
             }
             uiState.copy(filters = newFilters, selectedFilters = newSelectedFilters)
+        }.also {
+            filterAndUpdateList()
+        }
+    }
+
+    private fun filterAndUpdateList() {
+        updateState { uiState ->
+            uiState.copy(filteredItems = uiState.items.filter { item ->
+                item.categories.containsAll(uiState.selectedFilters.map { it.category })
+            })
         }
     }
 

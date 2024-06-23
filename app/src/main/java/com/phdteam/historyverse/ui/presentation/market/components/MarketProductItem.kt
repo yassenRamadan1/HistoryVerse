@@ -2,6 +2,7 @@ package com.phdteam.historyverse.ui.presentation.market.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -53,9 +55,9 @@ fun MarketProductItem(item: MarketItem, onItemClick: (id: Int) -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .height(80.dp)
                 .background(goldLight1),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.FillBounds
 
         )
         Row(
@@ -64,8 +66,15 @@ fun MarketProductItem(item: MarketItem, onItemClick: (id: Int) -> Unit) {
                 .padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = item.name)
-            Text(text = item.price, color = goldDark4)
+            Text(
+                text = if (item.name.length > 13) "${
+                    item.name.substring(
+                        0,
+                        13
+                    )
+                }.." else item.name,
+            )
+            Text(text = item.price, color = goldDark4, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
 
         Row(
