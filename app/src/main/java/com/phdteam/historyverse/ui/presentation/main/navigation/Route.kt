@@ -1,5 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.main.navigation
 
+import android.os.Bundle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
@@ -22,8 +23,8 @@ const val navigationRouteVedio = "review"
 const val navigationRouteFavorite = "favorite"
 const val navigationRouteDetails = "details"
 const val navigationRouteMarket = "market"
-const val navigationRouteMarketItemDetails = "marketDetails/"
-const val navigationRouteRatingScreen = "ratingScreen/"
+const val navigationRouteMarketItemDetails = "marketDetails"
+const val navigationRouteRatingScreen = "ratingScreen"
 
 
 sealed class Screen(
@@ -75,6 +76,6 @@ sealed class Screen(
     )
 
     data object Market : Screen(route = navigationRouteMarket)
-    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails, routePath = "{id}")
-    data object Rate : Screen(route = navigationRouteRatingScreen, routePath = "{id}")
+    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails,)
+    data object Review : Screen(route = navigationRouteRatingScreen)
 }

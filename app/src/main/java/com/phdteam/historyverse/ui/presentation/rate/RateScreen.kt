@@ -32,18 +32,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
+import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.goldLight2
+import com.phdteam.historyverse.ui.theme.yellowColor
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
-fun RateScreen(viewModel: RateViewModel = koinViewModel(), navigateBack: () -> Unit) {
+fun RateScreen(
+    itemId: Int?,
+    viewModel: RateViewModel = koinViewModel(parameters = { parametersOf(itemId) }),
+    navigateBack: () -> Unit
+) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-    RateContent(state, viewModel, navigateBack =navigateBack)
+    RateContent(state, viewModel, navigateBack = navigateBack)
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
         viewModel.effect.collectLatest {
             onEffect(effect, context)
@@ -90,24 +97,42 @@ private fun RateContent(state: RateUiState, viewModel: RateViewModel, navigateBa
                 .padding(it)
         ) {
             Column(
-                modifier = Modifier.padding(it),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
+                verticalArrangement = Arrangement.spacedBy(56.dp),
             ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 
-                repeat(5) { index ->
-                    Icon(
-                        painter = painterResource(id = if (index <= state.rate - 1) R.drawable.star_smooth else R.drawable.star_empty),
-                        contentDescription = "rating",
-                        modifier = Modifier.size(16.dp),
-
+                    repeat(5) { index ->
+                        Icon(
+                            painter = painterResource(id = if (index <= state.rate - 1) R.drawable.star_smooth else R.drawable.star_empty),
+                            contentDescription = "rating",
+                            modifier = Modifier
+                                .size(28.dp)
+                                .noRippleEffect { viewModel.onRateChange(index + 1) },
+                            tint = yellowColor
                         )
+                    }
                 }
 
                 TextField(
                     value = state.comment,
                     onValueChange = viewModel::onCommentChange,
-                    colors = TextFieldDefaults.colors(unfocusedIndicatorColor = Color.Black),
-                    placeholder = { Text("Add comment") }
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.Black,
+                        unfocusedContainerColor = Color.Transparent,
+                        focusedContainerColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Black,
+                        cursorColor = Color.Black
+                    ),
+                    placeholder = { Text("Add comment") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
                 )
             }
             if (state.isLoading)

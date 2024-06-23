@@ -2,7 +2,7 @@ package com.phdteam.historyverse.ui.presentation.rate
 
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 
-class RateViewModel :
+class RateViewModel(private val itemId: Int) :
     BaseViewModel<RateUiState, RateUiEffect>(RateUiState()) {
 
     fun onCommentChange(comment: String) {

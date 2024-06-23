@@ -36,13 +36,18 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
-        mainNavGraph (onNavigateToRoot = navController::navigateTo)
-        detailsScreen(navController::navigateTo,
-            onNavigateBack = navController::navigateUp)
-        profileScreen( onNavigateTo = navController::navigateTo)
+        mainNavGraph(onNavigateToRoot = navController::navigateTo)
+        detailsScreen(
+            navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        profileScreen(onNavigateTo = navController::navigateTo)
 
         mainNavGraph(onNavigateToRoot = navController::navigateTo)
-        detailsScreen(navController::navigateTo)
+        detailsScreen(
+            navController::navigateTo,
+            navController::navigateUp
+        )
         profileScreen(onNavigateTo = navController::navigateTo)
 
         loginNavGraph(
@@ -67,7 +72,9 @@ fun RootNavGraph(
         )
         chatBotScreen(onNavigateBack = navController::navigateUp)
         searchScreen(onNavigateTo = navController::navigateTo)
-        favoriteScreen(onNavigateTo = navController::navigateTo,
-            onNavigateBack = navController::navigateUp)
+        favoriteScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
     }
 }
