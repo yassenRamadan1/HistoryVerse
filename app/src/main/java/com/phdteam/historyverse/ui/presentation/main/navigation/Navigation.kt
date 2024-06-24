@@ -84,7 +84,8 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
         HomeScreen(
             navigateTo = { navigate ->
                 when (navigate) {
-                    HomeUIEffect.NavigateToChatBooks -> Screen.ChatBot.also(onNavigateTo)
+                    HomeUIEffect.NavigateToChatBoot -> Screen.ChatBot.also(onNavigateTo)
+                    is HomeUIEffect.NavigateToMarket -> Screen.Market.also(onNavigateTo)
                     is HomeUIEffect.NavigateToDetail ->{
                         Screen.Details.args = bundleOf(Pair("id", navigate.id))
                         Screen.Details.also(onNavigateTo)

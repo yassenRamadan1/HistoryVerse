@@ -40,6 +40,7 @@ import com.phdteam.historyverse.ui.components.HVArtifact
 import com.phdteam.historyverse.ui.components.GGSubject
 import com.phdteam.historyverse.ui.components.GGTitleWithSeeAll
 import com.phdteam.historyverse.ui.components.HVMuseum
+import com.phdteam.historyverse.ui.components.HVTitleWithSeeAll
 import com.phdteam.historyverse.ui.presentation.home.component.ChatBot
 import com.phdteam.historyverse.ui.presentation.home.component.HVAutoSlidingCarousel
 import com.phdteam.historyverse.ui.presentation.home.component.HomeAppBar
@@ -99,7 +100,7 @@ private fun HomeContent(
             HomeAppBar(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onNotificationClicked = {}
+                onMarketClicked = {onNavigateTo(HomeUIEffect.NavigateToMarket)}
             )
 
             Column(
@@ -112,7 +113,7 @@ private fun HomeContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBoot) }
                 )
 
                 Card(
@@ -135,7 +136,7 @@ private fun HomeContent(
                         }
                     )
                 }
-                GGTitleWithSeeAll(
+                HVTitleWithSeeAll(
                     modifier = Modifier
                         .padding(top = 16.dp, bottom = 10.dp)
                         .padding(horizontal = 16.dp),
@@ -187,7 +188,7 @@ private fun HomeContent(
                     }
                 }
 
-                GGTitleWithSeeAll(
+                HVTitleWithSeeAll(
                     modifier = Modifier
                         .padding(bottom = 4.dp)
                         .padding(horizontal = 16.dp),
