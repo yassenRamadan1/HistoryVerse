@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,10 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.presentation.details.ArtifactDetailsUiState
@@ -39,26 +43,28 @@ fun ItemCard(
     onClickCard: (id: String) -> Unit,
     onClickFavorite: (id: String) -> Unit,
     cardType: CardType = CardType.MUSEUM,
-    state: ArtifactUiState
+    state: ArtifactUiState = ArtifactUiState()
 ) {
     val ratingAvg = 4.0f
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth(0.5f)
-            .wrapContentHeight()
+            .width(120.dp)
+            .height(220.dp)
             .noRippleEffect { onClickCard(state.id.toString()) },
         colors = CardDefaults.cardColors(Color.White)
     ) {
 
-        Image(
-            rememberAsyncImagePainter(model = state.imageUrl),
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(state.imageUrl)
+                .build(),
             contentDescription = "",
             modifier = Modifier
                 .height(120.dp)
                 .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(4.dp)),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.FillBounds
         )
 
         Spacer(modifier = Modifier.height(8.dp))

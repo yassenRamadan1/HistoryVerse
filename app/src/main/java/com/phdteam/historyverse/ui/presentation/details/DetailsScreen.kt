@@ -42,6 +42,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVAppBar
 import com.phdteam.historyverse.ui.presentation.details.components.ArtifatsTab
@@ -52,13 +54,14 @@ import com.phdteam.historyverse.ui.theme.starColor
 import com.phdteam.historyverse.ui.theme.yellowColor
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 //import com.phdteam.historyverse.R
 
 @Composable
 fun DetailsScreen(
-    id :Int?,
-    viewModel: DetailsViewModel = koinViewModel(),
+    id: Int?,
+    viewModel: DetailsViewModel = koinViewModel(parameters = { parametersOf(id) }),
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
@@ -71,11 +74,11 @@ fun DetailsScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun DetailsScreenContent(
-    state: DetailsUiState,
+    state: DetailsScreenUiState,
     viewModel: DetailsViewModel,
     onNavigateBack: () -> Unit
 ) {
-    val color = Theme.colors
+
     val list = listOf("Reviews", "Artifacts", "Products")
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
@@ -87,7 +90,7 @@ private fun DetailsScreenContent(
     val context = LocalContext.current
     Scaffold(topBar = {
         HVAppBar(
-            title = state.museam,
+            title = state.details.name,
             onBack = onNavigateBack
 
         )
@@ -114,9 +117,10 @@ private fun DetailsScreenContent(
                             .constrainAs(imageBox) {
                                 top.linkTo(parent.top)
                             }) {
-                        Image(
-//                            painter = rememberAsyncImagePainter(state.imageUrl) ,
-                            painter = painterResource(R.drawable.museum_img),
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(state.details.imageUrl)
+                                .build(),
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxSize()
@@ -134,7 +138,7 @@ private fun DetailsScreenContent(
 
                                 ) {
                                 Text(
-                                    state.museam,
+                                    state.details.name,
                                     color = Color.White,
                                     style = Theme.typography.titleSmall
                                 )
@@ -147,7 +151,7 @@ private fun DetailsScreenContent(
                                     tint = starColor
                                 )
                                 Text(
-                                    state.rating.toString(),
+                                    state.details.rating.toString(),
                                     color = Color.White,
                                     style = Theme.typography.titleSmall
                                 )
@@ -156,7 +160,7 @@ private fun DetailsScreenContent(
                         }
                     }
                     Text(
-                        state.description,
+                        state.details.description,
                         modifier = Modifier
                             .constrainAs(description) {
                                 top.linkTo(imageBox.bottom)
@@ -168,25 +172,29 @@ private fun DetailsScreenContent(
                         overflow = TextOverflow.Ellipsis,
                         style = Theme.typography.bodyMedium
                     )
-                    Box(
-                        modifier = Modifier
-                            .constrainAs(bookButton) {
-                                end.linkTo(parent.end)
-                                bottom.linkTo(imageBox.bottom, margin = (-24).dp)
-                            }
-                            .padding(end = 16.dp)
-                            .clip(CircleShape)
-                            .clickable { viewModel.onBookClick() }
-                            .background(yellowColor)
-                            .padding(16.dp),
-                    ) {
-                        Text(
-                            "Book",
+
+                    if (state.details.isMuseum) {
+
+                        Box(
                             modifier = Modifier
-                                .align(Alignment.Center)
+                                .constrainAs(bookButton) {
+                                    end.linkTo(parent.end)
+                                    bottom.linkTo(imageBox.bottom, margin = (-24).dp)
+                                }
+                                .padding(end = 16.dp)
+                                .clip(CircleShape)
+                                .clickable { viewModel.onBookClick() }
+                                .background(yellowColor)
                                 .padding(16.dp),
-                            color = Color.White
-                        )
+                        ) {
+                            Text(
+                                "Book",
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(16.dp),
+                                color = Color.White
+                            )
+                        }
                     }
 
 

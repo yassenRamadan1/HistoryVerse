@@ -4,10 +4,11 @@ import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.ui.presentation.home.ArtifactUiState
 
-data class DetailsUiState(
+data class DetailsScreenUiState(
     val artifacts: List<ArtifactUiState> = emptyList(),
     val museum: MuseumDetailsUiState = MuseumDetailsUiState(),
     val artifactDetails : ArtifactDetailsUiState= ArtifactDetailsUiState(),
+    val details : DetailsUiState = DetailsUiState(),
     val reviewState: ReviewTabState = ReviewTabState(),
     val recommendedArtifacts : List<ArtifactUiState> = emptyList(),
     val mostPopularArtifacts : List<ArtifactUiState> = emptyList(),
@@ -33,6 +34,27 @@ data class MuseumDetailsUiState(
     val rating: Float = 0.0f,
 )
 
+data class DetailsUiState(
+    val name :String = "" ,
+    val rating: Float = 4.0f,
+    val description: String = "",
+    val isMuseum: Boolean = false,
+    val imageUrl: String = "",
+)
+fun Artifact.toDetailsUiState() = DetailsUiState(
+    name = name ?: "",
+    rating = 4.0f,
+    description = artifactDescription ?: "",
+    isMuseum = false,
+    imageUrl = artifactImageUrl ?: "",
+)
+fun Museum.toDetailsUiState() = DetailsUiState(
+    name = name ?: "",
+    rating = 4.0f,
+    description = museumDescription ?: "",
+    isMuseum = true,
+    imageUrl = imageUrl ?: "",
+)
 fun Artifact.toArtifactDetailsUiState() = ArtifactDetailsUiState(
     id = id ?: 0,
     name = name ?: "",

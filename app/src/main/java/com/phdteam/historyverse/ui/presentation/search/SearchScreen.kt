@@ -141,7 +141,7 @@ private fun SearchContent(
                 ) {
                     items(state.searchResults.size) { index ->
                         ItemCard(
-                            state = state.searchResults[index],
+                            state = state.searchResults[index].toArtifactUiState(),
                             cardType = CardType.SEARCH,
                             onClickCard = { onItemClick(index) },
                             onClickFavorite = {}

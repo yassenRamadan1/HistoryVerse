@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdteam.historyverse.ui.components.ItemCard
-import com.phdteam.historyverse.ui.presentation.details.DetailsUiState
+import com.phdteam.historyverse.ui.presentation.details.DetailsScreenUiState
 @Composable
 fun ArtifatsTab(
     modifier: Modifier = Modifier,
-    state: DetailsUiState,
+    state: DetailsScreenUiState,
     onClickArtifactCard: (cardId: String) -> Unit,
     onFavoriteClick: (cardId: String) -> Unit
 ) {
