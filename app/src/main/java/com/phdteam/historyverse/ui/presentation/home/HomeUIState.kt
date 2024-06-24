@@ -1,7 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.home
 
 import com.phdteam.historyverse.data.entity.MuseumType
-import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.model.Museum
@@ -9,7 +8,7 @@ import com.phdteam.historyverse.data.network.model.Museum
 data class HomeUIState(
     val artifacts: List<ArtifactUiState> = emptyList(),
     val museums: List<MuseumUiState> = emptyList(),
-    val subjects: List<SubjectUiState> = emptyList(),
+    val category: List<CategoryUiState> = emptyList(),
     val advertisement: List<Advertisement> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
@@ -34,7 +33,7 @@ data class MuseumUiState(
 fun List<Any>.showSeeAll(): Boolean {
     return this.size > 3
 }
-data class SubjectUiState(
+data class CategoryUiState(
     val id: String = "",
     val name: String = ""
 )
@@ -59,7 +58,7 @@ fun Museum.toMuseumUiState() = MuseumUiState(
 fun List<Museum>.toMuseumUiState() = map { it.toMuseumUiState() }
 fun List<Artifact>.toArtifactUiState() = map { it.toArtifactUiState() }
 
-fun MuseumType.toSubjectUiState() = SubjectUiState(id, name)
+fun MuseumType.toSubjectUiState() = CategoryUiState(id, name)
 
 fun List<MuseumType>.toSubjectUiState() = map { it.toSubjectUiState() }
 

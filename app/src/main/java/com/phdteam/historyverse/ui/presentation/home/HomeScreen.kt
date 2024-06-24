@@ -37,8 +37,7 @@ import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVArtifact
-import com.phdteam.historyverse.ui.components.GGSubject
-import com.phdteam.historyverse.ui.components.GGTitleWithSeeAll
+import com.phdteam.historyverse.ui.components.HVCategory
 import com.phdteam.historyverse.ui.components.HVMuseum
 import com.phdteam.historyverse.ui.components.HVTitleWithSeeAll
 import com.phdteam.historyverse.ui.presentation.home.component.ChatBot
@@ -141,6 +140,7 @@ private fun HomeContent(
                         .padding(top = 16.dp, bottom = 10.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.categories),
+                    showSeeAll = false,
                     onClick = {}
                 )
 
@@ -150,8 +150,8 @@ private fun HomeContent(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
-                    items(state.subjects) { subject ->
-                        GGSubject(
+                    items(state.category) { subject ->
+                        HVCategory(
                             modifier = Modifier.width(100.dp),
                             name = subject.name,
                             onClick = {}
@@ -159,7 +159,7 @@ private fun HomeContent(
                     }
                 }
                 if (state.museums.isNotEmpty()) {
-                    GGTitleWithSeeAll(
+                    HVTitleWithSeeAll(
                         modifier = Modifier
                             .padding(top = 16.dp, bottom = 10.dp)
                             .padding(horizontal = 16.dp),

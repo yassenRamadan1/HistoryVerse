@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
-import com.phdteam.historyverse.ui.components.GGAppBar
+import com.phdteam.historyverse.ui.components.HVAppBar
 import com.phdteam.historyverse.ui.components.HVArtifact
 import com.phdteam.historyverse.ui.components.HVMuseum
 import com.phdteam.historyverse.ui.theme.Theme
@@ -77,7 +77,7 @@ private fun SeeAllContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        GGAppBar(
+        HVAppBar(
             modifier = Modifier.fillMaxWidth(),
             title = when (state.type) {
                 SeeAllType.Artifacts -> stringResource(id = R.string.artifacts)
