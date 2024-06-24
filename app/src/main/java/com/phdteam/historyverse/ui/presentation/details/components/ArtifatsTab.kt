@@ -15,7 +15,7 @@ import com.phdteam.historyverse.ui.presentation.details.DetailsScreenUiState
 fun ArtifatsTab(
     modifier: Modifier = Modifier,
     state: DetailsScreenUiState,
-    onClickArtifactCard: (cardId: String) -> Unit,
+    onClickArtifactCard: (cardId: Int) -> Unit,
     onFavoriteClick: (cardId: String) -> Unit
 ) {
     LazyColumn(

@@ -1,9 +1,9 @@
 package com.phdteam.historyverse.data.network.repositories
 
 import com.google.ai.client.generativeai.Chat
-import com.phdteam.historyverse.data.entity.Mentor
+import com.phdteam.historyverse.data.entity.FakeArtifact
 import com.phdteam.historyverse.data.entity.MuseumType
-import com.phdteam.historyverse.data.entity.University
+import com.phdteam.historyverse.data.entity.FakeMuseum
 import com.phdteam.historyverse.data.local.database.HistoryVerseDao
 import com.phdteam.historyverse.data.network.BaseRepository
 import com.phdteam.historyverse.data.network.model.Advertisement
@@ -17,16 +17,16 @@ class HistoryVerseRepositoryImp(
     private val geminiApi: GeminiApi,
     private val historyVerseService: HistoryVerseService
 ): BaseRepository(),HistoryVerseRepository {
-    override suspend fun getMentors(): List<Mentor> {
-        return generatorMentor()
+    override suspend fun getFakeArtifacts(): List<FakeArtifact> {
+        return generatorArtifacts()
     }
 
-    override suspend fun getMuseumsTypes(): List<MuseumType> {
+    override suspend fun getFakeMuseumsTypes(): List<MuseumType> {
         return generateMuseumsTypes()
     }
 
-    override suspend fun getUniversities(): List<University> {
-        return generateUniversities()
+    override suspend fun getFakeMuseums(): List<FakeMuseum> {
+        return generateMuseums()
     }
 
     override fun generateContent(userContent: String, modelContent: String): Chat {
@@ -97,11 +97,11 @@ class HistoryVerseRepositoryImp(
 
     //region Fake Data
 
-    private fun generatorMentor(): List<Mentor> {
-        val list = mutableListOf<Mentor>()
+    private fun generatorArtifacts(): List<FakeArtifact> {
+        val list = mutableListOf<FakeArtifact>()
         for (i in 0..10) {
             list.add(
-                Mentor(
+                FakeArtifact(
                     id = "$i",
                     name = "First Last$i",
                     imageUrl = getProfileImage(),
@@ -165,11 +165,11 @@ class HistoryVerseRepositoryImp(
         )
     }
 
-    private fun generateUniversities(): List<University> {
-        val list = mutableListOf<University>()
+    private fun generateMuseums(): List<FakeMuseum> {
+        val list = mutableListOf<FakeMuseum>()
         for (i in 0..10) {
             list.add(
-                University(
+                FakeMuseum(
                     id = "$i",
                     name = "First Last$i",
                     imageUrl = getImage(),

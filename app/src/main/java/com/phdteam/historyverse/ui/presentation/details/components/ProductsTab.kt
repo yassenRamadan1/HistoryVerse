@@ -21,7 +21,7 @@ import com.phdteam.historyverse.ui.presentation.favorite.CardType
 fun ProductsTab(
     modifier: Modifier = Modifier,
     state: DetailsScreenUiState,
-    onCardClick: (String) -> Unit,
+    onCardClick: (Int) -> Unit,
     onFavoriteClick: (String) -> Unit,
 ) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {

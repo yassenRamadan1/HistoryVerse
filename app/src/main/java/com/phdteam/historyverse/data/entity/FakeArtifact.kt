@@ -1,6 +1,6 @@
 package com.phdteam.historyverse.data.entity
 
-data class Mentor(
+data class FakeArtifact(
     val id: String,
     val imageUrl: String,
     val name: String,

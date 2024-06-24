@@ -8,7 +8,8 @@ import com.phdteam.historyverse.data.network.model.Museum
 data class HomeUIState(
     val artifacts: List<ArtifactUiState> = emptyList(),
     val museums: List<MuseumUiState> = emptyList(),
-    val category: List<CategoryUiState> = emptyList(),
+    val categories: List<String?> = emptyList(),
+    val fakeCategories: List<CategoryUiState> = emptyList(),
     val advertisement: List<Advertisement> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,

@@ -150,10 +150,10 @@ private fun HomeContent(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
-                    items(state.category) { subject ->
+                    items(state.categories) { category ->
                         HVCategory(
                             modifier = Modifier.width(100.dp),
-                            name = subject.name,
+                            name = category ?: "",
                             onClick = {}
                         )
                     }

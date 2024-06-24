@@ -35,7 +35,7 @@ import org.koin.core.parameter.parametersOf
 fun SeeAllScreen(
     type: SeeAllType,
     viewModel: SeeAllViewModel = koinViewModel(parameters = { parametersOf(type) }),
-    navigateTo: () -> Unit,
+    navigateTo: (id:Int) -> Unit,
     navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
@@ -44,7 +44,8 @@ fun SeeAllScreen(
 
     SeeAllContent(
         state = state,
-        onBack = navigateBack
+        onBack = navigateBack,
+        onclickItem =  navigateTo
     )
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
@@ -67,7 +68,8 @@ private fun onEffect(effect: SeeAllUIEffect?, context: Context) {
 @Composable
 private fun SeeAllContent(
     state: SeeAllUIState,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onclickItem: (id:Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -97,26 +99,26 @@ private fun SeeAllContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(state.artifacts) { mentor ->
+                items(state.artifacts) { artifact ->
                     HVArtifact(
                         modifier = Modifier.fillMaxWidth(),
-                        name = mentor.name,
+                        name = artifact.name,
                         rate = 4.0,
                         numberReviewers = 500,
-                        profileUrl = mentor.imageUrl,
-                        onClick = {}
+                        profileUrl = artifact.imageUrl,
+                        onClick = { onclickItem(artifact.id) }
                     )
                 }
 
-                items(state.museums) { university ->
+                items(state.museums) { museum ->
                     HVMuseum(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(height = 215.dp),
-                        name = university.name,
-                        address = university.city,
-                        imageUrl = university.imageUrl,
-                        onClick = {}
+                        name = museum.name,
+                        address = museum.city,
+                        imageUrl = museum.imageUrl,
+                        onClick = { onclickItem(museum.id) }
                     )
                 }
             }

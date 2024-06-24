@@ -40,7 +40,7 @@ import kotlin.math.floor
 
 @Composable
 fun ItemCard(
-    onClickCard: (id: String) -> Unit,
+    onClickCard: (id: Int) -> Unit,
     onClickFavorite: (id: String) -> Unit,
     cardType: CardType = CardType.MUSEUM,
     state: ArtifactUiState = ArtifactUiState()
@@ -51,7 +51,7 @@ fun ItemCard(
             .padding(8.dp)
             .width(120.dp)
             .height(220.dp)
-            .noRippleEffect { onClickCard(state.id.toString()) },
+            .noRippleEffect { onClickCard(state.id) },
         colors = CardDefaults.cardColors(Color.White)
     ) {
 

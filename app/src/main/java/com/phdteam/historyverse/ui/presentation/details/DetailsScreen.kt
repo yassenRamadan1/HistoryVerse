@@ -62,12 +62,14 @@ import org.koin.core.parameter.parametersOf
 fun DetailsScreen(
     id: Int?,
     viewModel: DetailsViewModel = koinViewModel(parameters = { parametersOf(id) }),
+    navigateTo: (id: Int) -> Unit,
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
     DetailsScreenContent(
         state, viewModel,
-        onNavigateBack = onNavigateBack
+        onNavigateBack = onNavigateBack,
+        onClickItem = navigateTo
     )
 }
 
@@ -76,7 +78,8 @@ fun DetailsScreen(
 private fun DetailsScreenContent(
     state: DetailsScreenUiState,
     viewModel: DetailsViewModel,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onClickItem: (id: Int) -> Unit ,
 ) {
 
     val list = listOf("Reviews", "Artifacts", "Products")
@@ -265,7 +268,7 @@ private fun DetailsScreenContent(
                                 ArtifatsTab(
                                     modifier = Modifier, state = state,
                                     onFavoriteClick = viewModel::onFavoriteClick,
-                                    onClickArtifactCard = viewModel::onArtifactClick
+                                    onClickArtifactCard = onClickItem
                                 )
 
                             }
@@ -275,7 +278,7 @@ private fun DetailsScreenContent(
                                     modifier = Modifier,
                                     state = state,
                                     onFavoriteClick = viewModel::onFavoriteClick,
-                                    onCardClick = viewModel::onProductClick
+                                    onCardClick = onClickItem
                                 )
                             }
                         }

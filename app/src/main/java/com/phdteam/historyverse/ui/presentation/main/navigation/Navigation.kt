@@ -189,7 +189,12 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
         val id = Screen.Details.args?.getInt("id")
         DetailsScreen(
             id = id ,
-            onNavigateBack = onNavigateBack
+            onNavigateBack = onNavigateBack,
+            navigateTo = {
+                Screen.Details.args = bundleOf(Pair("id", it))
+                Screen.Details.also(onNavigateTo)
+            }
+
         )
     }
 }
@@ -201,7 +206,10 @@ fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBac
         val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
         SeeAllScreen(
             type = value,
-            navigateTo = {},
+            navigateTo = {
+                Screen.Details.args = bundleOf(Pair("id", it))
+                Screen.Details.also(onNavigateTo)
+            },
             navigateBack = onNavigateBack
         )
     }
