@@ -1,6 +1,6 @@
 package com.phdteam.historyverse.data.entity
 
-data class University(
+data class FakeMuseum(
     val id: String,
     val name: String,
     val imageUrl: String,

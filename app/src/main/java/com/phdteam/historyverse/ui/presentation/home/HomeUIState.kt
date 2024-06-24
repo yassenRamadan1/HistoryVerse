@@ -1,7 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.home
 
 import com.phdteam.historyverse.data.entity.MuseumType
-import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.model.Museum
@@ -9,7 +8,8 @@ import com.phdteam.historyverse.data.network.model.Museum
 data class HomeUIState(
     val artifacts: List<ArtifactUiState> = emptyList(),
     val museums: List<MuseumUiState> = emptyList(),
-    val subjects: List<SubjectUiState> = emptyList(),
+    val categories: List<String?> = emptyList(),
+    val fakeCategories: List<CategoryUiState> = emptyList(),
     val advertisement: List<Advertisement> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
@@ -17,7 +17,7 @@ data class HomeUIState(
 
 
 data class ArtifactUiState(
-    val id: String = "",
+    val id: Int = 0,
     val name: String = "",
     val artifactType: String = "",
     val artifactDescription : String = "",
@@ -26,7 +26,7 @@ data class ArtifactUiState(
 
 )
 data class MuseumUiState(
-    val id: String = "",
+    val id: Int = 0,
     val name: String = "",
     val imageUrl: String = "",
     val city : String = "",
@@ -34,7 +34,7 @@ data class MuseumUiState(
 fun List<Any>.showSeeAll(): Boolean {
     return this.size > 3
 }
-data class SubjectUiState(
+data class CategoryUiState(
     val id: String = "",
     val name: String = ""
 )
@@ -43,7 +43,7 @@ data class SubjectUiState(
 //region Mappers
 
 fun Artifact.toArtifactUiState() = ArtifactUiState(
-    id = id.toString(),
+    id = id ?: 0,
     name = name ?: "",
     artifactType = artifactType ?: "",
     artifactDescription = artifactDescription ?: "",
@@ -51,7 +51,7 @@ fun Artifact.toArtifactUiState() = ArtifactUiState(
     artifactHistory = artifactHistory ?: ""
 )
 fun Museum.toMuseumUiState() = MuseumUiState(
-    id = museumId.toString(),
+    id = museumId ?: 0,
     name = name ?: "",
     imageUrl = imageUrl ?: "",
     city = city ?: ""
@@ -59,7 +59,7 @@ fun Museum.toMuseumUiState() = MuseumUiState(
 fun List<Museum>.toMuseumUiState() = map { it.toMuseumUiState() }
 fun List<Artifact>.toArtifactUiState() = map { it.toArtifactUiState() }
 
-fun MuseumType.toSubjectUiState() = SubjectUiState(id, name)
+fun MuseumType.toSubjectUiState() = CategoryUiState(id, name)
 
 fun List<MuseumType>.toSubjectUiState() = map { it.toSubjectUiState() }
 

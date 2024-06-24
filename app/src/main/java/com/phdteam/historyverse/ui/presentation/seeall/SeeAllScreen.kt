@@ -23,9 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
-import com.phdteam.historyverse.ui.components.GGAppBar
-import com.phdteam.historyverse.ui.components.GGMentor
-import com.phdteam.historyverse.ui.components.GGUniversity
+import com.phdteam.historyverse.ui.components.HVAppBar
+import com.phdteam.historyverse.ui.components.HVArtifact
+import com.phdteam.historyverse.ui.components.HVMuseum
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -35,7 +35,7 @@ import org.koin.core.parameter.parametersOf
 fun SeeAllScreen(
     type: SeeAllType,
     viewModel: SeeAllViewModel = koinViewModel(parameters = { parametersOf(type) }),
-    navigateTo: () -> Unit,
+    navigateTo: (id:Int) -> Unit,
     navigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
@@ -44,7 +44,8 @@ fun SeeAllScreen(
 
     SeeAllContent(
         state = state,
-        onBack = navigateBack
+        onBack = navigateBack,
+        onclickItem =  navigateTo
     )
 
     LaunchedEffect(key1 = !state.isLoading && !state.isError) {
@@ -67,7 +68,8 @@ private fun onEffect(effect: SeeAllUIEffect?, context: Context) {
 @Composable
 private fun SeeAllContent(
     state: SeeAllUIState,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onclickItem: (id:Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -77,7 +79,7 @@ private fun SeeAllContent(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        GGAppBar(
+        HVAppBar(
             modifier = Modifier.fillMaxWidth(),
             title = when (state.type) {
                 SeeAllType.Artifacts -> stringResource(id = R.string.artifacts)
@@ -97,26 +99,26 @@ private fun SeeAllContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(state.artifacts) { mentor ->
-                    GGMentor(
+                items(state.artifacts) { artifact ->
+                    HVArtifact(
                         modifier = Modifier.fillMaxWidth(),
-                        name = mentor.name,
+                        name = artifact.name,
                         rate = 4.0,
                         numberReviewers = 500,
-                        profileUrl = mentor.imageUrl,
-                        onClick = {}
+                        profileUrl = artifact.imageUrl,
+                        onClick = { onclickItem(artifact.id) }
                     )
                 }
 
-                items(state.museums) { university ->
-                    GGUniversity(
+                items(state.museums) { museum ->
+                    HVMuseum(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(height = 215.dp),
-                        name = university.name,
-                        address = university.city,
-                        imageUrl = university.imageUrl,
-                        onClick = {}
+                        name = museum.name,
+                        address = museum.city,
+                        imageUrl = museum.imageUrl,
+                        onClick = { onclickItem(museum.id) }
                     )
                 }
             }

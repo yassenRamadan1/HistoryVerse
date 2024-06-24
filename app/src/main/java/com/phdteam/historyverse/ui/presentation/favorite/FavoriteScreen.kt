@@ -78,7 +78,6 @@ fun FavoriteContent(
             ) { item ->
                 ItemCard(
                     cardType = CardType.ARTIFACT,
-                    state = state.cards[item],
                     onClickCard = {onClickCard() },
                     onClickFavorite = { onClickFavorite(item) }
                 )

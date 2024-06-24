@@ -36,10 +36,10 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.phdTeam.HistoryVerse.R
-import com.phdteam.historyverse.ui.components.GGMentor
-import com.phdteam.historyverse.ui.components.GGSubject
-import com.phdteam.historyverse.ui.components.GGTitleWithSeeAll
-import com.phdteam.historyverse.ui.components.GGUniversity
+import com.phdteam.historyverse.ui.components.HVArtifact
+import com.phdteam.historyverse.ui.components.HVCategory
+import com.phdteam.historyverse.ui.components.HVMuseum
+import com.phdteam.historyverse.ui.components.HVTitleWithSeeAll
 import com.phdteam.historyverse.ui.presentation.home.component.ChatBot
 import com.phdteam.historyverse.ui.presentation.home.component.HVAutoSlidingCarousel
 import com.phdteam.historyverse.ui.presentation.home.component.HomeAppBar
@@ -99,7 +99,7 @@ private fun HomeContent(
             HomeAppBar(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onNotificationClicked = {}
+                onMarketClicked = {onNavigateTo(HomeUIEffect.NavigateToMarket)}
             )
 
             Column(
@@ -112,7 +112,7 @@ private fun HomeContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBooks) }
+                    onClick = { onNavigateTo(HomeUIEffect.NavigateToChatBoot) }
                 )
 
                 Card(
@@ -135,11 +135,12 @@ private fun HomeContent(
                         }
                     )
                 }
-                GGTitleWithSeeAll(
+                HVTitleWithSeeAll(
                     modifier = Modifier
                         .padding(top = 16.dp, bottom = 10.dp)
                         .padding(horizontal = 16.dp),
                     title = stringResource(id = R.string.categories),
+                    showSeeAll = false,
                     onClick = {}
                 )
 
@@ -149,16 +150,16 @@ private fun HomeContent(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
-                    items(state.subjects) { subject ->
-                        GGSubject(
+                    items(state.categories) { category ->
+                        HVCategory(
                             modifier = Modifier.width(100.dp),
-                            name = subject.name,
+                            name = category ?: "",
                             onClick = {}
                         )
                     }
                 }
                 if (state.museums.isNotEmpty()) {
-                    GGTitleWithSeeAll(
+                    HVTitleWithSeeAll(
                         modifier = Modifier
                             .padding(top = 16.dp, bottom = 10.dp)
                             .padding(horizontal = 16.dp),
@@ -176,18 +177,18 @@ private fun HomeContent(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
-                    items(state.museums) { university ->
-                        GGUniversity(
+                    items(state.museums) { museum ->
+                        HVMuseum(
                             modifier = Modifier.size(height = 215.dp, width = 322.dp),
-                            name = university.name,
-                            address = university.city,
-                            imageUrl = university.imageUrl,
-                            onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
+                            name = museum.name,
+                            address = museum.city,
+                            imageUrl = museum.imageUrl,
+                            onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail(museum.id)) }
                         )
                     }
                 }
 
-                GGTitleWithSeeAll(
+                HVTitleWithSeeAll(
                     modifier = Modifier
                         .padding(bottom = 4.dp)
                         .padding(horizontal = 16.dp),
@@ -196,16 +197,16 @@ private fun HomeContent(
                     onClick = { onNavigateTo(HomeUIEffect.NavigateToSeeAll(SeeAllType.Artifacts)) }
                 )
                 if (state.artifacts.isNotEmpty()) {
-                    state.artifacts.take(4).forEach { mentor ->
-                        GGMentor(
+                    state.artifacts.take(4).forEach { artifact ->
+                        HVArtifact(
                             modifier = Modifier
                                 .padding(vertical = 4.dp)
                                 .padding(horizontal = 16.dp),
-                            name = mentor.name,
+                            name = artifact.name,
                             rate = 4.0,
                             numberReviewers = 500,
-                            profileUrl = mentor.imageUrl,
-                            onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail) }
+                            profileUrl = artifact.imageUrl,
+                            onClick = { onNavigateTo(HomeUIEffect.NavigateToDetail(artifact.id)) }
                         )
                     }
                 } else {

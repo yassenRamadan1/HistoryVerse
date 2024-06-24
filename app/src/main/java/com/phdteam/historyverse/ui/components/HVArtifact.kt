@@ -26,7 +26,7 @@ import com.phdteam.historyverse.ui.theme.Gold
 import com.phdteam.historyverse.ui.theme.Theme
 
 @Composable
-fun GGMentor(
+fun HVArtifact(
     name: String,
     rate: Double,
     numberReviewers: Int,

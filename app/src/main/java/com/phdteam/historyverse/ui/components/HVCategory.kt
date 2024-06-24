@@ -21,7 +21,7 @@ import com.phdteam.historyverse.ui.theme.Theme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun GGSubject(
+fun HVCategory(
     name: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit

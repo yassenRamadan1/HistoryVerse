@@ -1,7 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.home
 
 import com.phdteam.historyverse.data.entity.MuseumType
-import com.phdteam.historyverse.data.entity.University
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.model.Museum
@@ -19,7 +18,7 @@ class HomeViewModel(
     private fun getData() {
         updateState { it.copy(isLoading = true) }
         getArtifacts()
-        getSubjects()
+        getFakeCategories()
         getAdvertisement()
         getMuseums()
     }
@@ -50,6 +49,7 @@ class HomeViewModel(
     }
     private fun onSuccessMuseums(museums: List<Museum>) {
         updateState { it.copy(museums = museums.take(6).shuffled().toMuseumUiState(), isLoading = false) }
+        updateState { it.copy(categories = museums.map { museum -> museum.museumType }.distinct() ) }
     }
     private fun onSuccessAdvertisement(advertisement: List<Advertisement>) {
         updateState { it.copy(advertisement = advertisement, isLoading = false) }
@@ -58,16 +58,16 @@ class HomeViewModel(
         updateState { it.copy(artifacts = artifact.take(6).toArtifactUiState(), isLoading = false) }
     }
 
-    private fun getSubjects() {
+    private fun getFakeCategories() {
         tryToExecute(
-            repository::getMuseumsTypes,
-            ::onSuccessSubject,
+            repository::getFakeMuseumsTypes,
+            ::onSuccessCategory,
             ::onError
         )
     }
 
-    private fun onSuccessSubject(subjects: List<MuseumType>) {
-        updateState { it.copy(subjects = subjects.take(6).toSubjectUiState()) }
+    private fun onSuccessCategory(subjects: List<MuseumType>) {
+        updateState { it.copy(fakeCategories = subjects.take(6).toSubjectUiState()) }
     }
 
     private fun onError() {

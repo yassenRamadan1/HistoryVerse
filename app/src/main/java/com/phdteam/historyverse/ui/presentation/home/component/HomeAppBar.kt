@@ -24,7 +24,7 @@ import com.phdteam.historyverse.ui.theme.Theme
 @Composable
 fun HomeAppBar(
     modifier: Modifier = Modifier,
-    onNotificationClicked: () -> Unit
+    onMarketClicked: () -> Unit
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier.shadow(1.dp),
@@ -44,8 +44,8 @@ fun HomeAppBar(
                 )
 
                 Icon(
-                    modifier = Modifier.noRippleEffect { onNotificationClicked() },
-                    painter = painterResource(id = R.drawable.notification),
+                    modifier = Modifier.noRippleEffect { onMarketClicked() },
+                    painter = painterResource(id = R.drawable.cart_large),
                     contentDescription = null,
                     tint = Theme.colors.primaryShadesDark
                 )
