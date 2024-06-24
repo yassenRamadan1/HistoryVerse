@@ -71,7 +71,7 @@ fun DetailsScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun DetailsScreenContent(
-    state: MuseumDetailsUiState,
+    state: DetailsUiState,
     viewModel: DetailsViewModel,
     onNavigateBack: () -> Unit
 ) {

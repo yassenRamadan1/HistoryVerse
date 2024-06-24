@@ -27,8 +27,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
+import com.phdteam.historyverse.ui.presentation.details.ArtifactDetailsUiState
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
-import com.phdteam.historyverse.ui.presentation.favorite.CardUiState
+import com.phdteam.historyverse.ui.presentation.home.ArtifactUiState
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -38,15 +39,15 @@ fun ItemCard(
     onClickCard: (id: String) -> Unit,
     onClickFavorite: (id: String) -> Unit,
     cardType: CardType = CardType.MUSEUM,
-    state: CardUiState
+    state: ArtifactUiState
 ) {
-    val ratingAvg = state.ratingAvg
+    val ratingAvg = 4.0f
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(0.5f)
             .wrapContentHeight()
-            .noRippleEffect { onClickCard(state.cardId) },
+            .noRippleEffect { onClickCard(state.id.toString()) },
         colors = CardDefaults.cardColors(Color.White)
     ) {
 
@@ -70,14 +71,14 @@ fun ItemCard(
                 .padding(horizontal = 8.dp)
         ) {
             Text(
-                text = state.cardTitleName,
+                text = state.name,
                 style = Theme.typography.labelMedium
             )
             if (cardType != CardType.SEARCH) {
                 Icon(
                     painter = painterResource(
                         id = if
-                                     (state.favorite) R.drawable.favorite
+                                     (false) R.drawable.favorite
                         else
                             R.drawable.favorite_empty
                     ),
@@ -85,7 +86,7 @@ fun ItemCard(
                     tint = Color.Red,
                     modifier = Modifier
                         .size(24.dp)
-                        .noRippleEffect { onClickFavorite(state.cardId) }
+                        .noRippleEffect { onClickFavorite(state.id.toString()) }
                 )
             }
         }
@@ -120,7 +121,7 @@ fun ItemCard(
                     )
                 }
                 Text(
-                    text = state.ratingAvg.toString(),
+                    text = ratingAvg.toString(),
                     style = Theme.typography.labelMedium
                 )
             }
@@ -136,7 +137,7 @@ fun ItemCard(
                     .padding(horizontal = 8.dp)
             ) {
                 Image(
-                    rememberAsyncImagePainter(model = state.museumImageUrl),
+                    rememberAsyncImagePainter(model = state.imageUrl),
                     contentDescription = "",
                     modifier = Modifier
                         .size(18.dp)
@@ -145,7 +146,7 @@ fun ItemCard(
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = state.museumName,
+                    text = state.artifactType,
                     style = Theme.typography.labelMedium,
                 )
             }
@@ -161,6 +162,6 @@ fun FavoriteCardPreview() {
     ItemCard(
         onClickCard = {},
         onClickFavorite = {},
-        state = CardUiState(),
+        state = ArtifactUiState(),
     )
 }

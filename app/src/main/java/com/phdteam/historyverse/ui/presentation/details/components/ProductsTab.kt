@@ -14,13 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdteam.historyverse.ui.components.ItemCard
-import com.phdteam.historyverse.ui.presentation.details.MuseumDetailsUiState
+import com.phdteam.historyverse.ui.presentation.details.DetailsUiState
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
 
 @Composable
 fun ProductsTab(
     modifier: Modifier = Modifier,
-    state: MuseumDetailsUiState,
+    state: DetailsUiState,
     onCardClick: (String) -> Unit,
     onFavoriteClick: (String) -> Unit,
 ) {
