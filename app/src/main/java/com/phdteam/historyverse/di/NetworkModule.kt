@@ -1,6 +1,7 @@
 package com.phdteam.historyverse.di
 
 import com.phdteam.historyverse.data.network.service.HistoryVerseService
+import com.phdteam.historyverse.data.network.service.TripService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -24,5 +25,21 @@ val NetworkModule = module {
             .build()
 
         retrofit.create(HistoryVerseService::class.java)
+    }
+    single {
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://trip-planner-flask.onrender.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        retrofit.create(TripService::class.java)
     }
 }

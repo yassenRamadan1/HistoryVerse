@@ -9,13 +9,17 @@ import com.phdteam.historyverse.data.network.BaseRepository
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.model.Museum
+import com.phdteam.historyverse.data.network.model.Trip
+import com.phdteam.historyverse.data.network.model.TripChoice
 import com.phdteam.historyverse.data.network.service.GeminiApi
 import com.phdteam.historyverse.data.network.service.HistoryVerseService
+import com.phdteam.historyverse.data.network.service.TripService
 
 class HistoryVerseRepositoryImp(
     private val historyVerseDao: HistoryVerseDao,
     private val geminiApi: GeminiApi,
-    private val historyVerseService: HistoryVerseService
+    private val historyVerseService: HistoryVerseService,
+    private val tripService: TripService,
 ): BaseRepository(),HistoryVerseRepository {
     override suspend fun getFakeArtifacts(): List<FakeArtifact> {
         return generatorArtifacts()
@@ -94,6 +98,15 @@ class HistoryVerseRepositoryImp(
         return generateAdvertisement()
     }
 
+    override suspend fun getTripMuseums(tripChoice: TripChoice): Trip {
+        return try {
+            tripService.recommendTrip(tripChoice).let { response ->
+                response.body() ?: Trip(emptyList())
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 
     //region Fake Data
 

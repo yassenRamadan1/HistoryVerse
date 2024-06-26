@@ -7,6 +7,8 @@ import com.phdteam.historyverse.data.entity.FakeMuseum
 import com.phdteam.historyverse.data.network.model.Advertisement
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.model.Museum
+import com.phdteam.historyverse.data.network.model.Trip
+import com.phdteam.historyverse.data.network.model.TripChoice
 
 interface HistoryVerseRepository {
     //region Mentor
@@ -34,5 +36,6 @@ interface HistoryVerseRepository {
     //region Advertisement
     fun getAdvertisement(): List<Advertisement>
     //endregion
+    suspend fun getTripMuseums(tripChoice: TripChoice): Trip
 
 }
