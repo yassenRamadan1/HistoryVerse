@@ -21,6 +21,7 @@ const val navigationRouteProfile = "profile"
 const val navigationRouteVedio = "review"
 const val navigationRouteFavorite = "favorite"
 const val navigationRouteDetails = "details"
+const val navigationRoutePayment = "payment"
 
 
 sealed class Screen(
@@ -64,6 +65,8 @@ sealed class Screen(
     )
     data object Favorite : Screen(
         route = navigationRouteFavorite,
-        title = R.string.favorite_title,
+    )
+    data object Payment : Screen(
+        route = navigationRoutePayment,
     )
 }
