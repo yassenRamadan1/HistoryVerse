@@ -126,12 +126,6 @@ private fun ProfileContent(
             )
         }
 
-
-
-
-
-
-
         if (states.isLoading) {
             CircularProgressIndicator()
         } else {
