@@ -15,6 +15,7 @@ import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
+import com.phdteam.historyverse.ui.presentation.payment.PaymentScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
@@ -134,7 +135,19 @@ fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
         route = Screen.Favorite.route
     ) {
         FavoriteScreen(
-            onClickCard = {}
+            onClickCard = {},
+            onNavigateBack = {}
+        )
+    }
+}
+fun NavGraphBuilder.paymentScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Favorite.route
+    ) {
+        PaymentScreen(
+            onNavPayment = {
+            },
+            onNavigateBack = {}
         )
     }
 }
