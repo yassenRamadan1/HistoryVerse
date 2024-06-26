@@ -25,7 +25,7 @@ const val navigationRouteDetails = "details"
 const val navigationRouteMarket = "market"
 const val navigationRouteMarketItemDetails = "marketDetails"
 const val navigationRouteRatingScreen = "ratingScreen"
-
+const val navigationRouteCart = "cartScreen"
 
 sealed class Screen(
     val route: String,
@@ -56,11 +56,13 @@ sealed class Screen(
         title = R.string.home_title,
         icon = Icons.Rounded.Home
     )
+
     data object Search : Screen(
         route = navigationRouteSearch,
         title = R.string.search_title,
         icon = Icons.Rounded.Search
     )
+
     data object Profile : Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
@@ -68,14 +70,16 @@ sealed class Screen(
     )
 
     data object Details : Screen(
-        route = navigationRouteDetails ,
+        route = navigationRouteDetails,
     )
+
     data object Favorite : Screen(
         route = navigationRouteFavorite,
         title = R.string.favorite_title,
     )
 
     data object Market : Screen(route = navigationRouteMarket)
-    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails,)
+    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails)
     data object Review : Screen(route = navigationRouteRatingScreen)
+    data object Cart : Screen(route = navigationRouteCart)
 }
