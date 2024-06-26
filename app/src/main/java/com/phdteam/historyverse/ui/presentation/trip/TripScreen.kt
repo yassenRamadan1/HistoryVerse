@@ -39,7 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TripScreen(
     viewModel: TripViewModel = koinViewModel(),
-    navigateTo: () -> Unit,
+    navigateTo: (id:Int) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
@@ -62,7 +62,7 @@ private fun TripContent(
     state: TripUiState,
     onClickChip: (city: String) -> Unit,
     onClickMakeTrip: () -> Unit,
-    onNavigateToMuseum: () -> Unit
+    onNavigateToMuseum: (id : Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -129,7 +129,7 @@ private fun TripContent(
                             address = museum.city,
                             imageUrl = museum.imageUrl,
                             onClick = {
-                                onNavigateToMuseum()
+                                onNavigateToMuseum(museum.id)
                             }
                         )
                     }

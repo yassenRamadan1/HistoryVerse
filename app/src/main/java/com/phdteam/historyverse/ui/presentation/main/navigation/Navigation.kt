@@ -58,7 +58,8 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
                 screens = listOf(
                     Screen.Home,
                     Screen.Search,
-                    Screen.Profile
+                    Screen.Trip,
+                    Screen.Profile,
                 ), onNavigateTo = navController::navigateTo,
                 currentDestination = navBackStackEntry?.destination
             )
@@ -112,13 +113,14 @@ fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
         ChatBotScreen(onNavigateBack = onNavigateBack)
     }
 }
-fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Trip.route
     ) {
         TripScreen(
             navigateTo = {
-                Screen.Main.withClearBackStack().also(onNavigateTo)
+                Screen.Details.args = bundleOf(Pair("id", id))
+                Screen.Details.also(onNavigateTo)
             },
         )
     }
