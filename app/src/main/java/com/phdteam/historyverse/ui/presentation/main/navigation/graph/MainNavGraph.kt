@@ -26,6 +26,7 @@ fun MainNavGraph(
         homeScreen(onNavigateToRoot)
         searchScreen(onNavigateToRoot)
         profileScreen(onNavigateToRoot)
+        tripScreen(onNavigateToRoot,{})
 
     }
 }

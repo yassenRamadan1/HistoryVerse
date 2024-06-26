@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.phdTeam.HistoryVerse.R
@@ -25,6 +26,7 @@ const val navigationRouteDetails = "details"
 const val navigationRouteMarket = "market"
 const val navigationRouteMarketItemDetails = "marketDetails"
 const val navigationRouteRatingScreen = "ratingScreen"
+const val navigationRouteToTrip = "tripScreen"
 
 
 sealed class Screen(
@@ -51,16 +53,24 @@ sealed class Screen(
     object SignIn : Screen(navigationRouteSignIn)
 
     data object Main : Screen(navigationRouteMain)
+    data object Trip : Screen(
+        route = navigationRouteToTrip,
+        title = R.string.trip_title,
+        icon = Icons.Rounded.Refresh
+    )
+
     data object Home : Screen(
         route = navigationRouteHome,
         title = R.string.home_title,
         icon = Icons.Rounded.Home
     )
+
     data object Search : Screen(
         route = navigationRouteSearch,
         title = R.string.search_title,
         icon = Icons.Rounded.Search
     )
+
     data object Profile : Screen(
         route = navigationRouteProfile,
         title = R.string.profile_title,
@@ -68,14 +78,15 @@ sealed class Screen(
     )
 
     data object Details : Screen(
-        route = navigationRouteDetails ,
+        route = navigationRouteDetails,
     )
+
     data object Favorite : Screen(
         route = navigationRouteFavorite,
         title = R.string.favorite_title,
     )
 
     data object Market : Screen(route = navigationRouteMarket)
-    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails,)
+    data object MarketItemDetails : Screen(route = navigationRouteMarketItemDetails)
     data object Review : Screen(route = navigationRouteRatingScreen)
 }
