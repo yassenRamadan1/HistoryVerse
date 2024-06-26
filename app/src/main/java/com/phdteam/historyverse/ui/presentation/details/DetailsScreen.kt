@@ -5,15 +5,33 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.runtime.*
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,33 +42,46 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVAppBar
-import com.phdteam.historyverse.ui.presentation.details.components.ArtifactCard
 import com.phdteam.historyverse.ui.presentation.details.components.ArtifatsTab
 import com.phdteam.historyverse.ui.presentation.details.components.ProductsTab
 import com.phdteam.historyverse.ui.presentation.details.components.ReviewTab
-import com.phdteam.historyverse.ui.presentation.favorite.CardType
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.starColor
 import com.phdteam.historyverse.ui.theme.yellowColor
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 //import com.phdteam.historyverse.R
 
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsViewModel = koinViewModel()
+    id: Int?,
+    viewModel: DetailsViewModel = koinViewModel(parameters = { parametersOf(id) }),
+    navigateTo: (id: Int) -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
-    DetailsScreenContent(state, viewModel)
+    DetailsScreenContent(
+        state, viewModel,
+        onNavigateBack = onNavigateBack,
+        onClickItem = navigateTo
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewModel) {
-    val color = Theme.colors
+private fun DetailsScreenContent(
+    state: DetailsScreenUiState,
+    viewModel: DetailsViewModel,
+    onNavigateBack: () -> Unit,
+    onClickItem: (id: Int) -> Unit ,
+) {
+
     val list = listOf("Reviews", "Artifacts", "Products")
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
@@ -62,7 +93,9 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
     val context = LocalContext.current
     Scaffold(topBar = {
         HVAppBar(
-            title = state.museam
+            title = state.details.name,
+            onBack = onNavigateBack
+
         )
     }) {
         Box(
@@ -87,9 +120,10 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                             .constrainAs(imageBox) {
                                 top.linkTo(parent.top)
                             }) {
-                        Image(
-//                            painter = rememberAsyncImagePainter(state.imageUrl) ,
-                            painter = painterResource(R.drawable.museum_img),
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(state.details.imageUrl)
+                                .build(),
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxSize()
@@ -107,7 +141,7 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
 
                                 ) {
                                 Text(
-                                    state.museam,
+                                    state.details.name,
                                     color = Color.White,
                                     style = Theme.typography.titleSmall
                                 )
@@ -120,7 +154,7 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                                     tint = starColor
                                 )
                                 Text(
-                                    state.rating.toString(),
+                                    state.details.rating.toString(),
                                     color = Color.White,
                                     style = Theme.typography.titleSmall
                                 )
@@ -129,7 +163,7 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                         }
                     }
                     Text(
-                        state.description,
+                        state.details.description,
                         modifier = Modifier
                             .constrainAs(description) {
                                 top.linkTo(imageBox.bottom)
@@ -141,25 +175,29 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                         overflow = TextOverflow.Ellipsis,
                         style = Theme.typography.bodyMedium
                     )
-                    Box(
-                        modifier = Modifier
-                            .constrainAs(bookButton) {
-                                end.linkTo(parent.end)
-                                bottom.linkTo(imageBox.bottom, margin = (-24).dp)
-                            }
-                            .padding(end = 16.dp)
-                            .clip(CircleShape)
-                            .clickable { viewModel.onBookClick() }
-                            .background(yellowColor)
-                            .padding(16.dp),
-                    ) {
-                        Text(
-                            "Book",
+
+                    if (state.details.isMuseum) {
+
+                        Box(
                             modifier = Modifier
-                                .align(Alignment.Center)
+                                .constrainAs(bookButton) {
+                                    end.linkTo(parent.end)
+                                    bottom.linkTo(imageBox.bottom, margin = (-24).dp)
+                                }
+                                .padding(end = 16.dp)
+                                .clip(CircleShape)
+                                .clickable { viewModel.onBookClick() }
+                                .background(yellowColor)
                                 .padding(16.dp),
-                            color = Color.White
-                        )
+                        ) {
+                            Text(
+                                "Book",
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(16.dp),
+                                color = Color.White
+                            )
+                        }
                     }
 
 
@@ -221,8 +259,8 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                         when (page) {
                             0 -> {
                                 ReviewTab(
-                                    modifier = Modifier, state = state,
-                                    viewModel::onMakeReview
+                                    modifier = Modifier, state = state.reviewState,
+                                    onReview = viewModel::onMakeReview
                                 )
                             }
 
@@ -230,7 +268,7 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                                 ArtifatsTab(
                                     modifier = Modifier, state = state,
                                     onFavoriteClick = viewModel::onFavoriteClick,
-                                    onClickArtifactCard = viewModel::onArtifactClick
+                                    onClickArtifactCard = onClickItem
                                 )
 
                             }
@@ -240,7 +278,7 @@ private fun DetailsScreenContent(state: DetailsUiState, viewModel: DetailsViewMo
                                     modifier = Modifier,
                                     state = state,
                                     onFavoriteClick = viewModel::onFavoriteClick,
-                                    onCardClick = viewModel::onProductClick
+                                    onCardClick = onClickItem
                                 )
                             }
                         }

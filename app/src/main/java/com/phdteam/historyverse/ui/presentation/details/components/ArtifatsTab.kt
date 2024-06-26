@@ -10,14 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdteam.historyverse.ui.components.ItemCard
-import com.phdteam.historyverse.ui.presentation.details.DetailsUiState
+import com.phdteam.historyverse.ui.presentation.details.DetailsScreenUiState
 @Composable
 fun ArtifatsTab(
     modifier: Modifier = Modifier,
-    state: DetailsUiState,
-    onClickArtifactCard: (cardId: String) -> Unit,
+    state: DetailsScreenUiState,
+    onClickArtifactCard: (cardId: Int) -> Unit,
     onFavoriteClick: (cardId: String) -> Unit
 ) {
+    val newState = state.recommendedArtifacts.filter { it.museumId == state.details.museumId }
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -37,9 +38,9 @@ fun ArtifatsTab(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(state.recommendedArtifacts.size) { index ->
+                    items(newState.size) { index ->
                         ItemCard(
-                            state = state.recommendedArtifacts[index],
+                            state = newState[index],
                             onClickCard = onClickArtifactCard,
                             onClickFavorite = onFavoriteClick
                         )

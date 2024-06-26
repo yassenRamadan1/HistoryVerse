@@ -1,6 +1,13 @@
 package com.phdteam.historyverse.ui.presentation.details.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -12,16 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
-import com.phdteam.historyverse.ui.presentation.details.Artifact
-import com.phdteam.historyverse.ui.presentation.details.DetailsUiState
+import com.phdteam.historyverse.ui.presentation.details.ReviewTabState
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.yellowColor
 
 @Composable
 fun ReviewTab(
+    state: ReviewTabState,
+    onReview: () -> Unit,
     modifier: Modifier = Modifier,
-    state: DetailsUiState,
-    onItemClick: (rate: Int) -> Unit
 ) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
 
@@ -45,13 +51,11 @@ fun ReviewTab(
                 ) {
                     for (i in 1..5) {
                         Icon(
-                            painter = if (i <= state.review) painterResource(R.drawable.star) else painterResource(
-                                R.drawable.rating_empty_star
-                            ),
+                            painter = painterResource(id = if (i <= state.review - 1) R.drawable.star_smooth else R.drawable.star_empty),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(28.dp)
-                                .noRippleEffect { onItemClick(i) },
+                                .noRippleEffect { onReview() },
                             tint = yellowColor
                         )
                     }

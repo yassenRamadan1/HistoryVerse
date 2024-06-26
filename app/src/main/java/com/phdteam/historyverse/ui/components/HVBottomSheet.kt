@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,14 +18,16 @@ fun HVBottomSheet(
     onDismissRequest: () -> Unit,
     showDragHandle: Boolean = true,
     containerColor: Color = Theme.colors.background,
-    content: @Composable (ColumnScope.() -> Unit)
+    state: SheetState = rememberModalBottomSheetState(
+        confirmValueChange = {
+            true
+        }
+    ),
+    content: @Composable (ColumnScope.() -> Unit),
 ) {
     ModalBottomSheet(
         modifier = modifier,
-        sheetState = rememberModalBottomSheetState(
-            confirmValueChange = {
-                true
-            }),
+        sheetState = state,
         onDismissRequest = onDismissRequest,
         dragHandle = {
             if (showDragHandle)

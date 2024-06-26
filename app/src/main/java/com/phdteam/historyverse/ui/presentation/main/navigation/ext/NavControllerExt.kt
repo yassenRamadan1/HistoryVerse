@@ -28,6 +28,7 @@ fun NavController.navigateTo(
         popUpTo(graph.findStartDestination().id) {
             saveState = true
         }
+
         // Avoid multiple copies of the same destination when
         // reselecting the same item
         launchSingleTop = true
@@ -35,9 +36,10 @@ fun NavController.navigateTo(
         restoreState = screen.restoreState
 
         //Clearing back stack up to certain screen if required
-        if (screen.clearBackStack && !currentRoute.isNullOrEmpty())
+        if (screen.clearBackStack && !currentRoute.isNullOrEmpty()) {
             popUpTo(currentRoute) {
                 inclusive = true
             }
+        }
     }
 }

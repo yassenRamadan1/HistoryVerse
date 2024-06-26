@@ -1,7 +1,5 @@
 package com.phdteam.historyverse.ui.presentation.auth.login
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -34,7 +32,6 @@ import com.phdteam.historyverse.ui.components.HVSnackbar
 import com.phdteam.historyverse.ui.components.HVTextField
 import com.phdteam.historyverse.ui.presentation.auth.composables.TextWithClick
 import com.phdteam.historyverse.ui.theme.Theme
-import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -81,6 +78,7 @@ private fun LoginContent(
     onClickLogin: () -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
+    val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -118,6 +116,7 @@ private fun LoginContent(
                 HVButton(
                     title = "Log In",
                     onClick = {
+                        focusManager.clearFocus()
                         onClickLogin()
                     },
                     modifier = Modifier.fillMaxWidth()

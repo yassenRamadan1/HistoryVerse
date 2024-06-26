@@ -4,9 +4,11 @@ import org.koin.dsl.module
 
 fun appModule() = module {
     includes(
+        AiModel,
         LocalDatabaseModule,
         NetworkModule,
         RepositoryModule,
-        viewModelModule
+        viewModelModule,
+        DataStoreModule,
     )
 }

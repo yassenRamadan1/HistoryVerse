@@ -3,6 +3,11 @@
 
     <!-- home section -->
     <string name="home_title">Home</string>
+    <string name="trip_title">Trip</string>
+    <string name="artifacts">artifacts</string>
+    <string name="categories">categories</string>
+    <string name="Museums">Museums</string>
+    <string name="welcome_chatbot">How can I help you?</string>
 
     <!-- search section -->
     <string name="search_title">Search</string>
@@ -25,9 +30,9 @@
     <string name="favorite_title">Favorites</string>
 
     <string name="see_all">See All</string>
-    <!--    <string name="userRole">When asked any question that is not related to this university , please say: “I don’t know.”</string>-->
-    <string name="user_role">When asked any question that is not related to this university %1$s , please say: “I don’t know.”</string>
-    <string name="model_role">Plz ask me about something related on %1$s just, so I can answer you.</string>
+
+    <string name="userRole">When asked any question that is not related to museums and artifacts , please say: “I don’t know.”</string>
+    <string name="modelRole">Plz ask me about something related on museums and artifacts just, so I can answer you.</string>
 
 
 
