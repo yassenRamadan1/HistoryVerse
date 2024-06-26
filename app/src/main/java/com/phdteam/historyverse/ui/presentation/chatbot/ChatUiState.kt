@@ -7,7 +7,9 @@ data class ChatUiState(
     val canNotSendMessage: Boolean = false,
     val error: String? = "",
     val userRole: String = "",
-    val modelRole: String = ""
+    val modelRole: String = "",
+    val isRecording: Boolean = false,
+    val audioFileUriPath: String = "",
 ) {
 
 }

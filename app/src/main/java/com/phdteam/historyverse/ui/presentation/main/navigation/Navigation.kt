@@ -7,14 +7,15 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
+import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
+import com.phdteam.historyverse.ui.presentation.cart.CartScreen
+import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotScreen
+import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
-import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
-import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeUIEffect
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
@@ -24,6 +25,7 @@ import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
 import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketDetailsUiEffect
 import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketItemDetailsScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
+import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
 import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
@@ -88,10 +90,11 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                 when (navigate) {
                     HomeUIEffect.NavigateToChatBoot -> Screen.ChatBot.also(onNavigateTo)
                     is HomeUIEffect.NavigateToMarket -> Screen.Market.also(onNavigateTo)
-                    is HomeUIEffect.NavigateToDetail ->{
+                    is HomeUIEffect.NavigateToDetail -> {
                         Screen.Details.args = bundleOf(Pair("id", navigate.id))
                         Screen.Details.also(onNavigateTo)
                     }
+
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.also(onNavigateTo)
@@ -177,6 +180,12 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
         ProfileScreen(
             onNavFavorite = {
                 Screen.Favorite.also(onNavigateTo)
+            },
+            onNavigateTo = { effect ->
+                when (effect) {
+                    is ProfileUIEffect.NavigateToCart -> Screen.Cart.also(onNavigateTo)
+                    else -> {}
+                }
             }
 
         )
@@ -202,7 +211,7 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
     ) {
         val id = Screen.Details.args?.getInt("id")
         DetailsScreen(
-            id = id ,
+            id = id,
             onNavigateBack = onNavigateBack,
             navigateTo = {
                 Screen.Details.args = bundleOf(Pair("id", it))
@@ -263,10 +272,12 @@ fun NavGraphBuilder.marketItemDetailsScreen(
                         Screen.MarketItemDetails.args = bundleOf(Pair("id", id))
                         Screen.MarketItemDetails.also(onNavigateTo)
                     }
+
                     is MarketDetailsUiEffect.NavigateToReview -> {
                         Screen.Review.args = bundleOf(Pair("id", id))
                         Screen.Review.also(onNavigateTo)
                     }
+
                     else -> {}
                 }
             },
@@ -286,6 +297,18 @@ fun NavGraphBuilder.ratingScreen(onNavigateBack: () -> Unit) {
         RateScreen(
             navigateBack = onNavigateBack,
             itemId = id
+        )
+    }
+}
+
+fun NavGraphBuilder.cartScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(route = Screen.Cart.route) {
+        CartScreen(
+            onNavigate = {
+//                Screen.Payment.also(onNavigateTo)
+            },
+            onNavigateBack = onNavigateBack
+
         )
     }
 }
