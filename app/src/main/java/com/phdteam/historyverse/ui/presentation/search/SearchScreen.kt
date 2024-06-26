@@ -97,7 +97,7 @@ private fun SearchContent(
     ) {
 
         if (state.isLoading) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = Theme.colors.primary)
         } else {
             Scaffold(
                 topBar = {

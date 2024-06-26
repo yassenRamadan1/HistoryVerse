@@ -14,6 +14,7 @@ import com.phdteam.historyverse.ui.presentation.rate.RateViewModel
 import com.phdteam.historyverse.ui.presentation.seeall.SeeAllViewModel
 import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotViewModel
 import com.phdteam.historyverse.ui.presentation.main.MainViewModel
+import com.phdteam.historyverse.ui.presentation.trip.TripViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -32,4 +33,5 @@ val viewModelModule = module {
     viewModelOf(::MarketItemDetailsViewModel)
     viewModelOf(::ChatBotViewModel)
     viewModelOf(::MainViewModel)
+    viewModelOf(::TripViewModel)
 }

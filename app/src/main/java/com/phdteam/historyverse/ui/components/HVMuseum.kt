@@ -25,7 +25,7 @@ fun HVMuseum(
     address: String,
     imageUrl: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    onClick:  () -> Unit,
 ) {
 
     Column(

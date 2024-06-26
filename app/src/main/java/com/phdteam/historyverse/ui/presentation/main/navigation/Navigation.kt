@@ -28,6 +28,7 @@ import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
 import com.phdteam.historyverse.ui.presentation.seeall.toSeeAllType
+import com.phdteam.historyverse.ui.presentation.trip.TripScreen
 
 
 fun NavGraphBuilder.loginNavGraph(onNavigateToRoot: (Screen) -> Unit, onNavigateBack: () -> Unit) {
@@ -57,7 +58,8 @@ fun NavGraphBuilder.mainNavGraph(onNavigateToRoot: (Screen) -> Unit) {
                 screens = listOf(
                     Screen.Home,
                     Screen.Search,
-                    Screen.Profile
+                    Screen.Trip,
+                    Screen.Profile,
                 ), onNavigateTo = navController::navigateTo,
                 currentDestination = navBackStackEntry?.destination
             )
@@ -109,6 +111,18 @@ fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
         route = Screen.ChatBot.route
     ) {
         ChatBotScreen(onNavigateBack = onNavigateBack)
+    }
+}
+fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit) {
+    composable(
+        route = Screen.Trip.route
+    ) {
+        TripScreen(
+            navigateTo = {
+                Screen.Details.args = bundleOf(Pair("id", it))
+                Screen.Details.also(onNavigateTo)
+            },
+        )
     }
 }
 
