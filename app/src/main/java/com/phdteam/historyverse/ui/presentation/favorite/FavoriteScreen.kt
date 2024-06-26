@@ -1,5 +1,6 @@
 package com.phdteam.historyverse.ui.presentation.favorite
 
+import androidx.compose.runtime.livedata.observeAsState
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.phdteam.historyverse.ui.components.HVBackTopAppBar
 import com.phdteam.historyverse.ui.components.ItemCard
+import com.phdteam.historyverse.utils.FakeData
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,7 +31,7 @@ fun FavoriteScreen(
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
-
+    val fakeData by viewModel.fakeData.observeAsState()
 
     FavoriteContent(
         state = state,
@@ -63,6 +65,7 @@ fun FavoriteContent(
     onClickCard: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
+    val fakeData = FakeData().generateFakeCards()
     Column(
 
     ) {
@@ -74,10 +77,10 @@ fun FavoriteContent(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(
-                state.cards.size,
+                fakeData.size,
             ) { item ->
                 ItemCard(
-                    state = state.cards[item],
+                    state = fakeData[item],
                     onClickCard = { },
                     onClickFavorite = onClickFavorite
                 )
@@ -93,7 +96,6 @@ fun FavoriteContent(
 fun PreviewFavoriteScreen() {
 
     val states = FavoriteUiState()
-    val viewModel: FavoriteViewModel = koinViewModel()
     FavoriteContent(
         state = states,
         onClickCard = {},

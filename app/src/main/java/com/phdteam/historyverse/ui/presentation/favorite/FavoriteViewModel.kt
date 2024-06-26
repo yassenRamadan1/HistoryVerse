@@ -1,7 +1,9 @@
 package com.phdteam.historyverse.ui.presentation.favorite
 
+import androidx.lifecycle.MutableLiveData
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
+import com.phdteam.historyverse.utils.FakeData
 import kotlinx.coroutines.delay
 
 class FavoriteViewModel(
@@ -11,7 +13,7 @@ class FavoriteViewModel(
     init {
         onMakeRequest()
     }
-
+    val fakeData = MutableLiveData(FakeData().generateFakeCards())
     private fun getCardInfoLocal() {
 //        updateState {
 //            it.copy(
@@ -141,7 +143,7 @@ class FavoriteViewModel(
         updateState {
             it.copy(
                 cards = it.cards.mapIndexed() { index, cardUiState ->
-                    if (index == 0 )
+                    if (index == id.toInt() )
                         cardUiState.copy(favorite = !cardUiState.favorite)
                     else
                         cardUiState

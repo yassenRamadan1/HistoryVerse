@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
@@ -16,7 +15,6 @@ import com.phdteam.historyverse.ui.presentation.auth.login.LoginScreen
 import com.phdteam.historyverse.ui.presentation.main.MainScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ext.navigateTo
 import com.phdteam.historyverse.ui.presentation.main.navigation.graph.MainNavGraph
-import com.phdteam.historyverse.ui.presentation.payment.PaymentScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 
@@ -125,43 +123,18 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
 
         ProfileScreen(
             onNavFavorite = {
-                Screen.Favorite.withClearBackStack().also(onNavigateTo)
+                Screen.Favorite.also(onNavigateTo)
             }
-
         )
     }
 }
 
-fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit){
+fun NavGraphBuilder.favoriteScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Favorite.route
     ) {
         FavoriteScreen(
-            onClickCard = {},
-            onNavigateBack = {}
-        )
-
-
-    }
-}
-
-fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit) {
-    composable(
-        route = Screen.Details.route
-    ) {
-
-        DetailsScreen()
-    }
-}
-fun NavGraphBuilder.paymentScreen(onNavigateTo: (Screen) -> Unit) {
-    composable(
-        route = Screen.Payment.route
-    ) {
-
-        PaymentScreen(
-            onNavPayment = {
-            },
-            onNavigateBack = {}
+            onClickCard = {}
         )
     }
 }
