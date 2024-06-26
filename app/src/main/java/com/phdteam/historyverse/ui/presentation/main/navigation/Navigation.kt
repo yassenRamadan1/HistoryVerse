@@ -119,7 +119,7 @@ fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
         TripScreen(
             navigateTo = {
-                Screen.Details.args = bundleOf(Pair("id", id))
+                Screen.Details.args = bundleOf(Pair("id", it))
                 Screen.Details.also(onNavigateTo)
             },
         )

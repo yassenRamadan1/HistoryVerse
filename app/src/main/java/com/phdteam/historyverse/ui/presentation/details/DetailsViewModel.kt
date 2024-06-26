@@ -6,6 +6,7 @@ import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import com.phdteam.historyverse.ui.presentation.home.toArtifactUiState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
@@ -24,7 +25,6 @@ class DetailsViewModel(
         getArtifacts()
         getMuseumById(id?:281)
         getArtifactById(id?:2352)
-        updateState { it.copy(isLoading = false) }
     }
 
     private fun getMuseumById(id: Int) {
@@ -35,8 +35,6 @@ class DetailsViewModel(
                 onSuccessMuseums(result)
             } catch (e: Exception) {
                 onError()
-            } finally {
-                updateState { it.copy(isLoading = false) }
             }
         }
     }
@@ -44,7 +42,7 @@ class DetailsViewModel(
     private fun onSuccessMuseums(museum: Museum) {
         updateState { it.copy(museum = museum.toMuseumDetailsUiState()) }
         if (id!! < 2000){
-            updateState { it.copy(details = museum.toDetailsUiState() , isLoading = false) }
+            updateState { it.copy(details = museum.toDetailsUiState() ) }
         }
     }
     private fun getArtifactById(id: Int) {
@@ -55,8 +53,6 @@ class DetailsViewModel(
                 onSuccessArtifact(result)
             } catch (e: Exception) {
                 onError()
-            } finally {
-                updateState { it.copy(isLoading = false) }
             }
         }
     }
@@ -64,7 +60,7 @@ class DetailsViewModel(
     private fun onSuccessArtifact(artifact: Artifact) {
         updateState { it.copy(artifactDetails = artifact.toArtifactDetailsUiState()) }
         if (id!! > 2000){
-            updateState { it.copy(details = artifact.toDetailsUiState() , isLoading = false) }
+            updateState { it.copy(details = artifact.toDetailsUiState()) }
         }
     }
 
@@ -78,11 +74,11 @@ class DetailsViewModel(
     }
 
     private fun onSuccessArtifacts(artifact: List<Artifact>) {
-        updateState { it.copy(artifacts = artifact.toArtifactUiState(), isLoading = false) }
+        updateState { it.copy(isLoading = true) }
+        updateState { it.copy(artifacts = artifact.toArtifactUiState()) }
         updateState {
             it.copy(
                 recommendedArtifacts = artifact.toArtifactUiState().shuffled(),
-                isLoading = false
             )
         }
         updateState {

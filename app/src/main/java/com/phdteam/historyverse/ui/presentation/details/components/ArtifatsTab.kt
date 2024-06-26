@@ -18,6 +18,7 @@ fun ArtifatsTab(
     onClickArtifactCard: (cardId: Int) -> Unit,
     onFavoriteClick: (cardId: String) -> Unit
 ) {
+    val newState = state.recommendedArtifacts.filter { it.museumId == state.details.museumId }
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -37,9 +38,9 @@ fun ArtifatsTab(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(state.recommendedArtifacts.size) { index ->
+                    items(newState.size) { index ->
                         ItemCard(
-                            state = state.recommendedArtifacts[index],
+                            state = newState[index],
                             onClickCard = onClickArtifactCard,
                             onClickFavorite = onFavoriteClick
                         )

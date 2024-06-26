@@ -23,7 +23,7 @@ data class ArtifactUiState(
     val artifactDescription : String = "",
     val imageUrl: String = "",
     val artifactHistory: String = "",
-
+    val museumId : Int = 0 ,
 )
 data class MuseumUiState(
     val id: Int = 0,
@@ -48,7 +48,8 @@ fun Artifact.toArtifactUiState() = ArtifactUiState(
     artifactType = artifactType ?: "",
     artifactDescription = artifactDescription ?: "",
     imageUrl = artifactImageUrl ?: "",
-    artifactHistory = artifactHistory ?: ""
+    artifactHistory = artifactHistory ?: "",
+    museumId = museumId ?: 0,
 )
 fun Museum.toMuseumUiState() = MuseumUiState(
     id = museumId ?: 0,

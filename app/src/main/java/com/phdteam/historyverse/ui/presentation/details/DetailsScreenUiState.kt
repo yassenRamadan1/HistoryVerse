@@ -24,6 +24,7 @@ data class ArtifactDetailsUiState(
     val artifactDescription : String = "",
     val imageUrl: String = "",
     val artifactHistory: String = "",
+    val museumId: Int = 0 ,
 )
 data class MuseumDetailsUiState(
     val museumId: Int = 0,
@@ -40,6 +41,7 @@ data class DetailsUiState(
     val description: String = "",
     val isMuseum: Boolean = false,
     val imageUrl: String = "",
+    val museumId: Int = 0,
 )
 fun Artifact.toDetailsUiState() = DetailsUiState(
     name = name ?: "",
@@ -47,6 +49,7 @@ fun Artifact.toDetailsUiState() = DetailsUiState(
     description = artifactDescription ?: "",
     isMuseum = false,
     imageUrl = artifactImageUrl ?: "",
+    museumId = museumId ?: 0,
 )
 fun Museum.toDetailsUiState() = DetailsUiState(
     name = name ?: "",
@@ -54,6 +57,7 @@ fun Museum.toDetailsUiState() = DetailsUiState(
     description = museumDescription ?: "",
     isMuseum = true,
     imageUrl = imageUrl ?: "",
+    museumId = museumId ?: 0,
 )
 fun Artifact.toArtifactDetailsUiState() = ArtifactDetailsUiState(
     id = id ?: 0,
@@ -62,6 +66,7 @@ fun Artifact.toArtifactDetailsUiState() = ArtifactDetailsUiState(
     artifactDescription = artifactDescription ?: "",
     imageUrl = artifactImageUrl ?: "",
     artifactHistory = artifactHistory ?: "",
+    museumId = museumId ?: 0,
 )
 fun Museum.toMuseumDetailsUiState() = MuseumDetailsUiState(
     museumId = museumId ?: 0,

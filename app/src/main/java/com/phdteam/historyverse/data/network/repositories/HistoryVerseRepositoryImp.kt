@@ -87,6 +87,7 @@ class HistoryVerseRepositoryImp(
                     artifactImageUrl = "",
                     artifactType = "",
                     artifactHistory = "",
+                    museumId = 0
                 )
             }
         } catch (e: Exception){
