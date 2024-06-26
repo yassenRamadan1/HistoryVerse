@@ -36,6 +36,5 @@ val viewModelModule = module {
     viewModelOf(::ChatBotViewModel)
     viewModelOf(::MainViewModel)
     viewModelOf(::CartViewModel)
-
     viewModelOf(::TripViewModel)
 }
