@@ -3,6 +3,7 @@ package com.phdteam.historyverse.ui.presentation.main.navigation
 import android.os.Bundle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -11,7 +12,6 @@ import com.phdTeam.HistoryVerse.R
 
 const val navigationRouteLogin = "login"
 const val navigationRouteChatBot = "chatBot"
-const val navigationRouteNotification = "notification"
 const val navigationRouteSeeAll = "seeAll"
 const val navigationRouteWelcome = "welcome"
 const val navigationRouteSignIn = "sign_in"
@@ -19,12 +19,12 @@ const val navigationRouteMain = "main"
 const val navigationRouteHome = "home"
 const val navigationRouteSearch = "search"
 const val navigationRouteProfile = "profile"
-const val navigationRouteVedio = "review"
 const val navigationRouteFavorite = "favorite"
 const val navigationRouteDetails = "details"
 const val navigationRouteMarket = "market"
 const val navigationRouteMarketItemDetails = "marketDetails"
 const val navigationRouteRatingScreen = "ratingScreen"
+const val navigationRouteToTrip = "tripScreen"
 const val navigationRouteCart = "cartScreen"
 
 sealed class Screen(
@@ -43,14 +43,21 @@ sealed class Screen(
         routePath = path
     }
 
-    object Login : Screen(navigationRouteLogin)
+    data object Login : Screen(navigationRouteLogin)
     data object ChatBot : Screen(navigationRouteChatBot)
-    object SeeAll : Screen(navigationRouteSeeAll)
-    object Welcome : Screen(navigationRouteWelcome)
+    data object SeeAll : Screen(navigationRouteSeeAll)
+    data object Welcome : Screen(navigationRouteWelcome)
 
-    object SignIn : Screen(navigationRouteSignIn)
+    data object SignIn : Screen(navigationRouteSignIn)
 
     data object Main : Screen(navigationRouteMain)
+
+    data object Trip : Screen(
+        route = navigationRouteToTrip,
+        title = R.string.trip_title,
+        icon = Icons.Rounded.LocationOn
+    )
+
     data object Home : Screen(
         route = navigationRouteHome,
         title = R.string.home_title,

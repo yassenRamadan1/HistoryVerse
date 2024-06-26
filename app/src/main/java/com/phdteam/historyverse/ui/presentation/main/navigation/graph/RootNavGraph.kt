@@ -37,6 +37,9 @@ fun RootNavGraph(
             onNavigateTo = navController::navigateTo,
             onNavigateBack = navController::navigateUp
         )
+        tripScreen(
+            navController::navigateTo,
+        )
         mainNavGraph(onNavigateToRoot = navController::navigateTo)
         detailsScreen(
             navController::navigateTo,
