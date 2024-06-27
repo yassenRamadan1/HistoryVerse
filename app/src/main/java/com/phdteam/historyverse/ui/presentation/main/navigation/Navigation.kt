@@ -12,7 +12,6 @@ import com.phdteam.historyverse.ui.presentation.auth.signin.SignInScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeScreen
 import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.phdteam.historyverse.ui.presentation.cart.CartScreen
-import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotScreen
 import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
@@ -24,6 +23,7 @@ import com.phdteam.historyverse.ui.presentation.market.MarketScreen
 import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
 import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketDetailsUiEffect
 import com.phdteam.historyverse.ui.presentation.market.marketDetails.MarketItemDetailsScreen
+import com.phdteam.historyverse.ui.presentation.payment.PaymentScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
 import com.phdteam.historyverse.ui.presentation.rate.RateScreen
@@ -90,7 +90,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                 when (navigate) {
                     HomeUIEffect.NavigateToChatBoot -> Screen.ChatBot.also(onNavigateTo)
                     is HomeUIEffect.NavigateToMarket -> Screen.Market.also(onNavigateTo)
-                    is HomeUIEffect.NavigateToDetail -> {
+                    is HomeUIEffect.NavigateToDetail ->{
                         Screen.Details.args = bundleOf(Pair("id", navigate.id))
                         Screen.Details.also(onNavigateTo)
                     }
@@ -113,9 +113,10 @@ fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
     composable(
         route = Screen.ChatBot.route
     ) {
-        ChatBotScreen(onNavigateBack = onNavigateBack)
+//        ChatBotScreen(onNavigateBack = onNavigateBack)
     }
 }
+
 fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Trip.route
@@ -186,6 +187,9 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
                     is ProfileUIEffect.NavigateToCart -> Screen.Cart.also(onNavigateTo)
                     else -> {}
                 }
+            },
+            onNavCart = {
+                Screen.Cart.also(onNavigateTo)
             }
 
         )
@@ -301,14 +305,23 @@ fun NavGraphBuilder.ratingScreen(onNavigateBack: () -> Unit) {
     }
 }
 
+fun NavGraphBuilder.paymentScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Payment.route,
+    ) {
+        PaymentScreen(
+            onNavigateBack = onNavigateBack,
+        )
+    }
+}
+
 fun NavGraphBuilder.cartScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(route = Screen.Cart.route) {
         CartScreen(
             onNavigate = {
-//                Screen.Payment.also(onNavigateTo)
+                Screen.Payment.also(onNavigateTo)
             },
-            onNavigateBack = onNavigateBack
-
+            onNavigateBack = onNavigateBack,
         )
     }
 }

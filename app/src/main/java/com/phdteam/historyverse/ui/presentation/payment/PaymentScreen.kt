@@ -2,7 +2,6 @@ package com.phdteam.historyverse.ui.presentation.payment
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,8 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,15 +19,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVBackTopAppBar
 import com.phdteam.historyverse.ui.components.HVButton
+import com.phdteam.historyverse.ui.components.HVPaymentCard
+import com.phdteam.historyverse.ui.components.HVPaymentFailCard
 import com.phdteam.historyverse.ui.components.HVTextField
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
@@ -40,7 +37,6 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PaymentScreen(
     viewModel: PaymentViewModel = koinViewModel(),
-    onNavPayment: () -> Unit,
     onNavigateBack: () -> Unit
 
 ) {
@@ -52,12 +48,13 @@ fun PaymentScreen(
 
     PaymentContent(
         states = state,
-        onNavPayment = onNavPayment,
         onUserCardNameChanged = viewModel::onChangeCardName,
         onUserCardNumberChanged = viewModel::onChangeCardNumber,
         onUserValidDateChanged = viewModel::onChangeValidDate,
         onUserCvvChanged = viewModel::onChangeCvv,
-        onNavigateBack = onNavigateBack
+        onNavigateBack = onNavigateBack,
+        onClickedNext = viewModel::onClickNext,
+        onClickGoBack = viewModel::onClickGoBack
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
@@ -68,10 +65,17 @@ fun PaymentScreen(
 }
 
 
-private fun onEffect(effect: PaymentUIEffect?, context: Context) {
-
+private fun onEffect(
+    effect: PaymentUIEffect?,
+    context: Context
+) {
     when (effect) {
-        PaymentUIEffect.PaymentError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        PaymentUIEffect.PaymentError -> Toast.makeText(
+            context,
+            "Please correct your information",
+            Toast.LENGTH_SHORT
+        ).show()
+
         else -> {}
     }
 }
@@ -80,110 +84,89 @@ private fun onEffect(effect: PaymentUIEffect?, context: Context) {
 @Composable
 private fun PaymentContent(
     states: PaymentUIState,
-    onNavPayment: () -> Unit,
     onUserCardNameChanged: (String) -> Unit,
     onUserCardNumberChanged: (String) -> Unit,
     onUserValidDateChanged: (String) -> Unit,
     onUserCvvChanged: (String) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onClickedNext: () -> Unit,
+    onClickGoBack: () -> Unit
 ) {
 
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxSize(),
-        ) {
-        HVBackTopAppBar(onNavigateBack)
+            .fillMaxSize()
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-
-            ) {
-            Box(
+                .fillMaxSize(),
+        ) {
+            HVBackTopAppBar(onNavigateBack)
+            Column(
                 modifier = Modifier
-                    .padding(vertical = 16.dp),
-                contentAlignment = Alignment.BottomStart
-            )
-            {
-                Image(
-                    painter = painterResource(id = R.drawable.visa),
-                    contentDescription = null
-                )
-                Card(
-                    modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .padding(horizontal = 16.dp),
-                    colors = CardDefaults.cardColors(Color.Transparent),
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+
                 ) {
-                    Text(
-                        text = "2244 4223 5342 2224",
-                        style = Theme.typography.labelLarge,
-                        color = Theme.colors.primaryShadesLight
+                HVPaymentCard()
+                Text(
+                    text = "Enter Your Smart Card Information",
+                    style = Theme.typography.labelLarge,
+                    color = Theme.colors.primaryShadesDark
+                )
+                Text(
+                    text = stringResource(R.string.card_details_warning_msg),
+                    style = Theme.typography.labelLarge,
+                    color = Theme.colors.secondaryShadesDark
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                HVTextField(
+                    text = states.cardName,
+                    onValueChange = onUserCardNameChanged,
+                    label = "Card Name"
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                HVTextField(
+                    text = states.cardNumber,
+                    onValueChange = onUserCardNumberChanged,
+                    label = "Card Number"
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    HVTextField(
+                        text = states.validDate,
+                        onValueChange = onUserValidDateChanged,
+                        label = "Valid Date",
+                        modifier = Modifier.weight(1f)
                     )
-                    Text(
-                        text = "05/25",
-                        style = Theme.typography.labelLarge,
-                        color = Theme.colors.primaryShadesLight
+                    Spacer(modifier = Modifier.width(16.dp))
+                    HVTextField(
+                        text = states.cvv,
+                        onValueChange = onUserCvvChanged,
+                        label = "Cvv",
+                        modifier = Modifier.weight(1f)
                     )
-                    Text(
-                        text = "Abdelrahman Abdelwahab",
-                        style = Theme.typography.labelLarge,
-                        color = Theme.colors.primaryShadesLight
-                    )
-
                 }
-            }
-            Text(
-                text = "Enter Your Smart Card Information",
-                style = Theme.typography.labelLarge,
-                color = Theme.colors.primaryShadesDark
-            )
-            Text(
-                text = stringResource(R.string.card_details_warning_msg),
-                style = Theme.typography.labelLarge,
-                color = Theme.colors.secondaryShadesDark
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            HVTextField(
-                text = "",
-                onValueChange = onUserCardNameChanged,
-                label = "Card Name"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            HVTextField(
-                text = "",
-                onValueChange = onUserCardNumberChanged,
-                label = "Card Number"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                HVTextField(
-                    text = "",
-                    onValueChange = onUserValidDateChanged,
-                    label = "Valid Date",
-                    modifier = Modifier.weight(1f)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                HVTextField(
-                    text = "",
-                    onValueChange = onUserCvvChanged,
-                    label = "Cvv",
-                    modifier = Modifier.weight(1f)
+                Spacer(modifier = Modifier.height(16.dp))
+                HVButton(
+                    title = "Next",
+                    onClick = onClickedNext,
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            HVButton(
-                title = "Next",
-                onClick = onNavPayment,
+        }
+        if (states.showWarning) {
+            HVPaymentFailCard(
+                onClickGoBack = onClickGoBack,
                 modifier = Modifier
-                    .fillMaxWidth()
             )
-
         }
     }
+
 }
 
 @Preview(showSystemUi = true, showBackground = true)
@@ -192,11 +175,12 @@ fun PaymentProfileScreen() {
 
     val states = PaymentUIState()
     PaymentContent(states = states,
-        onNavPayment = {},
         onNavigateBack = {},
         onUserCardNameChanged = {},
         onUserCardNumberChanged = {},
         onUserValidDateChanged = {},
-        onUserCvvChanged = {})
+        onUserCvvChanged = {},
+        onClickedNext = {},
+        onClickGoBack = {})
 }
 

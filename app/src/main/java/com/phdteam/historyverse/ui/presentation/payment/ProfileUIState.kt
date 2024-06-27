@@ -9,5 +9,5 @@ data class PaymentUIState(
     val cardNumber: String = "",
     val validDate: String = "",
     val cvv: String = "",
-
+    val showWarning: Boolean = false
     )

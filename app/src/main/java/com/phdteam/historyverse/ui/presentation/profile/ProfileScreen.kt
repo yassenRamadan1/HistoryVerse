@@ -38,6 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),
     onNavFavorite: () -> Unit,
+    onNavCart: () -> Unit,
     onNavigateTo: (ProfileUIEffect) -> Unit
 ) {
 
@@ -57,7 +58,8 @@ fun ProfileScreen(
     ProfileContent(
         states = state,
         onNavFavorite = onNavFavorite,
-        onClickProfilePic = { galleryLauncher.launch("image/*") }
+        onClickProfilePic = { galleryLauncher.launch("image/*") },
+        onNavCart = onNavCart
 
     )
 
@@ -87,6 +89,7 @@ private fun onEffect(
 private fun ProfileContent(
     states: ProfileUIState,
     onNavFavorite: () -> Unit,
+    onNavCart: () -> Unit,
     onClickProfilePic: () -> Unit
 ) {
 
@@ -117,7 +120,7 @@ private fun ProfileContent(
             )
             ProfileOptionButton(
                 text = "Cart",
-                onClickOption = { },
+                onClickOption = onNavCart,
                 painter = R.drawable.back_arrow
             )
             ProfileOptionButton(
@@ -152,5 +155,6 @@ fun PreviewProfileScreen() {
     val states = ProfileUIState()
     ProfileContent(states = states,
         onNavFavorite = {},
-        onClickProfilePic = {})
+        onClickProfilePic = {},
+        onNavCart = {})
 }
