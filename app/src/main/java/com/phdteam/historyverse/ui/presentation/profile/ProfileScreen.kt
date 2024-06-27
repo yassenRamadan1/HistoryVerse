@@ -1,9 +1,3 @@
-
-
-
-
-
-
 package com.phdteam.historyverse.ui.presentation.profile
 
 import android.content.Context
@@ -43,7 +37,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),
-    onNavFavorite: () -> Unit
+    onNavFavorite: () -> Unit,
+    onNavigateTo: (ProfileUIEffect) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -62,22 +57,27 @@ fun ProfileScreen(
     ProfileContent(
         states = state,
         onNavFavorite = onNavFavorite,
-        onClickProfilePic = {galleryLauncher.launch("image/*")}
+        onClickProfilePic = { galleryLauncher.launch("image/*") }
 
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context)
+            onEffect(effect, context, onNavigateTo)
         }
     }
 }
 
 
-private fun onEffect(effect: ProfileUIEffect?, context: Context) {
+private fun onEffect(
+    effect: ProfileUIEffect?,
+    context: Context,
+    navigateTo: (ProfileUIEffect) -> Unit
+) {
 
     when (effect) {
         ProfileUIEffect.ProfileError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        ProfileUIEffect.NavigateToCart -> navigateTo(ProfileUIEffect.NavigateToCart)
         else -> {}
     }
 }
@@ -87,7 +87,7 @@ private fun onEffect(effect: ProfileUIEffect?, context: Context) {
 private fun ProfileContent(
     states: ProfileUIState,
     onNavFavorite: () -> Unit,
-    onClickProfilePic: () ->Unit
+    onClickProfilePic: () -> Unit
 ) {
 
     Column(
@@ -99,7 +99,7 @@ private fun ProfileContent(
 
         ) {
 
-        ProfilePicData(state = states) {   onClickProfilePic()  }
+        ProfilePicData(state = states) { onClickProfilePic() }
 
         Card(
             modifier = Modifier
