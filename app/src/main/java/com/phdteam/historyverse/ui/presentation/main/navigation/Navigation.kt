@@ -14,6 +14,7 @@ import com.phdteam.historyverse.ui.presentation.auth.welcome.WelcomeUiEffect
 import com.phdteam.historyverse.ui.presentation.cart.CartScreen
 import com.phdteam.historyverse.ui.presentation.chatbot.ChatBotScreen
 import com.phdteam.historyverse.ui.presentation.details.DetailsScreen
+import com.phdteam.historyverse.ui.presentation.details.DetailsUiEffect
 import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeScreen
 import com.phdteam.historyverse.ui.presentation.home.HomeUIEffect
@@ -116,6 +117,7 @@ fun NavGraphBuilder.chatBotScreen(onNavigateBack: () -> Unit) {
         ChatBotScreen(onNavigateBack = onNavigateBack)
     }
 }
+
 fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Trip.route
@@ -225,9 +227,19 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
         DetailsScreen(
             id = id,
             onNavigateBack = onNavigateBack,
-            navigateTo = {
-                Screen.Details.args = bundleOf(Pair("id", it))
-                Screen.Details.also(onNavigateTo)
+            navigateTo = { effect ->
+                when (effect) {
+                    is DetailsUiEffect.NavigateToProductDetails -> {
+                        Screen.MarketItemDetails.args = bundleOf(Pair("id", effect.itemId))
+                        Screen.MarketItemDetails.also(onNavigateTo)
+                    }
+
+                    is DetailsUiEffect.NavigateToArtifactDetails -> {
+                        Screen.Details.args = bundleOf(Pair("id", effect.itemId))
+                        Screen.Details.also(onNavigateTo)
+                    }
+                    else -> {}
+                }
             }
 
         )

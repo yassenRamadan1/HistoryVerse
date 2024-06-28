@@ -6,7 +6,6 @@ import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import com.phdteam.historyverse.ui.presentation.home.toArtifactUiState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
@@ -23,8 +22,8 @@ class DetailsViewModel(
     private fun getData() {
         updateState { it.copy(isLoading = true) }
         getArtifacts()
-        getMuseumById(id?:281)
-        getArtifactById(id?:2352)
+        getMuseumById(id ?: 281)
+        getArtifactById(id ?: 2352)
     }
 
     private fun getMuseumById(id: Int) {
@@ -41,10 +40,11 @@ class DetailsViewModel(
 
     private fun onSuccessMuseums(museum: Museum) {
         updateState { it.copy(museum = museum.toMuseumDetailsUiState()) }
-        if (id!! < 2000){
-            updateState { it.copy(details = museum.toDetailsUiState() ) }
+        if (id!! < 2000) {
+            updateState { it.copy(details = museum.toDetailsUiState()) }
         }
     }
+
     private fun getArtifactById(id: Int) {
         updateState { it.copy(isLoading = true) }
         viewModelScope.launch {
@@ -59,7 +59,7 @@ class DetailsViewModel(
 
     private fun onSuccessArtifact(artifact: Artifact) {
         updateState { it.copy(artifactDetails = artifact.toArtifactDetailsUiState()) }
-        if (id!! > 2000){
+        if (id!! > 2000) {
             updateState { it.copy(details = artifact.toDetailsUiState()) }
         }
     }
@@ -97,7 +97,7 @@ class DetailsViewModel(
         sendNewEffect(DetailsUiEffect.NavigateToReview(state.value.museum.museumId))
     }
 
-    fun onArtifactClick(artifactId: String) {
+    fun onArtifactClick(artifactId: Int) {
         // TODO
     }
 
@@ -105,8 +105,8 @@ class DetailsViewModel(
         // TODO
     }
 
-    fun onProductClick(itemId: String) {
-        // TODO
+    fun onProductClick(itemId: Int) {
+        sendNewEffect(DetailsUiEffect.NavigateToProductDetails(itemId))
     }
 
     private fun onError() {

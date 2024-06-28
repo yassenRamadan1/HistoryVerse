@@ -1,8 +1,8 @@
 package com.phdteam.historyverse.ui.presentation.details
 
+import android.content.Context
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -62,15 +62,28 @@ import org.koin.core.parameter.parametersOf
 fun DetailsScreen(
     id: Int?,
     viewModel: DetailsViewModel = koinViewModel(parameters = { parametersOf(id) }),
-    navigateTo: (id: Int) -> Unit,
+    navigateTo: (DetailsUiEffect) -> Unit,
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
     DetailsScreenContent(
         state, viewModel,
         onNavigateBack = onNavigateBack,
-        onClickItem = navigateTo
+        onClickItem = viewModel::onArtifactClick,
+        onClickProduct = viewModel::onProductClick
     )
+}
+
+private fun onEffect(
+    effect: DetailsUiEffect?,
+    context: Context,
+    onNavigateTo: (DetailsUiEffect) -> Unit
+) {
+
+    when (effect) {
+        is DetailsUiEffect.NavigateToProductDetails -> onNavigateTo(effect)
+        else -> {}
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -80,6 +93,7 @@ private fun DetailsScreenContent(
     viewModel: DetailsViewModel,
     onNavigateBack: () -> Unit,
     onClickItem: (id: Int) -> Unit,
+    onClickProduct: (id: Int) -> Unit,
 ) {
 
     val list = listOf("Reviews", "Artifacts", "Products")
@@ -282,7 +296,7 @@ private fun DetailsScreenContent(
                                     modifier = Modifier,
                                     state = state,
                                     onFavoriteClick = viewModel::onFavoriteClick,
-                                    onCardClick = onClickItem
+                                    onCardClick = onClickProduct
                                 )
                             }
                         }
