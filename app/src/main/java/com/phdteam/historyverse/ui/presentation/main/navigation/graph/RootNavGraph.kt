@@ -19,6 +19,7 @@ import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ratingScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.searchScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.signInScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.tripScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.welcomeScreen
 
 @Composable

@@ -129,6 +129,18 @@ fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit) {
     }
 }
 
+fun NavGraphBuilder.tripScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Trip.route
+    ) {
+        TripScreen(
+            navigateTo = {
+                Screen.Main.withClearBackStack().also(onNavigateTo)
+            },
+        )
+    }
+}
+
 fun NavGraphBuilder.welcomeScreen(onNavigateTo: (Screen) -> Unit) {
     composable(
         route = Screen.Welcome.route

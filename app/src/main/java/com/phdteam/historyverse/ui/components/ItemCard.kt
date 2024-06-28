@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -31,7 +30,6 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
-import com.phdteam.historyverse.ui.presentation.details.ArtifactDetailsUiState
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
 import com.phdteam.historyverse.ui.presentation.home.ArtifactUiState
 import com.phdteam.historyverse.ui.theme.Theme
@@ -77,7 +75,11 @@ fun ItemCard(
                 .padding(horizontal = 8.dp)
         ) {
             Text(
-                text = state.name,
+                text = if (state.name.length > 28) {
+                    state.name.substring(0, 25) + "..."
+                } else {
+                    state.name
+                },
                 style = Theme.typography.labelMedium
             )
             if (cardType != CardType.SEARCH) {
