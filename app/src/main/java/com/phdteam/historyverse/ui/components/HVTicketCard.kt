@@ -14,10 +14,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.phdTeam.HistoryVerse.R
+import com.phdteam.historyverse.ui.presentation.ticket.TicketUIState
+import com.phdteam.historyverse.ui.presentation.tickets.TicketsUIState
 import com.phdteam.historyverse.ui.theme.Theme
 
 @Composable
 fun HVTicketCard(
+    state: TicketUIState = TicketUIState(),
     onNavigateTicket: () -> Unit = {}
 ) {
     Card(
@@ -35,7 +38,7 @@ fun HVTicketCard(
         )
         {
             Text(
-                text = "Alex Museum",
+                text = state.museumName,
                 style = Theme.typography.labelLarge,
                 color = Theme.colors.primaryShadesDark
             )
@@ -53,12 +56,12 @@ fun HVTicketCard(
         )
         {
             Text(
-                text = "4515462",
+                text = state.ticketNumber,
                 style = Theme.typography.labelLarge,
                 color = Theme.colors.primaryShadesDark
             )
             Text(
-                text = "23/03/2023",
+                text = state.visitDate,
                 style = Theme.typography.labelLarge,
                 color = Theme.colors.primaryShadesDark
             )

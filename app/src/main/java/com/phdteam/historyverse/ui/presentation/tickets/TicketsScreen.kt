@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -29,19 +30,22 @@ import com.phdteam.historyverse.ui.components.HVBackTopAppBar
 import com.phdteam.historyverse.ui.components.HVButton
 import com.phdteam.historyverse.ui.components.HVTicketCard
 import com.phdteam.historyverse.ui.presentation.details.DetailsViewModel
+import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
+import com.phdteam.historyverse.ui.presentation.ticket.TicketUIState
+import com.phdteam.historyverse.ui.presentation.ticket.TicketViewModel
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Composable
 fun TicketsScreen(
-    viewModel: TicketsViewModel = koinViewModel(),
-//    detailsViewModel: DetailsViewModel = koinViewModel(),
+    itemId: Int?,
+    viewModel: TicketsViewModel = koinViewModel(parameters = { parametersOf(itemId) }),
     onNavigateBack: () -> Unit,
-    onNavigateTicket: () -> Unit
+    onNavigateTicket: (id: Int) -> Unit
 ) {
-//    val ticketsCount by detailsViewModel.bookedTicketsCount.collectAsState()
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
@@ -51,12 +55,11 @@ fun TicketsScreen(
         states = state,
         onNavigateBack = onNavigateBack,
         onNavigateTicket = onNavigateTicket,
-//        ticketsCount = ticketsCount
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context)
+            onEffect(effect, context, onNavigateTicket)
         }
     }
 }
@@ -64,17 +67,9 @@ fun TicketsScreen(
 
 private fun onEffect(
     effect: TicketsUIEffect?,
-    context: Context
+    context: Context,
+    navigateTo: (id: Int) -> Unit
 ) {
-    when (effect) {
-        TicketsUIEffect.TicketError -> Toast.makeText(
-            context,
-            "Error",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        else -> {}
-    }
 }
 
 
@@ -82,8 +77,7 @@ private fun onEffect(
 private fun TicketsContent(
     states: TicketsUIState,
     onNavigateBack: () -> Unit,
-    onNavigateTicket: () -> Unit,
-//    ticketsCount: Int
+    onNavigateTicket: (id: Int) -> Unit,
 ) {
 
 
@@ -95,23 +89,25 @@ private fun TicketsContent(
         HVBackTopAppBar(onNavigateBack)
         Spacer(modifier = Modifier.padding(16.dp))
 
-
-//        repeat(ticketsCount) {
-            HVTicketCard(onNavigateTicket)
-//        }
-
-
+        LazyColumn {
+            items(states.ticket.size) { ticket ->
+                HVTicketCard(
+                    onNavigateTicket = { onNavigateTicket(ticket) }
+                )
+                Spacer(modifier = Modifier.padding(16.dp))
+            }
+        }
     }
 }
 
-//@Preview(showSystemUi = true, showBackground = true)
-//@Composable
-//fun TicketScreenPreview() {
-//
-//    val states = TicketsUIState()
-//    TicketsContent(
-//        states = states,
-//        onNavigateBack = {},
-//        onNavigateTicket = {},)
-//}
-//
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun TicketScreenPreview() {
+
+    val states = TicketsUIState()
+    TicketsContent(
+        states = states,
+        onNavigateBack = {},
+        onNavigateTicket = {},)
+}
+

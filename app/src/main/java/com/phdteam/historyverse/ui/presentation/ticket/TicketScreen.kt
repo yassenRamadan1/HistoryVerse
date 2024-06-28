@@ -2,16 +2,13 @@ package com.phdteam.historyverse.ui.presentation.ticket
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,14 +29,15 @@ import com.phdteam.historyverse.ui.components.HVTicket
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Composable
 fun TicketScreen(
+    onNavigateBack: () -> Unit,
     viewModel: TicketViewModel = koinViewModel(),
-    onNavigateBack: () -> Unit
 
-) {
+    ) {
 
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
@@ -82,8 +80,6 @@ private fun TicketContent(
     onNavigateBack: () -> Unit,
     onClickDownload: () -> Unit
 ) {
-
-
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -97,6 +93,7 @@ private fun TicketContent(
                 .padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         )
+
         {
             Text(
                 text = "Your Ticket Booking is Confirmed",
@@ -109,9 +106,13 @@ private fun TicketContent(
                 tint = Color.Green
             )
         }
+
         Spacer(modifier = Modifier.padding(16.dp))
-        HVTicket()
+
+        HVTicket(state= states)
+
         Spacer(modifier = Modifier.padding(16.dp))
+
         HVButton(
             title = "Download",
             onClick = { /*TODO*/ },

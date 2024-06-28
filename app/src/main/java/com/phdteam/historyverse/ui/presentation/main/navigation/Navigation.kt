@@ -32,6 +32,7 @@ import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
 import com.phdteam.historyverse.ui.presentation.seeall.toSeeAllType
 import com.phdteam.historyverse.ui.presentation.ticket.TicketScreen
 import com.phdteam.historyverse.ui.presentation.tickets.TicketsScreen
+import com.phdteam.historyverse.ui.presentation.tickets.TicketsUIEffect
 import com.phdteam.historyverse.ui.presentation.trip.TripScreen
 
 
@@ -338,12 +339,14 @@ fun NavGraphBuilder.ticketsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
     composable(
         route = Screen.Tickets.route,
     ) {
+        val id = Screen.Review.args?.getInt("id")
         TicketsScreen(
+            itemId = id,
             onNavigateBack = onNavigateBack,
             onNavigateTicket = {
+                Screen.Ticket.args = bundleOf(Pair("id", it))
                 Screen.Ticket.also(onNavigateTo)
             }
-
         )
     }
 }
@@ -352,8 +355,9 @@ fun NavGraphBuilder.ticketScreen(onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Ticket.route,
     ) {
+
         TicketScreen(
-            onNavigateBack = onNavigateBack,
+            onNavigateBack = onNavigateBack
         )
     }
 }

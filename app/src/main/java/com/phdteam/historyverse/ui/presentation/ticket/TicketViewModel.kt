@@ -1,12 +1,8 @@
 package com.phdteam.historyverse.ui.presentation.ticket
 
-import androidx.lifecycle.viewModelScope
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
-import com.phdteam.historyverse.ui.presentation.payment.PaymentUIEffect
-import com.phdteam.historyverse.ui.presentation.payment.PaymentUIState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class TicketViewModel(
     private val historyVerseRepository: HistoryVerseRepository
@@ -14,9 +10,7 @@ class TicketViewModel(
 
     init {
         onMakeRequest()
-
     }
-
 
     private fun onMakeRequest() {
         updateState { it.copy(isLoading = true) }
