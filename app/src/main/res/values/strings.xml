@@ -38,4 +38,5 @@
 
 
     <string name="web_client_id">1007947332922-3fp3tuj83ke6qen25hnhjaqvme0ketl7.apps.googleusercontent.com</string>
+    <string name="card_details_warning_msg">Provide accurate details for a successful payment process. Your data will be handled securely and confidentially.</string>
 </resources>

@@ -30,7 +30,6 @@ fun FavoriteScreen(
     val effect by viewModel.effect.collectAsState(initial = null)
     val context = LocalContext.current
 
-
     FavoriteContent(
         state = state,
         onClickCard = onClickCard,
@@ -93,7 +92,6 @@ fun FavoriteContent(
 fun PreviewFavoriteScreen() {
 
     val states = FavoriteUiState()
-    val viewModel: FavoriteViewModel = koinViewModel()
     FavoriteContent(
         state = states,
         onClickCard = {},

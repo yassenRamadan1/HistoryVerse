@@ -3,6 +3,7 @@ package com.phdteam.historyverse.ui.presentation.details
 import android.content.Context
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
@@ -63,12 +65,14 @@ fun DetailsScreen(
     id: Int?,
     viewModel: DetailsViewModel = koinViewModel(parameters = { parametersOf(id) }),
     navigateTo: (DetailsUiEffect) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onBookClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
     DetailsScreenContent(
         state, viewModel,
         onNavigateBack = onNavigateBack,
+        onBookClick = onBookClick,
         onClickItem = viewModel::onArtifactClick,
         onClickProduct = viewModel::onProductClick
     )
@@ -94,6 +98,7 @@ private fun DetailsScreenContent(
     onNavigateBack: () -> Unit,
     onClickItem: (id: Int) -> Unit,
     onClickProduct: (id: Int) -> Unit,
+    onBookClick: () -> Unit
 ) {
 
     val list = listOf("Reviews", "Artifacts", "Products")
@@ -204,7 +209,7 @@ private fun DetailsScreenContent(
                                 }
                                 .padding(end = 16.dp)
                                 .clip(CircleShape)
-                                .clickable { viewModel.onBookClick() }
+                                .clickable { onBookClick() }
                                 .background(yellowColor)
                                 .padding(16.dp),
                         ) {

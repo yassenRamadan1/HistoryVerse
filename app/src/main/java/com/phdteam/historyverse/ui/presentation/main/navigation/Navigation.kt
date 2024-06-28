@@ -200,6 +200,12 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
                     is ProfileUIEffect.NavigateToCart -> Screen.Cart.also(onNavigateTo)
                     else -> {}
                 }
+            },
+            onNavCart = {
+                Screen.Cart.also(onNavigateTo)
+            },
+            onNavTickets = {
+                Screen.Tickets.also(onNavigateTo)
             }
 
         )
@@ -238,101 +244,141 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
                         Screen.Details.args = bundleOf(Pair("id", effect.itemId))
                         Screen.Details.also(onNavigateTo)
                     }
+
+                    else -> {}
+                },
+                onBookClick = {
+                    Screen.Ticket.also(onNavigateTo)
+                }
+
+                )
+            }
+    }
+
+    fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+        this.composable(
+            route = Screen.SeeAll.route
+        ) {
+            val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
+            SeeAllScreen(
+                type = value,
+                navigateTo = {
+                    Screen.Details.args = bundleOf(Pair("id", it))
+                    Screen.Details.also(onNavigateTo)
+                },
+                navigateBack = onNavigateBack
+            )
+        }
+    }
+
+    fun NavGraphBuilder.marketScreen(onNavigateTo: (Screen) -> Unit) {
+        composable(
+            route = Screen.Market.route
+        ) {
+            MarketScreen { effect ->
+                when (effect) {
+                    is MarketUiEffect.NavigateToItemDetails -> {
+                        Screen.MarketItemDetails.args = bundleOf(Pair("id", effect.id))
+                        Screen.MarketItemDetails.also(onNavigateTo)
+
+                    }
+
                     else -> {}
                 }
-            }
-
-        )
-    }
-}
-
-fun NavGraphBuilder.onSeeAllScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
-    this.composable(
-        route = Screen.SeeAll.route
-    ) {
-        val value = Screen.SeeAll.args?.getString("type").toString().toSeeAllType()
-        SeeAllScreen(
-            type = value,
-            navigateTo = {
-                Screen.Details.args = bundleOf(Pair("id", it))
-                Screen.Details.also(onNavigateTo)
-            },
-            navigateBack = onNavigateBack
-        )
-    }
-}
-
-fun NavGraphBuilder.marketScreen(onNavigateTo: (Screen) -> Unit) {
-    composable(
-        route = Screen.Market.route
-    ) {
-        MarketScreen { effect ->
-            when (effect) {
-                is MarketUiEffect.NavigateToItemDetails -> {
-                    Screen.MarketItemDetails.args = bundleOf(Pair("id", effect.id))
-                    Screen.MarketItemDetails.also(onNavigateTo)
-
-                }
-
-                else -> {}
             }
         }
     }
-}
 
-fun NavGraphBuilder.marketItemDetailsScreen(
-    onNavigateTo: (Screen) -> Unit,
-    onNavigateBack: () -> Unit
-) {
-    composable(
-        route = Screen.MarketItemDetails.route,
+    fun NavGraphBuilder.marketItemDetailsScreen(
+        onNavigateTo: (Screen) -> Unit,
+        onNavigateBack: () -> Unit
     ) {
-        val value = Screen.MarketItemDetails.args?.getInt("id")
+        composable(
+            route = Screen.MarketItemDetails.route,
+        ) {
+            val value = Screen.MarketItemDetails.args?.getInt("id")
 
-        MarketItemDetailsScreen(
-            navigateTo = { effect ->
-                when (effect) {
-                    is MarketDetailsUiEffect.NavigateToMarketDetails -> {
-                        Screen.MarketItemDetails.args = bundleOf(Pair("id", id))
-                        Screen.MarketItemDetails.also(onNavigateTo)
+            MarketItemDetailsScreen(
+                navigateTo = { effect ->
+                    when (effect) {
+                        is MarketDetailsUiEffect.NavigateToMarketDetails -> {
+                            Screen.MarketItemDetails.args = bundleOf(Pair("id", id))
+                            Screen.MarketItemDetails.also(onNavigateTo)
+                        }
+
+                        is MarketDetailsUiEffect.NavigateToReview -> {
+                            Screen.Review.args = bundleOf(Pair("id", id))
+                            Screen.Review.also(onNavigateTo)
+                        }
+
+                        else -> {}
                     }
+                },
+                onNavigateBack = {
+                    onNavigateBack()
+                },
+                itemId = value
+            )
+        }
+    }
 
-                    is MarketDetailsUiEffect.NavigateToReview -> {
-                        Screen.Review.args = bundleOf(Pair("id", id))
-                        Screen.Review.also(onNavigateTo)
-                    }
+    fun NavGraphBuilder.ratingScreen(onNavigateBack: () -> Unit) {
+        composable(
+            route = Screen.Review.route,
+        ) {
+            val id = Screen.Review.args?.getInt("id")
+            RateScreen(
+                navigateBack = onNavigateBack,
+                itemId = id
+            )
+        }
+    }
 
-                    else -> {}
-                }
-            },
-            onNavigateBack = {
-                onNavigateBack()
-            },
-            itemId = value
+fun NavGraphBuilder.paymentScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Payment.route,
+    ) {
+        PaymentScreen(
+            onNavigateBack = onNavigateBack,
         )
     }
 }
 
-fun NavGraphBuilder.ratingScreen(onNavigateBack: () -> Unit) {
+    fun NavGraphBuilder.cartScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+        composable(route = Screen.Cart.route) {
+            CartScreen(
+                onNavigate = {
+                Screen.Payment.also(onNavigateTo)
+                },
+            onNavigateBack = onNavigateBack,
+        )
+    }
+}
+
+fun NavGraphBuilder.ticketsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
     composable(
-        route = Screen.Review.route,
+        route = Screen.Tickets.route,
     ) {
         val id = Screen.Review.args?.getInt("id")
-        RateScreen(
-            navigateBack = onNavigateBack,
-            itemId = id
+        TicketsScreen(
+            itemId = id,
+            onNavigateBack = onNavigateBack,
+            onNavigateTicket = {
+                Screen.Ticket.args = bundleOf(Pair("id", it))
+                Screen.Ticket.also(onNavigateTo)
+            }
         )
     }
 }
 
-fun NavGraphBuilder.cartScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
-    composable(route = Screen.Cart.route) {
-        CartScreen(
-            onNavigate = {
-//                Screen.Payment.also(onNavigateTo)
-            },
-            onNavigateBack = onNavigateBack
+fun NavGraphBuilder.ticketScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Ticket.route,
+    ) {
 
-        )
+        TicketScreen(
+                onNavigateBack = onNavigateBack
+            )
+        }
     }
-}
+

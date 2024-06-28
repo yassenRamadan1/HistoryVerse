@@ -15,11 +15,14 @@ import com.phdteam.historyverse.ui.presentation.main.navigation.mainNavGraph
 import com.phdteam.historyverse.ui.presentation.main.navigation.marketItemDetailsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.marketScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.onSeeAllScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.paymentScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ratingScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.searchScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.signInScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.tripScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.ticketScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.ticketsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.welcomeScreen
 
 @Composable
@@ -83,6 +86,16 @@ fun RootNavGraph(
         )
         cartScreen(
             onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        paymentScreen(
+            onNavigateBack = navController::navigateUp
+        )
+        ticketsScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        ticketScreen(
             onNavigateBack = navController::navigateUp
         )
     }

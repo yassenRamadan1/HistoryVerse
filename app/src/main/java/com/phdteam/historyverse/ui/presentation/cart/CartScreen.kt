@@ -1,6 +1,5 @@
 package com.phdteam.historyverse.ui.presentation.cart
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +31,7 @@ import kotlin.math.ceil
 @Composable
 fun CartScreen(
     viewModel: CartViewModel = koinViewModel(),
-    onNavigate: (CartUiEffect) -> Unit,
+    onNavigate: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
@@ -40,7 +39,7 @@ fun CartScreen(
     CartContent(
         state = state,
         onNavigateBack = onNavigateBack,
-        onNextClick = viewModel::onNextClick,
+        onNextClick = onNavigate,
         onDeleteItem = viewModel::onDeleteItem
     )
 }
