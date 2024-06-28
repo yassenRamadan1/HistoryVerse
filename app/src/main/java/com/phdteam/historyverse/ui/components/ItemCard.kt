@@ -82,21 +82,21 @@ fun ItemCard(
                 },
                 style = Theme.typography.labelMedium
             )
-            if (cardType != CardType.SEARCH) {
-                Icon(
-                    painter = painterResource(
-                        id = if
-                                     (false) R.drawable.favorite
-                        else
-                            R.drawable.favorite_empty
-                    ),
-                    contentDescription = "",
-                    tint = Color.Red,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .noRippleEffect { onClickFavorite(state.id.toString()) }
-                )
-            }
+//            if (cardType != CardType.SEARCH) {
+//                Icon(
+//                    painter = painterResource(
+//                        id = if
+//                                     (false) R.drawable.favorite
+//                        else
+//                            R.drawable.favorite_empty
+//                    ),
+//                    contentDescription = "",
+//                    tint = Color.Red,
+//                    modifier = Modifier
+//                        .size(24.dp)
+//                        .noRippleEffect { onClickFavorite(state.id.toString()) }
+//                )
+//            }
         }
 
         Spacer(modifier = Modifier.height(6.dp))

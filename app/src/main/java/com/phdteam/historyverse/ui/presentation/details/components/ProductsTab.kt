@@ -1,6 +1,7 @@
 package com.phdteam.historyverse.ui.presentation.details.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,38 +27,45 @@ fun ProductsTab(
 ) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         item {
-            Text(
-                "Recommended Products",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 16.dp)
-            )
-        }
-        item {
-            LazyRow(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.recommendedArtifacts.size) { index ->
-                    ItemCard(
-                        state = state.recommendedArtifacts[index],
-                        onClickCard = onCardClick,
-                        onClickFavorite = onFavoriteClick,
-                        cardType = CardType.MUSEUM
-                    )
+                Text(
+                    "Recommended Products",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(state.recommendedArtifacts.size) { index ->
+                        ItemCard(
+                            state = state.recommendedArtifacts[index],
+                            onClickCard = onCardClick,
+                            onClickFavorite = onFavoriteClick,
+                            cardType = CardType.MUSEUM
+                        )
+                    }
                 }
             }
-        }
-        item {
-            Text(
-                "Most Sold",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                modifier= Modifier.padding(start = 16.dp)
-            )
 
         }
         item {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    "Most Sold",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+
+            }
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)

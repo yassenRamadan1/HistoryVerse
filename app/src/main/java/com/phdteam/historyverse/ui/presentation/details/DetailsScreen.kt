@@ -79,7 +79,7 @@ private fun DetailsScreenContent(
     state: DetailsScreenUiState,
     viewModel: DetailsViewModel,
     onNavigateBack: () -> Unit,
-    onClickItem: (id: Int) -> Unit ,
+    onClickItem: (id: Int) -> Unit,
 ) {
 
     val list = listOf("Reviews", "Artifacts", "Products")
@@ -141,7 +141,11 @@ private fun DetailsScreenContent(
 
                                 ) {
                                 Text(
-                                    state.details.name,
+                                    if (state.details.name.length > 20) {
+                                        state.details.name.substring(0, 17) + "..."
+                                    } else {
+                                        state.details.name
+                                    },
                                     color = Color.White,
                                     style = Theme.typography.titleSmall
                                 )
