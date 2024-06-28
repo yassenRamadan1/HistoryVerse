@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.ProfileOptionButton
 import com.phdteam.historyverse.ui.components.ProfilePicData
@@ -39,7 +40,8 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),
     onNavFavorite: () -> Unit,
     onNavCart: () -> Unit,
-    onNavigateTo: (ProfileUIEffect) -> Unit
+    onNavigateTo: (ProfileUIEffect) -> Unit,
+    onNavTickets: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -59,7 +61,9 @@ fun ProfileScreen(
         states = state,
         onNavFavorite = onNavFavorite,
         onClickProfilePic = { galleryLauncher.launch("image/*") },
-        onNavCart = onNavCart
+        onNavCart = onNavCart,
+        onSignOut = viewModel::signOut,
+        onNavTickets = onNavTickets
 
     )
 
@@ -80,6 +84,7 @@ private fun onEffect(
     when (effect) {
         ProfileUIEffect.ProfileError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
         ProfileUIEffect.NavigateToCart -> navigateTo(ProfileUIEffect.NavigateToCart)
+        ProfileUIEffect.NavigateToLogin -> navigateTo(ProfileUIEffect.NavigateToLogin)
         else -> {}
     }
 }
@@ -90,7 +95,9 @@ private fun ProfileContent(
     states: ProfileUIState,
     onNavFavorite: () -> Unit,
     onNavCart: () -> Unit,
-    onClickProfilePic: () -> Unit
+    onClickProfilePic: () -> Unit,
+    onNavTickets: () -> Unit,
+    onSignOut: () -> Unit
 ) {
 
     Column(
@@ -125,12 +132,12 @@ private fun ProfileContent(
             )
             ProfileOptionButton(
                 text = "My ticket",
-                onClickOption = { },
+                onClickOption =onNavTickets,
                 painter = R.drawable.back_arrow
             )
             ProfileOptionButton(
                 text = "Logout",
-                onClickOption = { },
+                onClickOption = onSignOut,
                 painter = R.drawable.baseline_logout_24
             )
         }
@@ -156,5 +163,7 @@ fun PreviewProfileScreen() {
     ProfileContent(states = states,
         onNavFavorite = {},
         onClickProfilePic = {},
-        onNavCart = {})
+        onNavCart = {},
+        onNavTickets = {},
+        onSignOut = {})
 }

@@ -17,6 +17,9 @@ import com.phdteam.historyverse.ui.presentation.main.MainViewModel
 import com.phdteam.historyverse.ui.presentation.trip.TripViewModel
 import com.phdteam.historyverse.ui.presentation.cart.CartViewModel
 import com.phdteam.historyverse.ui.presentation.payment.PaymentViewModel
+import com.phdteam.historyverse.ui.presentation.ticket.TicketViewModel
+import com.phdteam.historyverse.ui.presentation.tickets.TicketsViewModel
+
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -39,5 +42,6 @@ val viewModelModule = module {
     viewModelOf(::CartViewModel)
     viewModelOf(::TripViewModel)
     viewModelOf(::PaymentViewModel)
-
+    viewModelOf(::TicketViewModel)
+    viewModelOf(::TicketsViewModel)
 }

@@ -30,6 +30,8 @@ import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
 import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
 import com.phdteam.historyverse.ui.presentation.seeall.toSeeAllType
+import com.phdteam.historyverse.ui.presentation.ticket.TicketScreen
+import com.phdteam.historyverse.ui.presentation.tickets.TicketsScreen
 import com.phdteam.historyverse.ui.presentation.trip.TripScreen
 
 
@@ -90,7 +92,7 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                 when (navigate) {
                     HomeUIEffect.NavigateToChatBoot -> Screen.ChatBot.also(onNavigateTo)
                     is HomeUIEffect.NavigateToMarket -> Screen.Market.also(onNavigateTo)
-                    is HomeUIEffect.NavigateToDetail ->{
+                    is HomeUIEffect.NavigateToDetail -> {
                         Screen.Details.args = bundleOf(Pair("id", navigate.id))
                         Screen.Details.also(onNavigateTo)
                     }
@@ -190,6 +192,9 @@ fun NavGraphBuilder.profileScreen(onNavigateTo: (Screen) -> Unit) {
             },
             onNavCart = {
                 Screen.Cart.also(onNavigateTo)
+            },
+            onNavTickets = {
+                Screen.Tickets.also(onNavigateTo)
             }
 
         )
@@ -220,6 +225,9 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
             navigateTo = {
                 Screen.Details.args = bundleOf(Pair("id", it))
                 Screen.Details.also(onNavigateTo)
+            },
+            onBookClick = {
+                Screen.Ticket.also(onNavigateTo)
             }
 
         )
@@ -325,3 +333,28 @@ fun NavGraphBuilder.cartScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: (
         )
     }
 }
+
+fun NavGraphBuilder.ticketsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Tickets.route,
+    ) {
+        TicketsScreen(
+            onNavigateBack = onNavigateBack,
+            onNavigateTicket = {
+                Screen.Ticket.also(onNavigateTo)
+            }
+
+        )
+    }
+}
+
+fun NavGraphBuilder.ticketScreen(onNavigateBack: () -> Unit) {
+    composable(
+        route = Screen.Ticket.route,
+    ) {
+        TicketScreen(
+            onNavigateBack = onNavigateBack,
+        )
+    }
+}
+

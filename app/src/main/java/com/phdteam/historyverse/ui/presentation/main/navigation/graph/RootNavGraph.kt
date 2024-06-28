@@ -20,6 +20,8 @@ import com.phdteam.historyverse.ui.presentation.main.navigation.profileScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.ratingScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.searchScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.signInScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.ticketScreen
+import com.phdteam.historyverse.ui.presentation.main.navigation.ticketsScreen
 import com.phdteam.historyverse.ui.presentation.main.navigation.welcomeScreen
 
 @Composable
@@ -86,6 +88,13 @@ fun RootNavGraph(
             onNavigateBack = navController::navigateUp
         )
         paymentScreen(
+            onNavigateBack = navController::navigateUp
+        )
+        ticketsScreen(
+            onNavigateTo = navController::navigateTo,
+            onNavigateBack = navController::navigateUp
+        )
+        ticketScreen(
             onNavigateBack = navController::navigateUp
         )
     }

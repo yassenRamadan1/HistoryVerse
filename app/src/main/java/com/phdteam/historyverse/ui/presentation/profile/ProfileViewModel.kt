@@ -1,6 +1,7 @@
 package com.phdteam.historyverse.ui.presentation.profile
 
 import android.net.Uri
+import com.google.firebase.auth.FirebaseAuth
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import kotlinx.coroutines.delay
@@ -17,7 +18,10 @@ class ProfileViewModel(
             oldState.copy(imageUri = uri.toString())
         }
     }
-
+    fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+        sendNewEffect(ProfileUIEffect.NavigateToLogin)
+    }
     //saving image to api
 //    fun saveImageToApi() {
 //        val imageUri = state.value.imageUri

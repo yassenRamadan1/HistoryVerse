@@ -7,6 +7,7 @@ import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
 import com.phdteam.historyverse.ui.presentation.home.toArtifactUiState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
@@ -88,10 +89,11 @@ class DetailsViewModel(
             )
         }
     }
-
-    fun onBookClick() {
-        // TODO
-    }
+//    val bookedTicketsCount = MutableStateFlow<Int>(0)
+//    fun onBookClick() {
+//        val currentCount = bookedTicketsCount.value
+//        bookedTicketsCount.value = currentCount + 1
+//    }
 
     fun onMakeReview() {
         sendNewEffect(DetailsUiEffect.NavigateToReview(state.value.museum.museumId))
