@@ -5,15 +5,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.FirebaseApp
-import com.phdteam.historyverse.ui.presentation.favorite.FavoriteScreen
 import com.phdteam.historyverse.ui.presentation.main.App
-import com.phdteam.historyverse.ui.theme.MindfulMentorTheme
-import com.phdteam.historyverse.ui.theme.Theme
 
 class MainActivity : ComponentActivity() {
 
@@ -23,9 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            FavoriteScreen(onClickCard = { /*TODO*/ }) {
-                
-            }
+            App()
         }
     }
 }

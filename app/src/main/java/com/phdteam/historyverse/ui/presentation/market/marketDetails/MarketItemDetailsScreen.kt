@@ -20,8 +20,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material3.Button
@@ -49,7 +47,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.presentation.details.components.ReviewTab
-import com.phdteam.historyverse.ui.presentation.market.components.MarketProductItem
 import com.phdteam.historyverse.ui.presentation.market.components.SimilarProductItem
 import com.phdteam.historyverse.ui.theme.Theme
 import org.koin.androidx.compose.koinViewModel
@@ -89,6 +86,7 @@ private fun onEffect(
         ).show()
 
         is MarketDetailsUiEffect.NavigateToReview -> navigateTo(effect)
+        is MarketDetailsUiEffect.NavigateToMarketDetails -> navigateTo(effect)
         else -> {}
     }
 }
@@ -99,7 +97,7 @@ private fun ItemDetailsContent(
     viewModel: MarketItemDetailsViewModel,
     navigateBack: () -> Unit
 ) {
-    val rating = state.rating
+    val rating = state.itemState.rating
 
     Box(
         modifier = Modifier
@@ -119,12 +117,12 @@ private fun ItemDetailsContent(
                         .align(Alignment.TopCenter)
                 ) {
                     Image(
-                        painter = rememberAsyncImagePainter(state.imageUrl),
+                        painter = rememberAsyncImagePainter(state.itemState.imageUrl),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp)),
-                        contentScale = ContentScale.Fit
+                        contentScale = ContentScale.Crop
                     )
                     Row(
                         modifier = Modifier
@@ -150,7 +148,7 @@ private fun ItemDetailsContent(
                         }
                         Icon(
                             imageVector =
-                                Icons.TwoTone.Favorite,
+                            Icons.TwoTone.Favorite,
                             contentDescription = null,
                             tint = if (state.isFavorite) Color.Red else Color.White,
                             modifier = Modifier.noRippleEffect { viewModel.onClickFavorite() }
@@ -178,9 +176,9 @@ private fun ItemDetailsContent(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column(modifier = Modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(text = state.name, style = Theme.typography.titleSmall)
+                        Text(text = state.itemState.name, style = Theme.typography.titleSmall)
                         Text(
-                            text = state.price,
+                            text = state.itemState.price,
                             style = Theme.typography.bodyMedium,
                             color = Color(0xFF121212),
                             modifier = Modifier.alpha(.7f)
@@ -188,13 +186,13 @@ private fun ItemDetailsContent(
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Image(
                                 painter = rememberAsyncImagePainter(
-                                    model = state.shopImage,
+                                    model = state.itemState.shopImage,
                                 ), contentDescription = null,
                                 modifier = Modifier
                                     .size(24.dp)
                                     .clip(CircleShape)
                             )
-                            Text(text = state.shopName, style = Theme.typography.bodyMedium)
+                            Text(text = state.itemState.shopName, style = Theme.typography.bodyMedium)
                         }
                         Row(
                             modifier = Modifier.noRippleEffect {
@@ -232,7 +230,7 @@ private fun ItemDetailsContent(
                         }
                     }
                     Button(
-                        onClick = { viewModel.addToCart(state.itemId) },
+                        onClick = { viewModel.addToCart(state.itemState.itemId) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD29023)),
                         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
                         modifier = Modifier.align(Alignment.Top)
@@ -253,7 +251,7 @@ private fun ItemDetailsContent(
                 ) {
                     Text(text = "Description", style = Theme.typography.titleSmall)
                     Text(
-                        state.description,
+                        state.itemState.description,
                         modifier = Modifier,
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis,

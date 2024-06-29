@@ -1,19 +1,11 @@
 package com.phdteam.historyverse.ui.presentation.tickets
 
 import android.content.Context
-import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,28 +13,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.play.integrity.internal.o
-import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.components.HVBackTopAppBar
-import com.phdteam.historyverse.ui.components.HVButton
 import com.phdteam.historyverse.ui.components.HVTicketCard
-import com.phdteam.historyverse.ui.presentation.details.DetailsViewModel
-import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
-import com.phdteam.historyverse.ui.presentation.ticket.TicketUIState
-import com.phdteam.historyverse.ui.presentation.ticket.TicketViewModel
-import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 
 @Composable
 fun TicketsScreen(
-    itemId: Int?,
-    viewModel: TicketsViewModel = koinViewModel(parameters = { parametersOf(itemId) }),
+    viewModel: TicketsViewModel = koinViewModel(),
     onNavigateBack: () -> Unit,
     onNavigateTicket: (id: Int) -> Unit
 ) {
@@ -75,11 +56,10 @@ private fun onEffect(
 
 @Composable
 private fun TicketsContent(
-    states: TicketsUIState,
+    states: TicketsScreenUIState,
     onNavigateBack: () -> Unit,
     onNavigateTicket: (id: Int) -> Unit,
 ) {
-
 
     Column(
         modifier = Modifier
@@ -90,9 +70,10 @@ private fun TicketsContent(
         Spacer(modifier = Modifier.padding(16.dp))
 
         LazyColumn {
-            items(states.ticket.size) { ticket ->
+            items(states.tickets.size) { ticket ->
                 HVTicketCard(
-                    onNavigateTicket = { onNavigateTicket(ticket) }
+                    state = states.tickets[ticket],
+                    onNavigateTicket = { onNavigateTicket(states.tickets[ticket].ticketId) }
                 )
                 Spacer(modifier = Modifier.padding(16.dp))
             }
@@ -104,10 +85,11 @@ private fun TicketsContent(
 @Composable
 fun TicketScreenPreview() {
 
-    val states = TicketsUIState()
+    val states = TicketsScreenUIState()
     TicketsContent(
         states = states,
         onNavigateBack = {},
-        onNavigateTicket = {},)
+        onNavigateTicket = {},
+    )
 }
 

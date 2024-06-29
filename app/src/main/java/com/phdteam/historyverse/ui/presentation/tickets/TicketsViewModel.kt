@@ -1,22 +1,12 @@
 package com.phdteam.historyverse.ui.presentation.tickets
 
-import com.phdTeam.HistoryVerse.R
-import com.phdteam.historyverse.data.network.model.Museum
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
-import com.phdteam.historyverse.ui.presentation.details.toDetailsUiState
-import com.phdteam.historyverse.ui.presentation.details.toMuseumDetailsUiState
-import com.phdteam.historyverse.ui.presentation.favorite.CardUiState
-import com.phdteam.historyverse.ui.presentation.market.MarketUiEffect
-import com.phdteam.historyverse.ui.presentation.ticket.TicketUIEffect
-import com.phdteam.historyverse.ui.presentation.ticket.TicketUIState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 
 class TicketsViewModel(
-    private val id: Int?,
     private val historyVerseRepository: HistoryVerseRepository
-) : BaseViewModel<TicketsUIState, TicketsUIEffect>(TicketsUIState()) {
+) : BaseViewModel<TicketsScreenUIState, TicketsUIEffect>(TicketsScreenUIState()) {
 
     init {
         onMakeRequest()
@@ -76,7 +66,7 @@ class TicketsViewModel(
 
         tryToExecute(
             {
-                delay(1900)
+//                delay(1900)
                 updateState { it.copy(isLoading = false, isSuccess = true) }
             },
             { onSuccess() },
@@ -91,16 +81,18 @@ class TicketsViewModel(
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
+                tickets = FakeTickets
             )
         }
     }
+
 //    private fun onSuccess(id: TicketsUIState) {
 //        updateState { it.copy(ticket= id.ticket) }
 //    }
 
     private fun onError() {
         updateState {
-            TicketsUIState(
+            TicketsScreenUIState(
                 isError = true,
                 isLoading = false,
                 isSuccess = false

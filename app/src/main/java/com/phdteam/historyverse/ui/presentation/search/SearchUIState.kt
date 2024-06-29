@@ -8,16 +8,18 @@ data class SearchUIState(
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
     val searchQuery: String = "",
-    val searchResults: List<CardUiState> = emptyList()
+    val searchResults: List<ArtifactUiState> = emptyList(),
+    val totalItems: List<ArtifactUiState> = emptyList()
 )
+
 fun CardUiState.toArtifactUiState() = ArtifactUiState(
-    id = cardId.toInt() ,
-    name = cardTitleName ,
+    id = cardId,
+    name = cardTitleName,
     imageUrl = imageUrl ?: "",
     artifactHistory = "",
 )
 
- val fake = listOf(
+val fake = listOf(
     CardUiState(),
     CardUiState(),
     CardUiState(),

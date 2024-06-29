@@ -30,6 +30,7 @@ import com.phdteam.historyverse.ui.presentation.profile.ProfileScreen
 import com.phdteam.historyverse.ui.presentation.profile.ProfileUIEffect
 import com.phdteam.historyverse.ui.presentation.rate.RateScreen
 import com.phdteam.historyverse.ui.presentation.search.SearchScreen
+import com.phdteam.historyverse.ui.presentation.search.SearchUIEffect
 import com.phdteam.historyverse.ui.presentation.seeall.SeeAllScreen
 import com.phdteam.historyverse.ui.presentation.seeall.toSeeAllType
 import com.phdteam.historyverse.ui.presentation.ticket.TicketScreen
@@ -102,6 +103,11 @@ fun NavGraphBuilder.homeScreen(onNavigateTo: (Screen) -> Unit) {
                     is HomeUIEffect.NavigateToSeeAll -> {
                         Screen.SeeAll.args = bundleOf(Pair("type", navigate.type.value))
                         Screen.SeeAll.also(onNavigateTo)
+                    }
+
+                    is HomeUIEffect.NavigateToArtifactDetails -> {
+                        Screen.MarketItemDetails.args = bundleOf(Pair("id", navigate.id))
+                        Screen.MarketItemDetails.also(onNavigateTo)
                     }
 
                     else -> {
@@ -184,7 +190,17 @@ fun NavGraphBuilder.searchScreen(onNavigateTo: (Screen) -> Unit) {
     ) {
 
         SearchScreen(
-            onItemClick = onNavigateTo
+            onNavigateTo = { effect ->
+                when (effect) {
+                    is SearchUIEffect.NavigateToDetails -> {
+                        Screen.MarketItemDetails.args = bundleOf(Pair("id", effect.id))
+                        Screen.MarketItemDetails.also(onNavigateTo)
+                    }
+
+                    else -> {}
+                }
+
+            }
         )
     }
 }
@@ -252,6 +268,7 @@ fun NavGraphBuilder.detailsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
                 }
             },
             onBookClick = {
+                Screen.Ticket.args = bundleOf(Pair("id", 0))
                 Screen.Ticket.also(onNavigateTo)
             }
 
@@ -363,9 +380,7 @@ fun NavGraphBuilder.ticketsScreen(onNavigateTo: (Screen) -> Unit, onNavigateBack
     composable(
         route = Screen.Tickets.route,
     ) {
-        val id = Screen.Review.args?.getInt("id")
         TicketsScreen(
-            itemId = id,
             onNavigateBack = onNavigateBack,
             onNavigateTicket = {
                 Screen.Ticket.args = bundleOf(Pair("id", it))
@@ -379,7 +394,9 @@ fun NavGraphBuilder.ticketScreen(onNavigateBack: () -> Unit) {
     composable(
         route = Screen.Ticket.route,
     ) {
+        val id = Screen.Ticket.args?.getInt("id")
         TicketScreen(
+            id = id,
             onNavigateBack = onNavigateBack
         )
     }

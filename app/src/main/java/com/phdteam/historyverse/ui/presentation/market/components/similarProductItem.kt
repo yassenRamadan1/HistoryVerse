@@ -53,7 +53,7 @@ fun SimilarProductItem(item: MarketItem, onItemClick: (itemId: Int) -> Unit) {
                 .padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = item.name)
+            Text(text = item.name, modifier = Modifier.fillMaxWidth(.7f))
             Text(text = item.price, color = goldDark4)
         }
     }

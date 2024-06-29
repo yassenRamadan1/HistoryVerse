@@ -1,6 +1,12 @@
 package com.phdteam.historyverse.ui.presentation.market
 
-import com.phdteam.historyverse.ui.presentation.market.Category.*
+import com.phdteam.historyverse.data.network.model.Artifact
+import com.phdteam.historyverse.ui.presentation.market.Category.Cat
+import com.phdteam.historyverse.ui.presentation.market.Category.Chinese
+import com.phdteam.historyverse.ui.presentation.market.Category.Egyptian
+import com.phdteam.historyverse.ui.presentation.market.Category.Pharaohs
+import com.phdteam.historyverse.ui.presentation.market.Category.Pyramids
+import com.phdteam.historyverse.ui.presentation.market.Category.Roman
 
 data class MarketUiState(
     val items: List<MarketItem> = emptyList(),
@@ -34,6 +40,16 @@ data class MarketItem(
     val shopImage: String = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
     val id: Int = 0,
     val categories: List<Category> = listOf(Egyptian)
+)
+
+fun Artifact.toMarketItem() = MarketItem(
+    name = name ?: "",
+    price = "200 EGP",
+    image = artifactImageUrl ?: "",
+    rating = 4.0,
+    shopName = "",
+    shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
+    id = id ?: 0,
 )
 
 data class FilterItem(

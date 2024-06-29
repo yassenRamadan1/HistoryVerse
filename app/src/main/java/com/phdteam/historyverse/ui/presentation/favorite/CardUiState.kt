@@ -7,5 +7,5 @@ data class CardUiState(
     val ratingAvg: Double = 0.0,
     val museumName: String = "",
     val museumImageUrl: Int? = null,
-    val cardId:String= "",
+    val cardId: Int = 0,
 )

@@ -2,11 +2,13 @@ package com.phdteam.historyverse.ui.presentation.ticket
 
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
+import com.phdteam.historyverse.ui.presentation.tickets.FakeTickets
 import kotlinx.coroutines.delay
 
 class TicketViewModel(
+    private val id: Int? ,
     private val historyVerseRepository: HistoryVerseRepository
-) : BaseViewModel<TicketUIState, TicketUIEffect>(TicketUIState()) {
+) : BaseViewModel<TicketScreenUIState, TicketUIEffect>(TicketScreenUIState()) {
 
     init {
         onMakeRequest()
@@ -32,13 +34,14 @@ class TicketViewModel(
                 isSuccess = true,
                 isError = false,
                 isLoading = false,
+                ticket = FakeTickets.find { it.ticketId == id } ?: Ticket()
             )
         }
     }
 
     private fun onError() {
         updateState {
-            TicketUIState(
+            TicketScreenUIState(
                 isError = true,
                 isLoading = false,
                 isSuccess = false

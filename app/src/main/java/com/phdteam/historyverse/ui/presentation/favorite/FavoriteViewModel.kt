@@ -25,7 +25,7 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "1"
+                        cardId = 1
                     ),
                     CardUiState(
                         cardTitleName = "Alex Musuem",
@@ -34,7 +34,7 @@ class FavoriteViewModel(
                         ratingAvg = 3.4,
                         museumName = "China town",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "2"
+                        cardId = 2
                     ),
                     CardUiState(
                         cardTitleName = "Artifact",
@@ -43,7 +43,7 @@ class FavoriteViewModel(
                         ratingAvg = 1.5,
                         museumName = "Cairo Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "3"
+                        cardId = 3
                     ),
                     CardUiState(
                         cardTitleName = "Product",
@@ -52,7 +52,7 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "4"
+                        cardId = 4
                     ),
                     CardUiState(
                         cardTitleName = "Product",
@@ -61,7 +61,7 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "5"
+                        cardId = 5
                     ),
                     CardUiState(
                         cardTitleName = "Product",
@@ -70,7 +70,7 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "6"
+                        cardId = 6
                     ),
                     CardUiState(
                         cardTitleName = "Product",
@@ -79,7 +79,7 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "7"
+                        cardId = 7
                     ),
                     CardUiState(
                         cardTitleName = "Product",
@@ -88,23 +88,7 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "8"
-                    ), CardUiState(
-                        cardTitleName = "Product",
-                        favorite = true,
-                        imageUrl = "https://images.unsplash.com/photo-1628074958552-7c9d0b4173b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        ratingAvg = 4.0,
-                        museumName = "Alex Museum",
-                        museumImageUrl = R.drawable.hvlogo,
-                        cardId = "9"
-                    ), CardUiState(
-                        cardTitleName = "Product",
-                        favorite = true,
-                        imageUrl = "https://images.unsplash.com/photo-1628074958552-7c9d0b4173b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        ratingAvg = 4.0,
-                        museumName = "Alex Museum",
-                        museumImageUrl = R.drawable.hvlogo,
-                        cardId = "10"
+                        cardId = 8
                     ),
                     CardUiState(
                         cardTitleName = "Product",
@@ -113,23 +97,43 @@ class FavoriteViewModel(
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "11"
-                    ), CardUiState(
+                        cardId = 9
+                    ),
+                    CardUiState(
                         cardTitleName = "Product",
                         favorite = true,
                         imageUrl = "https://images.unsplash.com/photo-1628074958552-7c9d0b4173b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "12"
-                    ), CardUiState(
+                        cardId = 10
+                    ),
+                    CardUiState(
                         cardTitleName = "Product",
                         favorite = true,
                         imageUrl = "https://images.unsplash.com/photo-1628074958552-7c9d0b4173b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                         ratingAvg = 4.0,
                         museumName = "Alex Museum",
                         museumImageUrl = R.drawable.hvlogo,
-                        cardId = "13"
+                        cardId = 11
+                    ),
+                    CardUiState(
+                        cardTitleName = "Product",
+                        favorite = true,
+                        imageUrl = "https://images.unsplash.com/photo-1628074958552-7c9d0b4173b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        ratingAvg = 4.0,
+                        museumName = "Alex Museum",
+                        museumImageUrl = R.drawable.hvlogo,
+                        cardId = 12
+                    ),
+                    CardUiState(
+                        cardTitleName = "Product",
+                        favorite = true,
+                        imageUrl = "https://images.unsplash.com/photo-1628074958552-7c9d0b4173b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        ratingAvg = 4.0,
+                        museumName = "Alex Museum",
+                        museumImageUrl = R.drawable.hvlogo,
+                        cardId = 13
                     ),
                 )
             )
@@ -143,7 +147,7 @@ class FavoriteViewModel(
         updateState {
             it.copy(
                 cards = it.cards.mapIndexed() { index, cardUiState ->
-                    if (index == id )
+                    if (index == id)
                         cardUiState.copy(favorite = !cardUiState.favorite)
                     else
                         cardUiState

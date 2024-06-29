@@ -3,9 +3,7 @@ package com.phdteam.historyverse.ui.presentation.search
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +17,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
@@ -32,20 +29,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.phdteam.historyverse.ui.components.ItemCard
 import com.phdteam.historyverse.ui.presentation.favorite.CardType
-import com.phdteam.historyverse.ui.presentation.main.navigation.Screen
 import com.phdteam.historyverse.ui.theme.Theme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
-    onItemClick: (Screen) -> Unit,
+    onNavigateTo: (SearchUIEffect) -> Unit,
     viewModel: SearchViewModel = koinViewModel(),
 ) {
 
@@ -57,23 +51,26 @@ fun SearchScreen(
     SearchContent(
         state = state,
         onSearchQueryChange = viewModel::onSearchQueryChange,
-        onItemClick = { index ->
-            onItemClick(Screen.Details)
-        }
+        onItemClick = viewModel::onItemClick
     )
 
     LaunchedEffect(key1 = state.isSuccess) {
         viewModel.effect.collectLatest {
-            onEffect(effect, context)
+            onEffect(effect, context, onNavigateTo)
         }
     }
 }
 
 
-private fun onEffect(effect: SearchUIEffect?, context: Context) {
+private fun onEffect(
+    effect: SearchUIEffect?,
+    context: Context,
+    onNavigateTo: (SearchUIEffect) -> Unit
+) {
 
     when (effect) {
         SearchUIEffect.SearchError -> Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+        is SearchUIEffect.NavigateToDetails -> onNavigateTo(effect)
         else -> {}
     }
 }
@@ -140,10 +137,11 @@ private fun SearchContent(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(state.searchResults.size) { index ->
+                        val item = state.searchResults[index]
                         ItemCard(
-                            state = state.searchResults[index].toArtifactUiState(),
+                            state = item,
                             cardType = CardType.SEARCH,
-                            onClickCard = { onItemClick(index) },
+                            onClickCard = { onItemClick(item.id) },
                             onClickFavorite = {}
                         )
                     }

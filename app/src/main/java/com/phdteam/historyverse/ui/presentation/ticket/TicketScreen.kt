@@ -34,10 +34,10 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 fun TicketScreen(
+    id: Int? = 0,
     onNavigateBack: () -> Unit,
-    viewModel: TicketViewModel = koinViewModel(),
-
-    ) {
+    viewModel: TicketViewModel = koinViewModel(parameters = { parametersOf(id) }),
+) {
 
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsState(initial = null)
@@ -76,7 +76,7 @@ private fun onEffect(
 
 @Composable
 private fun TicketContent(
-    states: TicketUIState,
+    states: TicketScreenUIState,
     onNavigateBack: () -> Unit,
     onClickDownload: () -> Unit
 ) {
@@ -109,7 +109,7 @@ private fun TicketContent(
 
         Spacer(modifier = Modifier.padding(16.dp))
 
-        HVTicket(state= states)
+        HVTicket(state = states)
 
         Spacer(modifier = Modifier.padding(16.dp))
 
@@ -126,7 +126,7 @@ private fun TicketContent(
 @Composable
 fun TicketScreenPreview() {
 
-    val states = TicketUIState()
+    val states = TicketScreenUIState()
     TicketContent(
         states = states,
         onNavigateBack = {},

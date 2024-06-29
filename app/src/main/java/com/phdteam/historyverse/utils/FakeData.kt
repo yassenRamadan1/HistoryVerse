@@ -32,7 +32,7 @@ class FakeData {
                     ratingAvg = rating,
                     museumName = "Museum $i",
                     museumImageUrl = R.drawable.hvlogo,
-                    cardId = i.toString()
+                    cardId = i
                 )
             )
         }

@@ -3,7 +3,6 @@ package com.phdteam.historyverse.ui.presentation.details
 import android.content.Context
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +27,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -41,7 +41,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
@@ -54,6 +53,7 @@ import com.phdteam.historyverse.ui.presentation.details.components.ReviewTab
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.starColor
 import com.phdteam.historyverse.ui.theme.yellowColor
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -69,6 +69,9 @@ fun DetailsScreen(
     onBookClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
+    val effect by viewModel.effect.collectAsState(initial = null)
+    val context = LocalContext.current
+
     DetailsScreenContent(
         state, viewModel,
         onNavigateBack = onNavigateBack,
@@ -76,6 +79,11 @@ fun DetailsScreen(
         onClickItem = viewModel::onArtifactClick,
         onClickProduct = viewModel::onProductClick
     )
+    LaunchedEffect(key1 = state.isSuccess) {
+        viewModel.effect.collectLatest {
+            onEffect(effect, context, navigateTo)
+        }
+    }
 }
 
 private fun onEffect(
@@ -86,6 +94,7 @@ private fun onEffect(
 
     when (effect) {
         is DetailsUiEffect.NavigateToProductDetails -> onNavigateTo(effect)
+        is DetailsUiEffect.NavigateToArtifactDetails -> onNavigateTo(effect)
         else -> {}
     }
 }
@@ -200,7 +209,6 @@ private fun DetailsScreenContent(
                     )
 
                     if (state.details.isMuseum) {
-
                         Box(
                             modifier = Modifier
                                 .constrainAs(bookButton) {
@@ -211,7 +219,8 @@ private fun DetailsScreenContent(
                                 .clip(CircleShape)
                                 .clickable { onBookClick() }
                                 .background(yellowColor)
-                                .padding(16.dp),
+                                .padding(16.dp)
+                                .clip(CircleShape),
                         ) {
                             Text(
                                 "Book",

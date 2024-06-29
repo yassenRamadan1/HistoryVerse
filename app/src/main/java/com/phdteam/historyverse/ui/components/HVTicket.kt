@@ -21,13 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.phdTeam.HistoryVerse.R
-import com.phdteam.historyverse.ui.presentation.ticket.TicketUIState
-import com.phdteam.historyverse.ui.presentation.tickets.TicketsUIState
+import com.phdteam.historyverse.ui.presentation.ticket.TicketScreenUIState
 import com.phdteam.historyverse.ui.theme.Theme
 
 @Composable
 fun HVTicket(
-    state: TicketUIState = TicketUIState(),
+    state: TicketScreenUIState = TicketScreenUIState(),
 ) {
     Box(modifier = Modifier.fillMaxSize(0.8f)) {
         Image(
@@ -47,13 +46,13 @@ fun HVTicket(
             ) {
                 Column {
                     Text(
-                        text = state.museumName,
+                        text = state.ticket.museumName,
                         style = Theme.typography.labelLarge,
                         color = Theme.colors.primaryShadesDark,
                         fontSize = 20.sp
                     )
                     Text(
-                        text = state.locationName,
+                        text = state.ticket.locationName,
                         style = Theme.typography.labelLarge,
                         color = Theme.colors.secondaryShadesDark,
                         fontSize = 16.sp
@@ -74,7 +73,7 @@ fun HVTicket(
                         fontSize = 16.sp
                     )
                     Text(
-                        text = state.visitorName,
+                        text = state.ticket.visitorName,
                         style = Theme.typography.labelLarge,
                         color = Theme.colors.secondaryShadesDark,
                         fontSize = 12.sp
@@ -88,7 +87,7 @@ fun HVTicket(
                         fontSize = 16.sp
                     )
                     Text(
-                        text = state.ticketNumber,
+                        text = state.ticket.ticketNumber,
                         style = Theme.typography.labelLarge,
                         color = Theme.colors.secondaryShadesDark,
                         fontSize = 12.sp
@@ -108,7 +107,7 @@ fun HVTicket(
                         fontSize = 16.sp
                     )
                     Text(
-                        text = state.ticketType,
+                        text = state.ticket.ticketType,
                         style = Theme.typography.labelLarge,
                         color = Theme.colors.secondaryShadesDark,
                         fontSize = 16.sp
@@ -122,7 +121,7 @@ fun HVTicket(
                         fontSize = 18.sp
                     )
                     Text(
-                        text = state.visitDate,
+                        text = state.ticket.visitDate,
                         style = Theme.typography.labelLarge,
                         color = Theme.colors.secondaryShadesDark,
                         fontSize = 14.sp

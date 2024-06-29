@@ -131,7 +131,7 @@ private fun ProfileContent(
                 painter = R.drawable.back_arrow
             )
             ProfileOptionButton(
-                text = "My ticket",
+                text = "My tickets",
                 onClickOption =onNavTickets,
                 painter = R.drawable.back_arrow
             )

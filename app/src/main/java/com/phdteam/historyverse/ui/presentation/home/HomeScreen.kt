@@ -99,7 +99,7 @@ private fun HomeContent(
             HomeAppBar(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onMarketClicked = {onNavigateTo(HomeUIEffect.NavigateToMarket)}
+                onMarketClicked = { onNavigateTo(HomeUIEffect.NavigateToMarket) }
             )
 
             Column(
