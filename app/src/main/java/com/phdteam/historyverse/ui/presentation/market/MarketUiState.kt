@@ -39,8 +39,9 @@ data class MarketItem(
     val shopName: String = "shop name",
     val shopImage: String = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
     val id: Int = 0,
-    val categories: List<Category> = listOf(Egyptian)
-)
+    val categories: List<Category> = listOf(Egyptian),
+    val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    )
 
 fun Artifact.toMarketItem() = MarketItem(
     name = name ?: "",

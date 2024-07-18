@@ -1,5 +1,4 @@
 package com.phdteam.historyverse.ui.presentation.market
-
 val marketItems = listOf(
     MarketItem(
         name = "Ancient Egyptian Vase",
@@ -8,8 +7,9 @@ val marketItems = listOf(
         rating = 4.5,
         shopName = "Pharaoh's Treasures",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 1,
-        categories = listOf(Category.Egyptian, Category.Pharaohs)
+        id = 0,
+        categories = listOf(Category.Egyptian, Category.Pharaohs),
+        description = "A beautifully crafted vase from ancient Egypt, featuring intricate designs and patterns typical of the era. Perfect for adding a touch of history to your home."
     ),
     MarketItem(
         name = "Roman Helmet",
@@ -18,8 +18,9 @@ val marketItems = listOf(
         rating = 4.8,
         shopName = "Ancient Artifacts",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 2,
-        categories = listOf(Category.Roman)
+        id = 1,
+        categories = listOf(Category.Roman),
+        description = "An authentic replica of a Roman helmet, showcasing the robust and functional design used by Roman soldiers. Ideal for collectors and history enthusiasts."
     ),
     MarketItem(
         name = "Tutankhamun Mask Replica",
@@ -28,8 +29,9 @@ val marketItems = listOf(
         rating = 5.0,
         shopName = "Egyptian Wonders",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 4,
-        categories = listOf(Category.Pharaohs, Category.Egyptian)
+        id = 2,
+        categories = listOf(Category.Pharaohs, Category.Egyptian),
+        description = "A stunning replica of the famous golden mask of Tutankhamun, capturing the splendor and mystery of ancient Egyptian royalty. A must-have for history buffs."
     ),
     MarketItem(
         name = "Pyramid Model",
@@ -38,8 +40,9 @@ val marketItems = listOf(
         rating = 4.2,
         shopName = "Pyramid Crafts",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 5,
-        categories = listOf(Category.Pyramids, Category.Egyptian)
+        id = 3,
+        categories = listOf(Category.Pyramids, Category.Egyptian),
+        description = "A detailed model of the Great Pyramid, showcasing the architectural marvels of ancient Egypt. Perfect for educational purposes and as a decorative piece."
     ),
     MarketItem(
         name = "Cat Statue",
@@ -48,8 +51,9 @@ val marketItems = listOf(
         rating = 3.9,
         shopName = "Ancient Pets",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 6,
-        categories = listOf(Category.Cat)
+        id = 4,
+        categories = listOf(Category.Cat),
+        description = "A graceful statue of an ancient Egyptian cat, symbolizing protection and good fortune. A perfect gift for cat lovers and those interested in Egyptian mythology."
     ),
     MarketItem(
         name = "Egyptian Papyrus",
@@ -58,8 +62,9 @@ val marketItems = listOf(
         rating = 4.3,
         shopName = "Ancient Scrolls",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 9,
-        categories = listOf(Category.Egyptian, Category.Pharaohs)
+        id = 5,
+        categories = listOf(Category.Egyptian, Category.Pharaohs),
+        description = "A traditional Egyptian papyrus, adorned with hieroglyphs and artwork. A beautiful piece that adds an authentic touch of ancient Egypt to any collection."
     ),
     MarketItem(
         name = "Chinese Jade Sculpture",
@@ -68,8 +73,9 @@ val marketItems = listOf(
         rating = 4.5,
         shopName = "Oriental Wonders",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 11,
-        categories = listOf(Category.Chinese)
+        id = 6,
+        categories = listOf(Category.Chinese),
+        description = "An exquisite jade sculpture from China, symbolizing purity and moral integrity. A fine addition to any art collection and a representation of oriental craftsmanship."
     ),
     MarketItem(
         name = "Egyptian Scarab",
@@ -78,8 +84,9 @@ val marketItems = listOf(
         rating = 4.1,
         shopName = "Pharaoh's Treasures",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 12,
-        categories = listOf(Category.Egyptian, Category.Pharaohs)
+        id = 7,
+        categories = listOf(Category.Egyptian, Category.Pharaohs),
+        description = "A symbolic Egyptian scarab, representing rebirth and transformation. An ideal collectible for those interested in ancient Egyptian symbolism and art."
     ),
     MarketItem(
         name = "Roman Mosaic",
@@ -88,8 +95,9 @@ val marketItems = listOf(
         rating = 4.9,
         shopName = "Ancient Artifacts",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 13,
-        categories = listOf(Category.Roman)
+        id = 8,
+        categories = listOf(Category.Roman),
+        description = "A beautiful Roman mosaic, showcasing the intricate artistry and craftsmanship of ancient Rome. Perfect for art lovers and those fascinated by Roman history."
     ),
     MarketItem(
         name = "Chinese Dragon Figurine",
@@ -98,8 +106,9 @@ val marketItems = listOf(
         rating = 4.8,
         shopName = "Oriental Wonders",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 14,
-        categories = listOf(Category.Chinese)
+        id = 9,
+        categories = listOf(Category.Chinese),
+        description = "An elegant Chinese dragon figurine, embodying power, strength, and good fortune. A striking piece for any collection of oriental art and mythology."
     ),
     MarketItem(
         name = "Pharaoh Bust",
@@ -108,26 +117,30 @@ val marketItems = listOf(
         rating = 4.9,
         shopName = "Egyptian Wonders",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 15,
-        categories = listOf(Category.Pharaohs, Category.Egyptian)
+        id = 10,
+        categories = listOf(Category.Pharaohs, Category.Egyptian),
+        description = "A detailed bust of an Egyptian pharaoh, capturing the grandeur and majesty of ancient Egyptian royalty. A centerpiece for any collection of Egyptian artifacts."
     ),
     MarketItem(
         name = "Chinese Porcelain",
         price = "300 EGP",
-        image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXmfYS9y8w79XeP6E5RDgmhYMktUlfvciVw&s",        shopName = "Oriental Wonders",
+        image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXmfYS9y8w79XeP6E5RDgmhYMktUlfvciVw&s",
+        rating = 4.6,
+        shopName = "Oriental Wonders",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 3,
-        categories = listOf(Category.Chinese)
+        id = 11,
+        categories = listOf(Category.Chinese),
+        description = "A piece of fine Chinese porcelain, exemplifying the delicate and skilled craftsmanship of ancient China. Ideal for collectors and enthusiasts of oriental ceramics."
     ),
-
     MarketItem(
         name = "Roman Coin",
         price = "180 EGP",
-        image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaw8MOcL4utuG63cczC4SqL5ffDkBBfrTZrw&s",        rating = 4.7,
+        image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaw8MOcL4utuG63cczC4SqL5ffDkBBfrTZrw&s",
+        rating = 4.7,
         shopName = "Ancient Coins",
         shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
-        id = 10,
-        categories = listOf(Category.Roman)
+        id = 12,
+        categories = listOf(Category.Roman),
+        description = "An ancient Roman coin, providing a tangible connection to the past. A perfect addition to any collection of historical artifacts and numismatic treasures."
     ),
 )
-

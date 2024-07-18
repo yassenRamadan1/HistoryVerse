@@ -107,7 +107,10 @@ private fun ItemDetailsContent(
 
     ) {
         if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+                color = Theme.colors.primary
+            )
         } else {
             Box(modifier = Modifier.fillMaxSize()) {
                 Box(
@@ -192,7 +195,10 @@ private fun ItemDetailsContent(
                                     .size(24.dp)
                                     .clip(CircleShape)
                             )
-                            Text(text = state.itemState.shopName, style = Theme.typography.bodyMedium)
+                            Text(
+                                text = state.itemState.shopName,
+                                style = Theme.typography.bodyMedium
+                            )
                         }
                         Row(
                             modifier = Modifier.noRippleEffect {

@@ -2,12 +2,15 @@ package com.phdteam.historyverse.ui.presentation.market.marketDetails
 
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.data.network.repositories.HistoryVerseRepository
+import com.phdteam.historyverse.data.network.repositories.MarketRepository
 import com.phdteam.historyverse.ui.presentation.base.BaseViewModel
+import com.phdteam.historyverse.ui.presentation.market.MarketItem
 import com.phdteam.historyverse.ui.presentation.market.toMarketItem
 
 class MarketItemDetailsViewModel(
     private val itemId: Int?,
-    private val repository: HistoryVerseRepository
+    private val repository: HistoryVerseRepository,
+    private val marketRepository: MarketRepository,
 ) :
     BaseViewModel<MarketItemDetailsUiState, MarketDetailsUiEffect>(MarketItemDetailsUiState()) {
 
@@ -39,7 +42,8 @@ class MarketItemDetailsViewModel(
     fun getItemDetails() {
         tryToExecute(
             {
-                repository.getArtifactById(itemId ?: 2352)
+//                repository.getArtifactById(itemId ?: 2352)
+                marketRepository.fetchItems()[itemId!!]
             }, ::onSuccess,
             ::onError
         )
@@ -49,8 +53,8 @@ class MarketItemDetailsViewModel(
         updateState { it.copy(isError = true, isLoading = false) }
     }
 
-    fun onSuccess(artifact: Artifact) {
-        updateState { it.copy(itemState = artifact.toMarketItemState(), isLoading = false) }
+    fun onSuccess(item: MarketItem) {
+        updateState { it.copy(itemState = item.toDetailsUiState(), isLoading = false) }
     }
 
     fun addToCart(itemId: Int) {

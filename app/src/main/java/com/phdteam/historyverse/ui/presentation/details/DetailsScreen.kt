@@ -133,7 +133,7 @@ private fun DetailsScreenContent(
                 .padding(it)
         ) {
             if (state.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center),color = Theme.colors.primary)
             } else {
                 ConstraintLayout(
                     modifier = Modifier

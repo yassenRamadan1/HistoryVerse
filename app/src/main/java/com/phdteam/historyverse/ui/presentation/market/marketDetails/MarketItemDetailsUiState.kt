@@ -2,6 +2,8 @@ package com.phdteam.historyverse.ui.presentation.market.marketDetails
 
 import com.phdteam.historyverse.data.network.model.Artifact
 import com.phdteam.historyverse.ui.presentation.details.ReviewTabState
+import com.phdteam.historyverse.ui.presentation.market.Category
+import com.phdteam.historyverse.ui.presentation.market.Category.Egyptian
 import com.phdteam.historyverse.ui.presentation.market.MarketItem
 import kotlin.random.Random
 
@@ -11,9 +13,10 @@ data class MarketItemState(
     val imageUrl: String = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
     val shopImage: String = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
     val price: String = "100 EGP",
-    val rating: Float = 4f,
+    val rating: Double = 4.0,
     val shopName: String = "louvre museum",
     val itemId: Int = 0,
+    val categories: List<Category> = listOf(Egyptian),
 )
 
 data class MarketItemDetailsUiState(
@@ -26,13 +29,25 @@ data class MarketItemDetailsUiState(
     val itemState: MarketItemState = MarketItemState(),
 )
 
+fun MarketItem.toDetailsUiState(): MarketItemState = MarketItemState(
+    name = this.name,
+    description = this.description,
+    imageUrl = this.image,
+    shopImage = this.shopImage,
+    price = this.price,
+    rating = this.rating,
+    shopName = this.shopName,
+    itemId = this.id,
+    categories = this.categories
+)
+
 fun Artifact.toMarketItemState() = MarketItemState(
     name = name ?: "",
     description = artifactDescription ?: "",
     imageUrl = artifactImageUrl ?: "",
     shopImage = "https://static01.nyt.com/images/2020/08/14/arts/14museums-reopening-2/14museums-reopening-2-videoSixteenByNineJumbo1600.jpg",
     price = Random.nextInt(300, 5000).toString() + " EGP",
-    rating = 4f,
+    rating = 4.0,
     shopName = "",
     itemId = id ?: 0,
 )

@@ -90,7 +90,7 @@ private fun SeeAllContent(
         )
 
         if (state.isLoading) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = Theme.colors.primary)
         } else {
             LazyColumn(
                 modifier = Modifier
