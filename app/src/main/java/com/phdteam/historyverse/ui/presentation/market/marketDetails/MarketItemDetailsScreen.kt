@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,7 +47,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.phdTeam.HistoryVerse.R
 import com.phdteam.historyverse.ui.modifier.noRippleEffect
-import com.phdteam.historyverse.ui.presentation.details.components.ReviewTab
+import com.phdteam.historyverse.ui.presentation.market.components.MarketItemList
 import com.phdteam.historyverse.ui.presentation.market.components.SimilarProductItem
 import com.phdteam.historyverse.ui.theme.Theme
 import org.koin.androidx.compose.koinViewModel
@@ -266,42 +267,50 @@ private fun ItemDetailsContent(
                     )
 
                 }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = "Similar Products",
-                            style = Theme.typography.bodyMedium,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF313131),
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
-                        Text(
-                            text = "view more>",
-                            style = Theme.typography.bodyMedium,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF9D5705),
-                            modifier = Modifier.padding(end = 16.dp)
-                        )
-                    }
-                    LazyRow(
-                        contentPadding = PaddingValues(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(state.similarProducts.size) { index ->
-                            SimilarProductItem(
-                                item = state.similarProducts[index],
-                                onItemClick = viewModel::onItemClick
-                            )
+
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = "Similar Products",
+                                    style = Theme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color(0xFF313131),
+                                    modifier = Modifier.padding(start = 16.dp)
+                                )
+                                Text(
+                                    text = "view more>",
+                                    style = Theme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color(0xFF9D5705),
+                                    modifier = Modifier.padding(end = 16.dp)
+                                )
+                            }
+                            LazyRow(
+                                contentPadding = PaddingValues(horizontal = 16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                item {
+
+                                }
+                                items(state.similarProducts.size) { index ->
+                                    SimilarProductItem(
+                                        item = state.similarProducts[index],
+                                        onItemClick = viewModel::onItemClick
+                                    )
+                                }
+                            }
                         }
                     }
+                    MarketItemList(state = state.reviewTabState, onReview = viewModel::onReview)
                 }
-                ReviewTab(state = state.reviewTabState, onReview = viewModel::onReview)
             }
 
 

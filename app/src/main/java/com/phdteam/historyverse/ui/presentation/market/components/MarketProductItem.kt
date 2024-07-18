@@ -2,7 +2,6 @@ package com.phdteam.historyverse.ui.presentation.market.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +28,6 @@ import com.phdteam.historyverse.ui.modifier.noRippleEffect
 import com.phdteam.historyverse.ui.presentation.market.MarketItem
 import com.phdteam.historyverse.ui.theme.Theme
 import com.phdteam.historyverse.ui.theme.goldDark4
-import com.phdteam.historyverse.ui.theme.goldLight1
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -56,7 +54,7 @@ fun MarketProductItem(item: MarketItem, onItemClick: (id: Int) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(80.dp)
-                .background(goldLight1),
+                .background(Theme.colors.secondary),
             contentScale = ContentScale.FillBounds
 
         )
@@ -74,7 +72,12 @@ fun MarketProductItem(item: MarketItem, onItemClick: (id: Int) -> Unit) {
                     )
                 }.." else item.name,
             )
-            Text(text = item.price, color = goldDark4, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = item.price,
+                color = goldDark4,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
 
         Row(
@@ -118,7 +121,7 @@ fun MarketProductItem(item: MarketItem, onItemClick: (id: Int) -> Unit) {
                 modifier = Modifier
                     .size(24.dp)
                     .clip(CircleShape)
-                    .background(goldLight1)
+                    .background(Theme.colors.secondary)
             )
             Text(text = item.shopName)
         }
